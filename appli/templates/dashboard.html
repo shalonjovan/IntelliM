@@ -20,6 +20,29 @@
       --accent-soft: #E8EFF6;
       --border: rgba(201,168,76,0.2);
       --sidebar-w: 280px;
+      /* theme-aware surfaces */
+      --main-bg: #FAF7F2;
+      --topbar-bg: rgba(250,247,242,0.85);
+      --input-bg: rgba(250,247,242,0.9);
+      --input-field-bg: #ffffff;
+      --bubble-bot-bg: #ffffff;
+      --msg-text: #2A2A2A;
+      --welcome-text: #0D0D0D;
+      --hint-text: #B8AA9A;
+    }
+
+    html.dark {
+      --main-bg: #0F0F0F;
+      --topbar-bg: rgba(15,15,15,0.9);
+      --input-bg: rgba(15,15,15,0.95);
+      --input-field-bg: #1A1A1A;
+      --bubble-bot-bg: #1A1A1A;
+      --msg-text: #D8D2C8;
+      --welcome-text: #EAE4D8;
+      --hint-text: #5A5248;
+      --cream: #0F0F0F;
+      --ink-muted: #9A9086;
+      --gold-pale: #2A2318;
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -27,8 +50,9 @@
     html, body {
       height: 100%;
       font-family: 'DM Sans', sans-serif;
-      background: var(--cream);
-      color: var(--ink);
+      background: var(--main-bg);
+      color: var(--welcome-text);
+      transition: background 0.3s, color 0.3s;
     }
 
     /* ─────────── LAYOUT ─────────── */
@@ -241,9 +265,10 @@
     #main {
       display: flex;
       flex-direction: column;
-      background: var(--cream);
+      background: var(--main-bg);
       overflow: hidden;
       position: relative;
+      transition: background 0.3s;
     }
 
     /* background pattern */
@@ -263,7 +288,7 @@
       justify-content: space-between;
       padding: 16px 32px;
       border-bottom: 1px solid var(--border);
-      background: rgba(250,247,242,0.85);
+      background: var(--topbar-bg);
       backdrop-filter: blur(12px);
       position: relative;
       z-index: 10;
@@ -274,11 +299,17 @@
       font-family: 'Cormorant Garamond', serif;
       font-size: 20px;
       font-weight: 300;
-      color: var(--ink);
+      color: var(--welcome-text);
       letter-spacing: 0.02em;
     }
 
     .topbar-title span { color: var(--accent); font-style: italic; }
+
+    .topbar-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
 
     .topbar-badge {
       display: flex;
@@ -291,6 +322,27 @@
       letter-spacing: 0.08em;
       color: var(--ink-muted);
     }
+
+    /* theme toggle button */
+    .theme-toggle {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      padding: 6px 12px 6px 9px;
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      background: transparent;
+      cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 11px;
+      font-weight: 400;
+      color: var(--gold);
+      letter-spacing: 0.06em;
+      transition: background 0.2s, transform 0.15s;
+    }
+
+    .theme-toggle:hover { background: rgba(201,168,76,0.08); transform: scale(1.03); }
+    .theme-toggle .t-icon { font-size: 13px; line-height: 1; }
 
     .status-dot {
       width: 6px;
@@ -351,7 +403,7 @@
       font-family: 'Cormorant Garamond', serif;
       font-size: 36px;
       font-weight: 300;
-      color: var(--ink);
+      color: var(--welcome-text);
       letter-spacing: -0.02em;
       margin-bottom: 12px;
     }
@@ -465,8 +517,8 @@
     }
 
     .bot .msg-bubble {
-      background: white;
-      color: var(--ink-soft);
+      background: var(--bubble-bot-bg);
+      color: var(--msg-text);
       border: 1px solid var(--border);
       border-radius: 4px 16px 16px 16px;
       box-shadow: 0 2px 12px rgba(13,13,13,0.04);
@@ -505,7 +557,7 @@
     #inputArea {
       padding: 20px 32px 28px;
       border-top: 1px solid var(--border);
-      background: rgba(250,247,242,0.9);
+      background: var(--input-bg);
       backdrop-filter: blur(12px);
       position: relative;
       z-index: 10;
@@ -516,7 +568,7 @@
       display: flex;
       align-items: flex-end;
       gap: 12px;
-      background: white;
+      background: var(--input-field-bg);
       border: 1px solid var(--border);
       border-radius: 12px;
       padding: 12px 12px 12px 20px;
@@ -536,13 +588,13 @@
       font-family: 'DM Sans', sans-serif;
       font-size: 14px;
       font-weight: 300;
-      color: var(--ink);
+      color: var(--welcome-text);
       resize: none;
       max-height: 120px;
       line-height: 1.5;
     }
 
-    #msg::placeholder { color: #C4B9AC; }
+    #msg::placeholder { color: var(--hint-text); }
 
     #sendBtn {
       width: 38px;
@@ -566,7 +618,7 @@
 
     .input-hint {
       font-size: 11px;
-      color: #C4B9AC;
+      color: var(--hint-text);
       margin-top: 10px;
       letter-spacing: 0.04em;
       text-align: center;
@@ -575,11 +627,12 @@
     .input-hint kbd {
       display: inline-block;
       padding: 1px 6px;
-      background: var(--mist);
+      background: var(--input-field-bg);
       border: 1px solid var(--border);
       border-radius: 3px;
       font-size: 10px;
       font-family: inherit;
+      color: var(--ink-muted);
     }
   </style>
 </head>
@@ -605,9 +658,9 @@
 
     <div class="sidebar-footer">
       <div class="user-row">
-        <div class="user-avatar" id="userInitial">U</div>
+        <div class="user-avatar" id="userInitial">{{ user_initial }}</div>
         <div class="user-info">
-          <div class="user-name" id="userName">Analyst</div>
+          <div class="user-name" id="userName">{{ user_name }}</div>
           <div class="user-role">Market Intelligence</div>
         </div>
         <a href="/logout" class="logout-btn">Sign out</a>
@@ -620,17 +673,24 @@
 
     <!-- topbar -->
     <div id="topbar">
-      <div class="topbar-title">Intelligence <span>Assistant</span></div>
-      <div class="topbar-badge">
-        <div class="status-dot"></div>
-        Live · Gemini 2.5 Flash
+      <div style="display:flex;align-items:center;gap:16px"><a href="/index" style="font-size:11px;letter-spacing:.08em;color:var(--ink-muted);text-decoration:none;border:1px solid var(--border);padding:4px 12px;border-radius:100px;transition:color .2s">← Platform</a><div class="topbar-title">Intelligence <span>Assistant</span></div></div>
+      <div class="topbar-right">
+        <a href="/explore" class="topbar-badge" style="text-decoration:none;cursor:pointer;transition:border-color .2s" onmouseover="this.style.borderColor='var(--gold)'" onmouseout="this.style.borderColor=''">📊 Analytics</a>
+        <div class="topbar-badge">
+          <div class="status-dot"></div>
+          Live · Gemini 2.5 Flash
+        </div>
+        <button class="theme-toggle" onclick="toggleTheme()">
+          <span class="t-icon" id="themeIcon">☀</span>
+          <span id="themeLabel">Light</span>
+        </button>
       </div>
     </div>
 
     <!-- welcome state -->
     <div id="welcome">
       <div class="welcome-emblem">I</div>
-      <h2>Good day, <em>Analyst.</em></h2>
+      <h2>Good day, <em>{{ user_name }}.</em></h2>
       <p>Ask me about market trends, competitor analysis, industry signals, or strategic insights.</p>
       <div class="suggestions">
         <div class="suggestion-chip" onclick="usePrompt(this)">Summarize AI sector trends</div>
@@ -810,6 +870,29 @@
   }
 
   loadChats();
+
+  // ── THEME TOGGLE ──
+  function applyTheme(dark) {
+    const html = document.documentElement;
+    if (dark) {
+      html.classList.add('dark');
+      document.getElementById('themeIcon').textContent = '◑';
+      document.getElementById('themeLabel').textContent = 'Dark';
+    } else {
+      html.classList.remove('dark');
+      document.getElementById('themeIcon').textContent = '☀';
+      document.getElementById('themeLabel').textContent = 'Light';
+    }
+  }
+
+  function toggleTheme() {
+    const isDark = document.documentElement.classList.contains('dark');
+    applyTheme(!isDark);
+    localStorage.setItem('intellim-theme', isDark ? 'light' : 'dark');
+  }
+
+  // apply saved preference on load
+  applyTheme(localStorage.getItem('intellim-theme') === 'dark');
 </script>
 
 </body>

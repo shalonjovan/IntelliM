@@ -15,17 +15,33 @@
       --ink-soft: #2A2A2A;
       --mist: #F0EBE3;
       --accent: #1A3A5C;
+      --right-bg: #FAF7F2;
+      --right-text: #0D0D0D;
+      --right-sub: #6B6459;
+      --right-border: rgba(201,168,76,0.2);
+      --right-hint: #B8AA9A;
+      --right-card-bg: transparent;
+    }
+
+    html.dark {
+      --right-bg: #0F0F0F;
+      --right-text: #F0EBE3;
+      --right-sub: #9A9086;
+      --right-border: rgba(201,168,76,0.25);
+      --right-hint: #7A7068;
+      --cream: #0F0F0F;
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
       min-height: 100vh;
-      background: var(--cream);
+      background: var(--right-bg);
       font-family: 'DM Sans', sans-serif;
       display: grid;
       grid-template-columns: 1fr 1fr;
       overflow: hidden;
+      transition: background 0.3s;
     }
 
     /* ── LEFT PANEL ── */
@@ -151,8 +167,9 @@
       justify-content: center;
       align-items: center;
       padding: 60px 80px;
-      background: var(--cream);
+      background: var(--right-bg);
       position: relative;
+      transition: background 0.35s;
     }
 
     .right-panel::before {
@@ -201,7 +218,7 @@
       font-family: 'Cormorant Garamond', serif;
       font-size: 44px;
       font-weight: 300;
-      color: var(--ink);
+      color: var(--right-text);
       line-height: 1.1;
       letter-spacing: -0.02em;
       margin-bottom: 12px;
@@ -213,7 +230,7 @@
     }
 
     .form-card .subtitle {
-      color: #6B6459;
+      color: var(--right-sub);
       font-size: 14px;
       font-weight: 300;
       line-height: 1.6;
@@ -236,9 +253,52 @@
     .divider-text {
       font-size: 10px;
       letter-spacing: 0.2em;
-      color: #B8AA9A;
+      color: var(--right-hint);
       text-transform: uppercase;
     }
+
+    /* theme toggle */
+    .theme-toggle {
+      position: fixed;
+      top: 20px;
+      right: 24px;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(201,168,76,0.1);
+      border: 1px solid rgba(201,168,76,0.25);
+      border-radius: 100px;
+      padding: 6px 14px 6px 10px;
+      cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12px;
+      font-weight: 400;
+      color: var(--gold);
+      letter-spacing: 0.06em;
+      transition: background 0.2s, transform 0.15s;
+      backdrop-filter: blur(8px);
+    }
+
+    .theme-toggle:hover { background: rgba(201,168,76,0.18); transform: scale(1.03); }
+
+    .toggle-icon {
+      width: 18px;
+      height: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+    }
+
+    .legal {
+      font-size: 11px;
+      color: var(--right-hint);
+      line-height: 1.7;
+      letter-spacing: 0.02em;
+    }
+
+    .legal a { color: var(--gold); text-decoration: none; }
 
     .google-btn {
       display: flex;
@@ -297,18 +357,6 @@
       margin: 40px 0 20px;
     }
 
-    .legal {
-      font-size: 11px;
-      color: #B8AA9A;
-      line-height: 1.7;
-      letter-spacing: 0.02em;
-    }
-
-    .legal a {
-      color: var(--gold);
-      text-decoration: none;
-    }
-
     /* corner ornament */
     .corner-ornament {
       position: absolute;
@@ -320,6 +368,12 @@
   </style>
 </head>
 <body>
+
+  <!-- theme toggle -->
+  <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn">
+    <span class="toggle-icon" id="themeIcon">☀</span>
+    <span id="themeLabel">Light</span>
+  </button>
 
   <!-- LEFT -->
   <div class="left-panel">
@@ -392,6 +446,33 @@
       <p class="legal">By continuing, you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>. Your data is encrypted and never sold.</p>
     </div>
   </div>
+
+<script>
+  const stored = localStorage.getItem('intellim-theme');
+  if (stored === 'dark') applyDark();
+
+  function applyDark() {
+    document.documentElement.classList.add('dark');
+    document.getElementById('themeIcon').textContent = '◑';
+    document.getElementById('themeLabel').textContent = 'Dark';
+  }
+
+  function applyLight() {
+    document.documentElement.classList.remove('dark');
+    document.getElementById('themeIcon').textContent = '☀';
+    document.getElementById('themeLabel').textContent = 'Light';
+  }
+
+  function toggleTheme() {
+    if (document.documentElement.classList.contains('dark')) {
+      applyLight();
+      localStorage.setItem('intellim-theme', 'light');
+    } else {
+      applyDark();
+      localStorage.setItem('intellim-theme', 'dark');
+    }
+  }
+</script>
 
 </body>
 </html>
