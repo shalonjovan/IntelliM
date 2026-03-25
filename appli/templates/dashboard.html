@@ -1,0 +1,82 @@
+<style>
+body { margin: 0; display: flex; height: 100vh; font-family: sans-serif; }
+#sidebar { width: 260px; background: #202123; color: white; padding: 10px; }
+.chat-item { padding: 8px; cursor: pointer; border-radius: 6px; }
+.chat-item:hover { background: #343541; }
+#main { flex: 1; display: flex; flex-direction: column; padding: 10px; }
+#messages { flex: 1; white-space: pre-wrap; overflow-y: auto; }
+input { padding: 10px; width: 100%; }
+</style>
+
+<div id="sidebar">
+  <button onclick="newChat()">➕ New chat</button>
+  <div id="chatList"></div>
+</div>
+
+<div id="main">
+  <pre id="messages"></pre>
+  <input id="msg" placeholder="Message..." onkeydown="if(event.key==='Enter')send()">
+</div>
+
+<script>
+let currentChat = null;
+
+async function loadChats() {
+  const res = await fetch("/chats");
+  const data = await res.json();
+  const list = document.getElementById("chatList");
+  list.innerHTML = "";
+
+  data.chats.forEach(id => {
+    const d = document.createElement("div");
+    d.className = "chat-item";
+    d.textContent = "Chat " + id.slice(0, 6);
+    d.onclick = () => selectChat(id);
+    list.appendChild(d);
+  });
+}
+
+async function selectChat(id) {
+  currentChat = id;
+  const res = await fetch(`/chat/${id}`);
+  const data = await res.json();
+
+  const box = document.getElementById("messages");
+  box.textContent = "";
+
+  data.messages.forEach(m => {
+    box.textContent +=
+      (m.role === "user" ? "You: " : "Bot: ") + m.content + "\n";
+  });
+}
+
+async function newChat() {
+  const res = await fetch("/chat/new", { method: "POST" });
+  const data = await res.json();
+  currentChat = data.chat_id;
+  document.getElementById("messages").textContent = "";
+  loadChats();
+}
+
+async function send() {
+  if (!currentChat) return alert("Select or create a chat");
+
+  const input = document.getElementById("msg");
+  const msg = input.value;
+  input.value = "";
+
+  const res = await fetch("/chat", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ chat_id: currentChat, message: msg })
+  });
+
+  const data = await res.json();
+  const box = document.getElementById("messages");
+
+  box.textContent += "You: " + msg + "\n";
+  box.textContent += "Bot: " + data.reply + "\n";
+}
+
+loadChats();
+</script>
