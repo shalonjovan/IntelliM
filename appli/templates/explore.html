@@ -294,8 +294,27 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;heigh
 .chat-msgs{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px;min-height:200px}
 .chat-msgs::-webkit-scrollbar{width:3px}
 .chat-msgs::-webkit-scrollbar-thumb{background:rgba(201,168,76,.15);border-radius:2px}
-.chat-bubble{padding:9px 13px;border-radius:10px;font-size:12px;line-height:1.6;max-width:88%;}
+.chat-bubble{padding:10px 14px;border-radius:12px;font-size:12px;line-height:1.65;max-width:90%;}
 .chat-bubble.bot{background:var(--surface2);color:var(--text-muted);align-self:flex-start;border:1px solid var(--card-border)}
+.chat-bubble.bot p{margin:0 0 7px 0;}
+.chat-bubble.bot p:last-child{margin-bottom:0;}
+.chat-bubble.bot strong{color:var(--text);font-weight:600;}
+.chat-bubble.bot em{color:var(--gold);font-style:normal;}
+.chat-bubble.bot ul{margin:3px 0 8px 0;padding-left:0;list-style:none;}
+.chat-bubble.bot ol{margin:3px 0 8px 0;padding-left:16px;}
+.chat-bubble.bot ul li{position:relative;padding-left:13px;margin-bottom:4px;color:var(--text-muted);}
+.chat-bubble.bot ul li::before{content:'·';position:absolute;left:2px;color:var(--gold);font-size:14px;line-height:1.2;}
+.chat-bubble.bot ol li{margin-bottom:3px;}
+.chat-bubble.bot h3{font-size:11px;font-weight:700;color:var(--text);margin:10px 0 4px 0;letter-spacing:.07em;text-transform:uppercase;border-bottom:1px solid var(--card-border);padding-bottom:3px;}
+.chat-bubble.bot code{background:rgba(201,168,76,0.12);color:var(--gold);padding:1px 5px;border-radius:3px;font-family:monospace;font-size:11px;}
+.chat-bubble.bot pre{background:rgba(0,0,0,.25);border-radius:6px;padding:8px 10px;margin:6px 0;overflow-x:auto;}
+.chat-bubble.bot pre code{background:none;color:var(--cream);padding:0;}
+.chat-bubble.bot hr{border:none;border-top:1px solid var(--card-border);margin:8px 0;}
+.chat-bubble.bot .chat-section{display:flex;align-items:center;gap:8px;margin:10px 0 4px 0;}
+.chat-bubble.bot .chat-section-num{flex-shrink:0;width:18px;height:18px;border-radius:50%;background:var(--gold);color:var(--ink);font-size:9px;font-weight:700;display:flex;align-items:center;justify-content:center;line-height:1;box-shadow:0 1px 4px rgba(201,168,76,.35);}
+.chat-bubble.bot .chat-section-title{font-size:11px;font-weight:700;color:var(--text);letter-spacing:.05em;text-transform:uppercase;}
+.chat-bubble.bot .chat-section + ul{margin-top:1px;}
+
 .chat-bubble.user{background:var(--ink);color:var(--cream);align-self:flex-end}
 .chat-input-row{display:flex;gap:8px;padding:10px;border-top:1px solid var(--card-border)}
 .chat-input{flex:1;border:1px solid var(--card-border);border-radius:6px;padding:8px 10px;background:var(--input-bg);color:var(--text);font-family:'DM Sans',sans-serif;font-size:12px;outline:none;}
@@ -1729,14 +1748,137 @@ Answer questions concisely and data-driven. Reference specific brands, dates, an
 
 function toggleChat() { document.getElementById('chatPanel').classList.toggle('open'); }
 
+function formatBotText(raw) {
+  // ── 0. Pre-process: API often returns everything on one line ─────────────
+  let t = raw;
+  // Insert newline before numbered section headers: **1. Title:**
+  t = t.replace(/\s+(\*\*\d+\.\s)/g, '\n$1');
+  // Insert newline before bullet items: * **item or * plain
+  t = t.replace(/\s+(\*\s+\*\*)/g, '\n$1');
+  t = t.replace(/\s+(\*\s+(?!\*))/g, '\n$1');
+  // Insert newline before ### headings
+  t = t.replace(/\s+(###\s)/g, '\n$1');
+
+  // ── 1. Escape HTML ───────────────────────────────────────────────────────
+  t = t
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+
+  // ── 2. Protect fenced code blocks ────────────────────────────────────────
+  const codeBlocks = [];
+  t = t.replace(/```[\s\S]*?```/g, m => {
+    codeBlocks.push(m.replace(/^```[^\n]*\n?/, '').replace(/```$/, '').trim());
+    return `\x00FCODE${codeBlocks.length - 1}\x00`;
+  });
+
+  // ── 3. Protect inline code ────────────────────────────────────────────────
+  const inlineCodes = [];
+  t = t.replace(/`([^`]+)`/g, (_, c) => {
+    inlineCodes.push(c);
+    return `\x00ICODE${inlineCodes.length - 1}\x00`;
+  });
+
+  // ── 4. Line-by-line block parsing ─────────────────────────────────────────
+  const lines = t.split('\n');
+  const out   = [];
+  let i = 0;
+
+  while (i < lines.length) {
+    const line = lines[i];
+    const trimmed = line.trim();
+
+    // blank
+    if (!trimmed) { i++; continue; }
+
+    // ── h3 heading
+    if (/^###\s+/.test(trimmed)) {
+      out.push(`<h3>${inlineFmt(trimmed.replace(/^###\s+/, ''), inlineCodes)}</h3>`);
+      i++; continue;
+    }
+
+    // ── hr
+    if (/^---+$/.test(trimmed)) { out.push('<hr>'); i++; continue; }
+
+    // ── Numbered section header: **1. Title:** or **1. Title**
+    // Must look like a standalone numbered header, not a list item
+    const numHdr = trimmed.match(/^\*\*(\d+)\.\s+(.+?)\*\*:?\s*$/)
+                || trimmed.match(/^(\d+)\.\s+\*\*(.+?)\*\*:?\s*$/);
+    if (numHdr) {
+      const num   = numHdr[1];
+      const title = numHdr[2].replace(/\*\*/g,'').replace(/:$/,'').trim();
+      out.push(`<div class="chat-section"><span class="chat-section-num">${num}</span><span class="chat-section-title">${inlineFmt(title, inlineCodes)}</span></div>`);
+      i++; continue;
+    }
+
+    // ── Bullet list block (* or -)
+    if (/^[\*\-]\s/.test(trimmed)) {
+      const items = [];
+      while (i < lines.length && /^\s*[\*\-]\s/.test(lines[i])) {
+        const content = lines[i].replace(/^\s*[\*\-]\s/, '').trim();
+        items.push(`<li>${inlineFmt(content, inlineCodes)}</li>`);
+        i++;
+      }
+      out.push(`<ul>${items.join('')}</ul>`);
+      continue;
+    }
+
+    // ── Ordered list block (1. 2. etc.) — only when not a section header
+    if (/^\d+\.\s/.test(trimmed) && !trimmed.match(/^\d+\.\s+\*\*/)) {
+      const items = [];
+      while (i < lines.length && /^\s*\d+\.\s/.test(lines[i])) {
+        const content = lines[i].replace(/^\s*\d+\.\s/, '').trim();
+        items.push(`<li>${inlineFmt(content, inlineCodes)}</li>`);
+        i++;
+      }
+      out.push(`<ol>${items.join('')}</ol>`);
+      continue;
+    }
+
+    // ── Plain paragraph
+    out.push(`<p>${inlineFmt(trimmed, inlineCodes)}</p>`);
+    i++;
+  }
+
+  // ── 5. Restore code placeholders ─────────────────────────────────────────
+  let html = out.join('');
+  html = html.replace(/\x00FCODE(\d+)\x00/g, (_, n) =>
+    `<pre><code>${codeBlocks[+n]}</code></pre>`);
+  html = html.replace(/\x00ICODE(\d+)\x00/g, (_, n) =>
+    `<code>${inlineCodes[+n]}</code>`);
+
+  return html;
+}
+
+// Inline markdown → HTML: bold, italic, inline-code placeholders
+function inlineFmt(s, inlineCodes) {
+  // restore inline code placeholders
+  s = s.replace(/\x00ICODE(\d+)\x00/g, (_, n) =>
+    `<code>${inlineCodes[+n]}</code>`);
+  // bold **...**
+  s = s.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+  // italic _..._ or *...*
+  s = s.replace(/\b_(.+?)_\b/g, '<em>$1</em>');
+  s = s.replace(/(?<!\*)\*(?!\*)(.+?)(?<!\*)\*(?!\*)/g, '<em>$1</em>');
+  return s;
+}
+
+// keep old name as alias so nothing else breaks
+function inlineFormat(s) { return inlineFmt(s, []); }
+
+
+
 function addBotMsg(text) {
   const msgs = document.getElementById('chatMsgs');
   const div = document.createElement('div');
   div.className = 'chat-bubble bot';
-  div.textContent = '…';
+  div.innerHTML = '<span style="letter-spacing:.2em">···</span>';
   msgs.appendChild(div);
   msgs.scrollTop = msgs.scrollHeight;
-  setTimeout(() => { div.textContent = text; msgs.scrollTop = msgs.scrollHeight; }, 600);
+  setTimeout(() => {
+    div.innerHTML = formatBotText(text);
+    msgs.scrollTop = msgs.scrollHeight;
+  }, 600);
 }
 
 function addUserMsg(text) {
