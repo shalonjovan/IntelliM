@@ -331,6 +331,19 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;heigh
   text-transform:uppercase;
 }
 .sel-hint.show{opacity:1}
+.next-day-btn{
+  display:inline-flex;align-items:center;gap:5px;
+  padding:3px 10px 3px 8px;border-radius:4px;
+  background:rgba(201,168,76,0.12);border:1px solid rgba(201,168,76,0.35);
+  color:var(--gold);font-size:10px;letter-spacing:.08em;text-transform:uppercase;
+  cursor:pointer;transition:background .2s,opacity .2s;white-space:nowrap;
+  font-family:'DM Sans',sans-serif;
+}
+.next-day-btn:hover:not(:disabled){background:rgba(201,168,76,0.22);}
+.next-day-btn:disabled{opacity:.35;cursor:not-allowed;}
+.next-day-btn svg{flex-shrink:0;}
+.demand-chart-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
+.demand-chart-header .card-title{margin-bottom:0;}
 </style>
 </head>
 <body>
@@ -457,7 +470,13 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;heigh
 
       <div class="grid-2" style="margin-bottom:16px">
         <div class="card" style="position:relative">
-          <div class="card-title" id="demand-chart-title">Demand Index — 12-Week Trend (Weekly Avg)</div>
+          <div class="demand-chart-header">
+            <div class="card-title" id="demand-chart-title">Demand Index — 12-Week Trend (Weekly Avg)</div>
+            <button class="next-day-btn" id="nextDayBtn" onclick="addNextDay()">
+              <svg width="11" height="11" viewBox="0 0 11 11" fill="none"><circle cx="5.5" cy="5.5" r="5" stroke="currentColor" stroke-width="1.2"/><polyline points="4.5,3.5 6.5,5.5 4.5,7.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              Next Day
+            </button>
+          </div>
           <div class="sel-hint" id="selHint">Click 2 points to analyse</div>
           <div class="chart-container"><canvas id="demandTrendChart"></canvas></div>
         </div>
@@ -749,6 +768,15 @@ const D = {"kpis": {"demand": 46.2, "demand_chg": -1.3, "price": 191.62, "price_
 "w12_pred": [45.43, 42.84, 44.68, 46.64, 44.45, 43.78, 46.04, 46.74, 44.55, 44.73, 47.47, 46.18],
 "w12_by_cat": {"headphones": [48.32,47.75,47.88,48.19,49.01,51.27,49.56,49.07,51.23,49.73,51.07,50.46], "earbuds": [44.65,42.19,43.41,44.85,44.31,42.65,44.18,44.52,43.75,41.26,43.8,44.82], "smartphones": [46.18,41.38,41.89,45.57,45.09,42.15,44.4,46.01,43.31,43.69,47.5,46.88]},
 "w12_by_cat_pred": {"headphones": [48.19, 47.12, 48.3, 48.55, 49.55, 50.91, 49.39, 49.82, 51.03, 50.12, 50.31, 50.72], "earbuds": [44.23, 42.07, 44.11, 45.09, 43.13, 43.2, 44.75, 43.95, 42.69, 41.9, 44.83, 44.18], "smartphones": [45.44, 40.95, 42.73, 46.46, 43.71, 41.49, 45.51, 46.79, 42.46, 44.04, 48.0, 46.47]},
+"next_days": [
+  {"label":"Jun 30","actual":51.36,"predicted":51.61},
+  {"label":"Jul 1", "actual":46.68,"predicted":47.00},
+  {"label":"Jul 2", "actual":47.31,"predicted":47.19},
+  {"label":"Jul 3", "actual":46.64,"predicted":47.43},
+  {"label":"Jul 4", "actual":47.02,"predicted":46.79},
+  {"label":"Jul 5", "actual":46.94,"predicted":46.71},
+  {"label":"Jul 6", "actual":46.55,"predicted":46.67}
+],
 "kpis_by_cat": {"headphones": {"demand": 45.8, "price": 143.3, "sentiment": 66.5, "count": 9}, "earbuds": {"demand": 40.9, "price": 59.8, "sentiment": 65.7, "count": 15}, "smartphones": {"demand": 41.9, "price": 508.0, "sentiment": 65.3, "count": 15}},
 "scatter": {"all": [{"x": 828.5, "y": 67.8, "label": "HyperTech"}, {"x": 74.3, "y": 64.3, "label": "ProAudio"}, {"x": 855.7, "y": 63.3, "label": "ApexTech"}, {"x": 170.6, "y": 61.1, "label": "PulseTech"}, {"x": 327.7, "y": 60.8, "label": "SlateTab"}, {"x": 810.7, "y": 60.1, "label": "NovaTech"}, {"x": 78.1, "y": 59.4, "label": "BlastAudio"}, {"x": 241.0, "y": 58.8, "label": "DeepAudio"}, {"x": 71.2, "y": 58.5, "label": "SonicAudio"}, {"x": 323.4, "y": 56.9, "label": "TabTech"}, {"x": 45.1, "y": 56.3, "label": "ChargeTech"}, {"x": 326.8, "y": 56.3, "label": "TabSlate"}, {"x": 83.7, "y": 56.1, "label": "BoomAudio"}, {"x": 183.4, "y": 55.8, "label": "FitCore"}], "headphones": [{"x": 241.0, "y": 58.8, "label": "DeepAudio"}, {"x": 228.4, "y": 53.3, "label": "BassAudio"}, {"x": 112.4, "y": 50.1, "label": "VoiceAudio"}, {"x": 114.5, "y": 48.0, "label": "WaveGear"}, {"x": 108.1, "y": 41.4, "label": "ClearAudio"}, {"x": 88.6, "y": 38.9, "label": "CasualGear"}, {"x": 85.7, "y": 38.1, "label": "EasyGear"}, {"x": 82.2, "y": 30.7, "label": "ComfortGear"}], "earbuds": [{"x": 74.3, "y": 64.3, "label": "ProAudio"}, {"x": 71.2, "y": 58.5, "label": "SonicAudio"}, {"x": 63.2, "y": 53.2, "label": "SoundWave"}, {"x": 138.8, "y": 53.1, "label": "LuxAudio"}, {"x": 145.2, "y": 51.9, "label": "GoldAudio"}, {"x": 61.3, "y": 45.5, "label": "TurboWave"}, {"x": 56.8, "y": 44.1, "label": "FlashGear"}, {"x": 113.5, "y": 41.2, "label": "PureAudio"}], "smartphones": [{"x": 828.5, "y": 67.8, "label": "HyperTech"}, {"x": 855.7, "y": 63.3, "label": "ApexTech"}, {"x": 810.7, "y": 60.1, "label": "NovaTech"}, {"x": 418.3, "y": 51.4, "label": "MegaMobile"}, {"x": 317.5, "y": 45.3, "label": "VivaTech"}, {"x": 219.1, "y": 43.6, "label": "ValueMobile"}, {"x": 359.9, "y": 42.0, "label": "SprintTech"}, {"x": 407.1, "y": 41.8, "label": "CoreMobile"}]},
 "radar": [{"brand": "LuxBrand", "vals": [30.0, 84.0, 70.0, 49.0, 45.0]}, {"brand": "StudioWave", "vals": [60.0, 81.0, 93.0, 80.0, 52.0]}, {"brand": "GoldAudio", "vals": [70.0, 87.0, 84.0, 67.0, 45.0]}],
@@ -764,6 +792,7 @@ const WEEKS24 = Array.from({length:24},(_,i)=>`W${i+1}`);
 let charts = {};
 let dashboardLoaded = false;
 let selectedPoints = [];
+let nextDayIndex = 0; // tracks how many next-days have been added
 let simChartInstance = null;
 let modalPriceChart = null, modalSentChart = null;
 
@@ -792,7 +821,7 @@ if (localStorage.getItem('intellim-theme') === 'dark') {
   document.documentElement.classList.add('dark');
   document.getElementById('themeBtn').textContent = '◑';
 }
-function destroyCharts() { Object.values(charts).forEach(c => { try { c.destroy() } catch(e){} }); charts = {}; }
+function destroyCharts() { Object.values(charts).forEach(c => { try { c.destroy() } catch(e){} }); charts = {}; nextDayIndex = 0; }
 
 function toggleTheme() {
   const dark = document.documentElement.classList.toggle('dark');
@@ -1137,6 +1166,48 @@ function updateDemandChart(data, predData) {
   const selHint = document.getElementById('selHint');
   selHint.classList.add('show');
   selHint.textContent = 'Click 2 points to analyse';
+  // reset next-day state
+  nextDayIndex = 0;
+  const btn = document.getElementById('nextDayBtn');
+  if (btn) { btn.disabled = false; btn.title = ''; }
+}
+
+function addNextDay() {
+  if (!charts.demand) return;
+  if (nextDayIndex >= D.next_days.length) return;
+  const day = D.next_days[nextDayIndex];
+  nextDayIndex++;
+
+  const C = getChartColors();
+  // Append label
+  charts.demand.data.labels.push(day.label);
+
+  // Append to actual dataset (dataset[0])
+  const actualData = charts.demand.data.datasets[0].data;
+  actualData.push(day.actual);
+  charts.demand.data.datasets[0].pointBackgroundColor = actualData.map(() => C.gold);
+  charts.demand.data.datasets[0].pointRadius = actualData.map(() => 4);
+
+  // Append to predicted dataset (dataset[1])
+  const predData = charts.demand.data.datasets[1].data;
+  predData.push(day.predicted);
+  charts.demand.data.datasets[1].pointBackgroundColor = predData.map(() => 'transparent');
+  charts.demand.data.datasets[1].pointBorderColor = predData.map(() => 'rgba(91,141,184,0.9)');
+  charts.demand.data.datasets[1].pointRadius = predData.map(() => 5);
+
+  charts.demand.update('active');
+
+  // Update button state
+  const btn = document.getElementById('nextDayBtn');
+  if (nextDayIndex >= D.next_days.length) {
+    btn.disabled = true;
+    btn.title = 'All 7 days loaded';
+  }
+
+  // Update chart title to reflect new range
+  const titleEl = document.getElementById('demand-chart-title');
+  const base = titleEl.textContent.replace(/ \+ \d+ day[s]?.*$/, '');
+  titleEl.textContent = base + ` + ${nextDayIndex} day${nextDayIndex > 1 ? 's' : ''}`;
 }
 
 function updateScatterChart(data) {
