@@ -8,3 +8,4 @@ authlib
 google-genai
 itsdangerous
 httpx
+pandas

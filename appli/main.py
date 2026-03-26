@@ -7,6 +7,8 @@ from dotenv import load_dotenv
 from datetime import datetime
 import uuid
 import os
+import pandas as pd
+import numpy as np
 
 from db import get_db
 from llm import chat_with_gemini
@@ -16,7 +18,7 @@ load_dotenv()
 MONGO_URI = os.getenv("MONGO_URI")
 SESSION_SECRET = os.getenv("SESSION_SECRET")
 if not MONGO_URI or not SESSION_SECRET:
-    raise RuntimeError("Missing env vars")
+    raise RuntimeError("Missing env vars: MONGO_URI or SESSION_SECRET")
 
 db = get_db(MONGO_URI)
 users = db["users"]
@@ -35,11 +37,31 @@ oauth.register(
     client_kwargs={"scope": "openid email profile"},
 )
 
+# ─────────────────────────────────────────
+# Load CSV data at startup (once, in memory)
+# ─────────────────────────────────────────
+DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
+
+master       = pd.read_csv(os.path.join(DATA_DIR, "app_master_clean.csv"))
+markers_df   = pd.read_csv(os.path.join(DATA_DIR, "app_timeline_markers.csv"))
+alerts_df    = pd.read_csv(os.path.join(DATA_DIR, "app_alerts.csv"))
+explanations = pd.read_csv(os.path.join(DATA_DIR, "app_explanations.csv"))
+daily        = pd.read_csv(os.path.join(DATA_DIR, "app_daily_summary.csv"))
+forecast_df  = pd.read_csv(os.path.join(DATA_DIR, "app_forecast.csv"))
+regime_df    = pd.read_csv(os.path.join(DATA_DIR, "app_regime_shifts.csv"))
+events_df    = pd.read_csv(os.path.join(DATA_DIR, "events.csv"))
+
+# Pre-compute latest state per entity
+latest_master = master.sort_values("date").groupby("entity_id").last().reset_index()
+
+print(f"✅ Loaded {len(master)} rows · {master['entity_id'].nunique()} products · {master['brand'].nunique()} brands")
+
+
+# ─────────────────────────────────────────
+# Auth helpers
+# ─────────────────────────────────────────
 def require_user(request: Request):
-    user = request.session.get("user")
-    if not user:
-        return None
-    return user
+    return request.session.get("user")
 
 def get_chat_history(user_id: str, chat_id: str, limit: int = 20):
     cursor = (
@@ -47,21 +69,31 @@ def get_chat_history(user_id: str, chat_id: str, limit: int = 20):
         .sort("timestamp", 1)
         .limit(limit)
     )
-    history = ["You are a helpful market intelligence chatbot for Intelli-M.\n"]
+    history = [
+        "You are IntelliM, a helpful market intelligence chatbot. "
+        "You have access to data on 70 consumer electronics products across 7 categories "
+        "(earbuds, smartphones, smartwatches, bluetooth_speakers, power_banks, headphones, tablets). "
+        "The data covers Jan–Jun 2025. Key facts: best health brand is LuxBrand (99.4), "
+        "highest-demand category is Headphones (avg 51.5), 677 anomaly alerts detected, "
+        "6 regime shifts between April and June 2025. "
+        "Be concise, data-driven, and insightful.\n"
+    ]
     for m in cursor:
         role = "User" if m["role"] == "user" else "Assistant"
         history.append(f"{role}: {m['content']}")
     return history
 
+
+# ─────────────────────────────────────────
+# Auth routes
+# ─────────────────────────────────────────
 @app.get("/")
 def home(request: Request):
     return templates.TemplateResponse("login.html", {"request": request})
 
 @app.get("/login")
 async def login(request: Request):
-    return await oauth.google.authorize_redirect(
-        request, request.url_for("auth_callback")
-    )
+    return await oauth.google.authorize_redirect(request, request.url_for("auth_callback"))
 
 @app.get("/auth/callback")
 async def auth_callback(request: Request):
@@ -87,9 +119,18 @@ async def auth_callback(request: Request):
     }
     return RedirectResponse("/dashboard")
 
+@app.get("/logout")
+def logout(request: Request):
+    request.session.clear()
+    return RedirectResponse("/")
+
+
+# ─────────────────────────────────────────
+# Page routes
+# ─────────────────────────────────────────
 @app.get("/dashboard")
 def dashboard(request: Request):
-    """AI Chat dashboard — full Gemini-powered chat interface."""
+    """AI Chat dashboard — Gemini-powered chat interface."""
     user = require_user(request)
     if not user:
         return RedirectResponse("/")
@@ -97,19 +138,22 @@ def dashboard(request: Request):
 
 @app.get("/explore")
 def explore(request: Request):
-    """Analytics SPA — Landing, Competitors, Trends, Simulator, Report, Pipeline."""
+    """Analytics SPA — real CSV data powering all pages."""
     user = require_user(request)
     if not user:
         return RedirectResponse("/")
     return templates.TemplateResponse("explore.html", {"request": request, "user": user})
 
+
+# ─────────────────────────────────────────
+# Chat routes
+# ─────────────────────────────────────────
 @app.post("/chat/new")
 def new_chat(request: Request):
     user = require_user(request)
     if not user:
         return JSONResponse({"error": "unauth"}, 401)
-    chat_id = str(uuid.uuid4())
-    return {"chat_id": chat_id}
+    return {"chat_id": str(uuid.uuid4())}
 
 @app.get("/chats")
 def list_chats(request: Request):
@@ -148,7 +192,205 @@ async def chat(request: Request, data: dict = Body(...)):
     })
     return {"reply": reply}
 
-@app.get("/logout")
-def logout(request: Request):
-    request.session.clear()
-    return RedirectResponse("/")
+
+# ─────────────────────────────────────────
+# Data API — /api/* routes backed by CSVs
+# ─────────────────────────────────────────
+
+@app.get("/api/filters")
+def api_filters():
+    """Return available categories, brands, and entity IDs for dropdowns."""
+    return {
+        "categories": sorted(master["category"].unique().tolist()),
+        "brands": sorted(master["brand"].unique().tolist()),
+        "entities": latest_master[["entity_id", "brand", "product_name", "category"]]
+                    .sort_values("brand")
+                    .to_dict("records"),
+    }
+
+@app.get("/api/daily-summary")
+def api_daily_summary():
+    """Global daily market overview — demand, price, sentiment."""
+    df = daily[["date", "avg_actual_demand", "avg_predicted_demand",
+                "avg_actual_price", "avg_predicted_price",
+                "avg_sentiment", "avg_ad_index",
+                "total_stat_events", "total_top_peaks", "total_bottom_peaks",
+                "change_point", "shift_strength"]].copy()
+    df = df.where(pd.notnull(df), None)
+    return df.to_dict("records")
+
+@app.get("/api/forecast")
+def api_forecast():
+    """Price forecast for the next 14 days."""
+    df = forecast_df[["date", "forecast_avg_price"]].copy()
+    df = df.where(pd.notnull(df), None)
+    return df.to_dict("records")
+
+@app.get("/api/regime-shifts")
+def api_regime_shifts():
+    """Structural regime shift dates and types."""
+    df = regime_df[["date", "regime_type", "shift_strength",
+                    "marker_label", "event_explanation", "narrative"]].copy()
+    df = df.where(pd.notnull(df), None)
+    return df.to_dict("records")
+
+@app.get("/api/alerts")
+def api_alerts(limit: int = 20, brand: str = None):
+    """Top signal alerts, optionally filtered by brand."""
+    df = alerts_df.copy()
+    if brand:
+        df = df[df["brand"].str.lower() == brand.lower()]
+    df = df.sort_values("event_severity_score", ascending=False).head(limit)
+    cols = ["date", "entity_id", "brand", "category", "marker_type",
+            "alert_title", "event_explanation", "narrative",
+            "event_severity_score", "demand_index", "price_index",
+            "sentiment_index", "search_index", "ad_index"]
+    df = df[cols].where(pd.notnull(df[cols]), None)
+    return df.to_dict("records")
+
+@app.get("/api/product/{entity_id}/overview")
+def api_product_overview(entity_id: int):
+    """Latest KPI snapshot for a single product."""
+    row = latest_master[latest_master["entity_id"] == entity_id]
+    if row.empty:
+        return JSONResponse({"error": "not found"}, 404)
+    r = row.iloc[0]
+    return {
+        "entity_id": int(r["entity_id"]),
+        "brand": r["brand"],
+        "product_name": r["product_name"],
+        "category": r["category"],
+        "demand_index": round(float(r["demand_index"]), 2),
+        "price_index": round(float(r["price_index"]), 2),
+        "sentiment_index": round(float(r["sentiment_index"]), 4),
+        "search_index": round(float(r["search_index"]), 2),
+        "ad_index": round(float(r["ad_index"]), 2),
+        "health_index": round(float(r["health_index"]), 2),
+        "list_price": round(float(r["list_price"]), 2),
+    }
+
+@app.get("/api/product/{entity_id}/series")
+def api_product_series(entity_id: int):
+    """Full time-series for a product: demand, price, sentiment, search, ad."""
+    df = master[master["entity_id"] == entity_id].sort_values("date")
+    if df.empty:
+        return JSONResponse({"error": "not found"}, 404)
+    cols = ["date", "demand_index", "price_index", "sentiment_index",
+            "search_index", "ad_index", "health_index",
+            "change_point", "shift_strength"]
+    df = df[cols].where(pd.notnull(df[cols]), None)
+    return df.to_dict("records")
+
+@app.get("/api/product/{entity_id}/markers")
+def api_product_markers(entity_id: int):
+    """Anomaly, peak, and dip markers for a product."""
+    df = markers_df[markers_df["entity_id"] == entity_id].copy()
+    if df.empty:
+        return []
+    cols = ["date", "marker_type", "marker_label", "event_severity_score",
+            "combined_marker_severity", "shift_strength",
+            "demand_index", "price_index", "sentiment_index",
+            "search_index", "ad_index",
+            "event_explanation", "narrative"]
+    df = df[cols].where(pd.notnull(df[cols]), None)
+    return df.to_dict("records")
+
+@app.get("/api/product/{entity_id}/alerts")
+def api_product_alerts(entity_id: int, limit: int = 10):
+    """Top alerts for a specific product."""
+    df = alerts_df[alerts_df["entity_id"] == entity_id].copy()
+    df = df.sort_values("event_severity_score", ascending=False).head(limit)
+    cols = ["date", "marker_type", "alert_title", "event_explanation",
+            "narrative", "event_severity_score",
+            "demand_index", "price_index", "sentiment_index"]
+    df = df[cols].where(pd.notnull(df[cols]), None)
+    return df.to_dict("records")
+
+@app.get("/api/product/{entity_id}/events")
+def api_product_events(entity_id: int):
+    """Ad campaigns, product announcements, upgrades for a product."""
+    df = events_df[events_df["entity_id"] == entity_id].copy()
+    if df.empty:
+        return []
+    cols = ["date", "brand", "product_name", "event_type", "event_title",
+            "event_description", "impact_direction", "priority",
+            "linked_marker_date", "linked_marker_type", "signal_story"]
+    df = df[cols].where(pd.notnull(df[cols]), None)
+    return df.to_dict("records")
+
+@app.post("/api/explain")
+async def api_explain(data: dict = Body(...)):
+    """
+    AI-powered explanation for a product signal event.
+    Pass: { entity_id, date } or { question }
+    """
+    entity_id = data.get("entity_id")
+    date = data.get("date")
+    question = data.get("question", "")
+
+    context_parts = []
+
+    if entity_id:
+        row = latest_master[latest_master["entity_id"] == entity_id]
+        if not row.empty:
+            r = row.iloc[0]
+            context_parts.append(
+                f"Product: {r['brand']} {r['product_name']} ({r['category']})\n"
+                f"Latest metrics — Demand: {r['demand_index']:.1f}, "
+                f"Price: {r['price_index']:.1f}, "
+                f"Sentiment: {r['sentiment_index']*100:.1f}%, "
+                f"Search: {r['search_index']:.1f}, "
+                f"Ad Index: {r['ad_index']:.1f}, "
+                f"Health: {r['health_index']:.1f}"
+            )
+
+    if entity_id and date:
+        exp = explanations[
+            (explanations["entity_id"] == entity_id) &
+            (explanations["date"] == date)
+        ]
+        if not exp.empty:
+            r = exp.iloc[0]
+            context_parts.append(
+                f"Signal on {date}: {r.get('marker_type','unknown')}\n"
+                f"Explanation: {r.get('event_explanation','')}\n"
+                f"Narrative: {r.get('narrative','')}"
+            )
+
+    context = "\n\n".join(context_parts) if context_parts else ""
+    prompt = f"""You are IntelliM, a market intelligence analyst.
+Context data:
+{context}
+
+Question: {question or f"Explain the market signal for entity {entity_id} on {date}"}
+
+Give a concise, insightful 2-3 sentence analysis."""
+
+    try:
+        from llm import chat_with_gemini
+        answer = chat_with_gemini([prompt])
+        return {"answer": answer}
+    except Exception as e:
+        return JSONResponse({"error": str(e)}, 500)
+
+@app.get("/api/category/{category}/summary")
+def api_category_summary(category: str):
+    """Aggregate metrics for all products in a category."""
+    df = latest_master[latest_master["category"].str.lower() == category.lower()]
+    if df.empty:
+        return JSONResponse({"error": "not found"}, 404)
+    return {
+        "category": category,
+        "count": int(len(df)),
+        "avg_demand": round(float(df["demand_index"].mean()), 2),
+        "avg_price": round(float(df["price_index"].mean()), 2),
+        "avg_sentiment": round(float(df["sentiment_index"].mean() * 100), 1),
+        "avg_ad_index": round(float(df["ad_index"].mean()), 2),
+        "avg_health": round(float(df["health_index"].mean()), 2),
+        "top_brand": df.nlargest(1, "health_index").iloc[0]["brand"],
+        "products": df[["entity_id", "brand", "product_name",
+                        "demand_index", "price_index",
+                        "sentiment_index", "health_index"]]
+                   .sort_values("health_index", ascending=False)
+                   .to_dict("records"),
+    }

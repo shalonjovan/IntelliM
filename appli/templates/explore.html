@@ -47,10 +47,8 @@ html.dark {
 body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);height:100vh;overflow:hidden;transition:background .3s,color .3s}
 a{text-decoration:none;color:inherit}
 
-/* ── LAYOUT ── */
 .shell{display:flex;height:100vh;overflow:hidden}
 
-/* ── SIDEBAR NAV ── */
 #sidenav{
   width:var(--sidebar-w);flex-shrink:0;
   background:var(--ink);
@@ -91,7 +89,6 @@ a{text-decoration:none;color:inherit}
 }
 .nav-theme-btn:hover{background:rgba(201,168,76,0.1)}
 
-/* ── CONTENT AREA ── */
 #content{flex:1;overflow:hidden;position:relative}
 .page{
   position:absolute;inset:0;
@@ -100,7 +97,6 @@ a{text-decoration:none;color:inherit}
 }
 .page.active{opacity:1;pointer-events:all}
 
-/* ── TOPBAR ── */
 .topbar{
   flex-shrink:0;
   display:flex;align-items:center;justify-content:space-between;
@@ -124,7 +120,6 @@ a{text-decoration:none;color:inherit}
 .scroll-area::-webkit-scrollbar{width:4px}
 .scroll-area::-webkit-scrollbar-thumb{background:rgba(201,168,76,.15);border-radius:2px}
 
-/* ── CARDS ── */
 .card{
   background:var(--surface);border:1px solid var(--card-border);
   border-radius:12px;padding:20px;
@@ -134,16 +129,13 @@ a{text-decoration:none;color:inherit}
 .grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px}
 .grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
 
-/* ── SHIMMER ── */
 .shimmer{
   background:linear-gradient(90deg,var(--surface2) 25%,var(--surface) 50%,var(--surface2) 75%);
   background-size:200% 100%;animation:shimmer 1.4s infinite;border-radius:8px;
 }
 @keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
 
-/* ══════════════════════════════
-   PAGE 1 — LANDING
-══════════════════════════════ */
+/* ══ LANDING ══ */
 #page-landing{background:var(--ink);color:var(--cream)}
 .landing-canvas{position:relative;flex:1;overflow:hidden;display:flex;flex-direction:column}
 .landing-bg{position:absolute;inset:0;z-index:0}
@@ -157,15 +149,8 @@ a{text-decoration:none;color:inherit}
   display:flex;flex-direction:column;align-items:center;justify-content:center;
   height:100%;text-align:center;padding:40px;
 }
-.landing-eyebrow{
-  font-size:11px;letter-spacing:.35em;color:var(--gold);text-transform:uppercase;
-  margin-bottom:20px;
-}
-.landing-headline{
-  font-family:'Cormorant Garamond',serif;
-  font-size:clamp(36px,5vw,68px);font-weight:300;line-height:1.08;
-  letter-spacing:-.02em;margin-bottom:20px;color:var(--cream);
-}
+.landing-eyebrow{font-size:11px;letter-spacing:.35em;color:var(--gold);text-transform:uppercase;margin-bottom:20px;}
+.landing-headline{font-family:'Cormorant Garamond',serif;font-size:clamp(36px,5vw,68px);font-weight:300;line-height:1.08;letter-spacing:-.02em;margin-bottom:20px;color:var(--cream);}
 .landing-headline em{color:var(--gold-light);font-style:italic}
 .landing-sub{color:rgba(250,247,242,.5);font-size:15px;font-weight:300;max-width:500px;line-height:1.7;margin-bottom:40px}
 .landing-cta{
@@ -176,45 +161,20 @@ a{text-decoration:none;color:inherit}
   transition:background .2s,transform .15s;
 }
 .landing-cta:hover{background:var(--gold-light);transform:translateY(-2px)}
-
-/* feature grid */
-.feature-grid{
-  display:grid;grid-template-columns:repeat(4,1fr);gap:1px;
-  background:rgba(201,168,76,.12);
-  border-top:1px solid rgba(201,168,76,.12);
-  flex-shrink:0;
-}
-.feature-cell{
-  background:rgba(13,13,13,.95);padding:24px 20px;
-  display:flex;flex-direction:column;gap:8px;
-  transition:background .2s;
-}
+.feature-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(201,168,76,.12);border-top:1px solid rgba(201,168,76,.12);flex-shrink:0;}
+.feature-cell{background:rgba(13,13,13,.95);padding:24px 20px;display:flex;flex-direction:column;gap:8px;transition:background .2s;}
 .feature-cell:hover{background:rgba(201,168,76,.06)}
 .feature-icon{font-size:22px;margin-bottom:4px}
 .feature-name{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:300;color:var(--cream)}
 .feature-desc{font-size:12px;color:rgba(250,247,242,.4);line-height:1.6;font-weight:300}
-
-/* counter strip */
-.counter-strip{
-  display:grid;grid-template-columns:repeat(3,1fr);
-  border-bottom:1px solid rgba(201,168,76,.12);
-  flex-shrink:0;
-}
-.counter-cell{
-  text-align:center;padding:18px;
-  border-right:1px solid rgba(201,168,76,.1);
-}
+.counter-strip{display:grid;grid-template-columns:repeat(3,1fr);border-bottom:1px solid rgba(201,168,76,.12);flex-shrink:0;}
+.counter-cell{text-align:center;padding:18px;border-right:1px solid rgba(201,168,76,.1);}
 .counter-cell:last-child{border-right:none}
 .counter-num{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:300;color:var(--gold-light)}
 .counter-label{font-size:10px;letter-spacing:.15em;color:rgba(250,247,242,.3);text-transform:uppercase;margin-top:2px}
 
-/* ══════════════════════════════
-   PAGE 2 — DASHBOARD
-══════════════════════════════ */
-.stat-card{
-  background:var(--surface);border:1px solid var(--card-border);border-radius:10px;
-  padding:16px 18px;
-}
+/* ══ DASHBOARD ══ */
+.stat-card{background:var(--surface);border:1px solid var(--card-border);border-radius:10px;padding:16px 18px;}
 .stat-label{font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--text-muted);margin-bottom:6px}
 .stat-value{font-family:'Cormorant Garamond',serif;font-size:34px;font-weight:300;color:var(--text);line-height:1}
 .stat-delta{font-size:11px;margin-top:4px}
@@ -224,8 +184,6 @@ a{text-decoration:none;color:inherit}
 .gauge-label{position:absolute;bottom:30px;text-align:center;width:100%}
 .gauge-score{font-family:'Cormorant Garamond',serif;font-size:40px;font-weight:300;color:var(--text)}
 .gauge-sub{font-size:10px;letter-spacing:.1em;color:var(--text-muted);text-transform:uppercase}
-
-/* event timeline */
 .timeline{display:flex;flex-direction:column;gap:10px;max-height:220px;overflow-y:auto}
 .timeline::-webkit-scrollbar{width:3px}
 .timeline::-webkit-scrollbar-thumb{background:rgba(201,168,76,.2);border-radius:2px}
@@ -234,31 +192,15 @@ a{text-decoration:none;color:inherit}
 .tl-text{font-size:12px;color:var(--text-muted);line-height:1.5}
 .tl-text strong{color:var(--text);font-weight:500}
 .tl-date{font-size:10px;color:var(--text-hint);margin-top:1px}
-
-/* filters */
 .filter-bar{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap}
-.filter-chip{
-  padding:5px 14px;border:1px solid var(--card-border);border-radius:100px;
-  font-size:11px;cursor:pointer;transition:all .2s;color:var(--text-muted);
-  background:transparent;
-}
+.filter-chip{padding:5px 14px;border:1px solid var(--card-border);border-radius:100px;font-size:11px;cursor:pointer;transition:all .2s;color:var(--text-muted);background:transparent;}
 .filter-chip.on{background:rgba(201,168,76,.12);border-color:var(--gold);color:var(--gold)}
 
-/* ══════════════════════════════
-   PAGE 3 — COMPETITOR EXPLORER
-══════════════════════════════ */
+/* ══ COMPETITORS ══ */
 .comp-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px}
-.comp-card{
-  background:var(--surface);border:1px solid var(--card-border);border-radius:12px;
-  padding:20px;cursor:pointer;transition:border-color .2s,transform .15s;
-}
+.comp-card{background:var(--surface);border:1px solid var(--card-border);border-radius:12px;padding:20px;cursor:pointer;transition:border-color .2s,transform .15s;}
 .comp-card:hover{border-color:var(--gold);transform:translateY(-2px)}
-.comp-logo{
-  width:44px;height:44px;border-radius:10px;
-  display:flex;align-items:center;justify-content:center;
-  font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600;
-  margin-bottom:12px;
-}
+.comp-logo{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600;margin-bottom:12px;}
 .comp-name{font-size:15px;font-weight:500;color:var(--text);margin-bottom:4px}
 .comp-cat{font-size:11px;color:var(--text-muted);letter-spacing:.04em}
 .comp-score-row{display:flex;align-items:center;gap:8px;margin-top:12px}
@@ -269,267 +211,119 @@ a{text-decoration:none;color:inherit}
 .progress-label{display:flex;justify-content:space-between;font-size:11px;color:var(--text-muted);margin-bottom:4px}
 .progress-bg{height:5px;background:var(--surface2);border-radius:3px;overflow:hidden}
 .progress-fill{height:100%;border-radius:3px;transition:width 1s}
-
-/* modal */
-.modal-overlay{
-  position:fixed;inset:0;background:rgba(0,0,0,.6);
-  z-index:200;display:flex;align-items:center;justify-content:center;
-  opacity:0;pointer-events:none;transition:opacity .25s;
-}
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:200;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .25s;}
 .modal-overlay.open{opacity:1;pointer-events:all}
-.modal-box{
-  background:var(--surface);border:1px solid var(--card-border);border-radius:16px;
-  width:min(700px,90vw);max-height:85vh;overflow-y:auto;
-  padding:28px;transform:translateY(20px);transition:transform .25s;
-}
+.modal-box{background:var(--surface);border:1px solid var(--card-border);border-radius:16px;width:min(700px,90vw);max-height:85vh;overflow-y:auto;padding:28px;transform:translateY(20px);transition:transform .25s;}
 .modal-overlay.open .modal-box{transform:translateY(0)}
 .modal-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
 .modal-title{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:300;color:var(--text)}
-.modal-close{
-  width:32px;height:32px;border-radius:6px;border:1px solid var(--card-border);
-  background:none;cursor:pointer;color:var(--text-muted);font-size:16px;
-  display:flex;align-items:center;justify-content:center;transition:background .2s;
-}
+.modal-close{width:32px;height:32px;border-radius:6px;border:1px solid var(--card-border);background:none;cursor:pointer;color:var(--text-muted);font-size:16px;display:flex;align-items:center;justify-content:center;transition:background .2s;}
 .modal-close:hover{background:var(--surface2)}
 .modal-chart{height:180px;margin-bottom:20px;position:relative}
 
-/* ══════════════════════════════
-   PAGE 4 — MARKET TRENDS
-══════════════════════════════ */
+/* ══ TRENDS ══ */
 .heatmap-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;margin-top:8px}
-.heatmap-cell{
-  aspect-ratio:1;border-radius:3px;
-  display:flex;align-items:center;justify-content:center;
-  font-size:9px;color:rgba(255,255,255,.5);cursor:pointer;
-  transition:transform .15s;
-}
+.heatmap-cell{aspect-ratio:1;border-radius:3px;display:flex;align-items:center;justify-content:center;font-size:9px;color:rgba(255,255,255,.5);cursor:pointer;transition:transform .15s;}
 .heatmap-cell:hover{transform:scale(1.15)}
 .heatmap-label{font-size:10px;color:var(--text-hint);margin-bottom:4px;letter-spacing:.06em}
 .opportunity-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
-.opp-tag{
-  padding:6px 14px;border-radius:100px;font-size:11px;font-weight:400;
-  border:1px solid;letter-spacing:.03em;
-}
+.opp-tag{padding:6px 14px;border-radius:100px;font-size:11px;font-weight:400;border:1px solid;letter-spacing:.03em;}
 .opp-tag.hot{background:rgba(201,168,76,.1);border-color:rgba(201,168,76,.3);color:var(--gold)}
 .opp-tag.warm{background:rgba(26,58,92,.15);border-color:rgba(26,58,92,.3);color:#5B8DB8}
 .opp-tag.new{background:rgba(34,197,94,.08);border-color:rgba(34,197,94,.25);color:#22C55E}
 
-/* ══════════════════════════════
-   PAGE 5 — STRATEGY SIMULATOR
-══════════════════════════════ */
+/* ══ SIMULATOR ══ */
 .sim-grid{display:grid;grid-template-columns:300px 1fr;gap:20px;height:100%}
 .sim-controls{display:flex;flex-direction:column;gap:16px}
-.slider-group{
-  background:var(--surface);border:1px solid var(--card-border);border-radius:10px;padding:16px;
-}
+.slider-group{background:var(--surface);border:1px solid var(--card-border);border-radius:10px;padding:16px;}
 .slider-label{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
 .slider-name{font-size:13px;color:var(--text);font-weight:400}
 .slider-val{font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--gold)}
-input[type=range]{
-  width:100%;-webkit-appearance:none;height:4px;border-radius:2px;
-  background:var(--surface2);outline:none;cursor:pointer;
-}
-input[type=range]::-webkit-slider-thumb{
-  -webkit-appearance:none;width:16px;height:16px;border-radius:50%;
-  background:var(--gold);border:2px solid var(--surface);cursor:pointer;
-}
+input[type=range]{width:100%;-webkit-appearance:none;height:4px;border-radius:2px;background:var(--surface2);outline:none;cursor:pointer;}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;border-radius:50%;background:var(--gold);border:2px solid var(--surface);cursor:pointer;}
 .sim-impact{margin-top:10px;padding:10px 14px;background:var(--surface2);border-radius:6px}
 .sim-impact-label{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);margin-bottom:2px}
 .sim-impact-val{font-family:'Cormorant Garamond',serif;font-size:22px;color:var(--gold-light)}
-.project-badge{
-  display:inline-flex;align-items:center;gap:6px;
-  padding:6px 14px;border-radius:100px;font-size:12px;
-  background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.25);color:#22C55E;
-}
+.project-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:100px;font-size:12px;background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.25);color:#22C55E;}
 
-/* ══════════════════════════════
-   PAGE 6 — INSIGHT REPORT
-══════════════════════════════ */
-.report-card{
-  background:var(--surface);border:1px solid var(--card-border);border-radius:12px;padding:28px;
-  max-width:860px;margin:0 auto;
-}
-.confidence-badge{
-  display:inline-flex;align-items:center;gap:6px;
-  padding:5px 14px;border-radius:100px;font-size:11px;letter-spacing:.06em;
-  background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.25);color:var(--gold);
-}
-.report-paragraph{
-  font-size:14px;line-height:1.85;color:var(--text-muted);margin-top:18px;
-  font-weight:300;
-}
+/* ══ REPORT ══ */
+.report-card{background:var(--surface);border:1px solid var(--card-border);border-radius:12px;padding:28px;max-width:860px;margin:0 auto;}
+.confidence-badge{display:inline-flex;align-items:center;gap:6px;padding:5px 14px;border-radius:100px;font-size:11px;letter-spacing:.06em;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.25);color:var(--gold);}
+.report-paragraph{font-size:14px;line-height:1.85;color:var(--text-muted);margin-top:18px;font-weight:300;}
 .report-paragraph strong{color:var(--text);font-weight:500}
 .report-divider{height:1px;background:var(--card-border);margin:20px 0}
 .insight-list{display:flex;flex-direction:column;gap:10px;margin-top:14px}
-.insight-item{
-  display:flex;gap:12px;align-items:flex-start;
-  padding:12px 14px;background:var(--surface2);border-radius:8px;
-}
-.insight-bullet{
-  width:6px;height:6px;border-radius:50%;background:var(--gold);flex-shrink:0;margin-top:5px;
-}
+.insight-item{display:flex;gap:12px;align-items:flex-start;padding:12px 14px;background:var(--surface2);border-radius:8px;}
+.insight-bullet{width:6px;height:6px;border-radius:50%;background:var(--gold);flex-shrink:0;margin-top:5px;}
 .insight-text{font-size:13px;color:var(--text-muted);line-height:1.6}
-.dl-btn{
-  display:inline-flex;align-items:center;gap:8px;
-  padding:10px 20px;border:1px solid var(--card-border);border-radius:6px;
-  font-size:12px;color:var(--text-muted);cursor:pointer;transition:all .2s;
-  background:none;font-family:'DM Sans',sans-serif;
-}
+.dl-btn{display:inline-flex;align-items:center;gap:8px;padding:10px 20px;border:1px solid var(--card-border);border-radius:6px;font-size:12px;color:var(--text-muted);cursor:pointer;transition:all .2s;background:none;font-family:'DM Sans',sans-serif;}
 .dl-btn:hover{border-color:var(--gold);color:var(--gold)}
 
-/* ══════════════════════════════
-   PAGE 7 — DATA PIPELINE
-══════════════════════════════ */
+/* ══ PIPELINE ══ */
 .pipeline-wrap{display:flex;flex-direction:column;align-items:center;gap:0;padding:20px 0}
-.pipeline-node{
-  background:var(--surface);border:1px solid var(--card-border);border-radius:12px;
-  padding:18px 28px;width:min(520px,90%);text-align:center;position:relative;
-}
+.pipeline-node{background:var(--surface);border:1px solid var(--card-border);border-radius:12px;padding:18px 28px;width:min(520px,90%);text-align:center;position:relative;}
 .pipeline-node.active-node{border-color:var(--gold);box-shadow:0 0 20px rgba(201,168,76,.1)}
 .pipeline-node-icon{font-size:24px;margin-bottom:8px}
 .pipeline-node-name{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:300;color:var(--text)}
 .pipeline-node-sub{font-size:11px;color:var(--text-muted);margin-top:4px}
-.pipeline-arrow{
-  width:1px;height:30px;background:linear-gradient(to bottom,var(--gold),transparent);
-  margin:0 auto;position:relative;
-}
-.pipeline-arrow::after{
-  content:'';position:absolute;bottom:0;left:50%;transform:translateX(-50%);
-  border-left:4px solid transparent;border-right:4px solid transparent;
-  border-top:6px solid var(--gold);
-}
-.log-terminal{
-  background:#0A0A0A;border:1px solid rgba(201,168,76,.15);border-radius:10px;
-  padding:16px;font-family:'DM Mono',monospace;font-size:11px;
-  height:160px;overflow-y:auto;margin-top:20px;max-width:520px;width:100%;
-}
+.pipeline-arrow{width:1px;height:30px;background:linear-gradient(to bottom,var(--gold),transparent);margin:0 auto;position:relative;}
+.pipeline-arrow::after{content:'';position:absolute;bottom:0;left:50%;transform:translateX(-50%);border-left:4px solid transparent;border-right:4px solid transparent;border-top:6px solid var(--gold);}
+.log-terminal{background:#0A0A0A;border:1px solid rgba(201,168,76,.15);border-radius:10px;padding:16px;font-family:'DM Mono',monospace;font-size:11px;height:160px;overflow-y:auto;margin-top:20px;max-width:520px;width:100%;}
 .log-terminal::-webkit-scrollbar{width:3px}
 .log-terminal::-webkit-scrollbar-thumb{background:rgba(201,168,76,.2);border-radius:2px}
 .log-line{color:#22C55E;line-height:1.8}
 .log-line.warn{color:var(--gold)}
 .log-line.info{color:#5B8DB8}
 
-/* ══════════════════════════════
-   FLOATING AI ASSISTANT
-══════════════════════════════ */
-.ai-float{
-  position:fixed;bottom:28px;right:28px;z-index:100;
-}
-.ai-avatar{
-  width:56px;height:56px;border-radius:50%;
-  background:var(--ink);border:1px solid var(--gold);
-  display:flex;align-items:center;justify-content:center;
-  font-family:'Cormorant Garamond',serif;font-size:22px;color:var(--gold);
-  cursor:pointer;position:relative;
-  box-shadow:0 0 0 0 rgba(201,168,76,.4);
-  animation:glowPulse 2.5s ease-in-out infinite;
-  transition:transform .2s;
-}
+/* ══ FLOATING AI ══ */
+.ai-float{position:fixed;bottom:28px;right:28px;z-index:100;}
+.ai-avatar{width:56px;height:56px;border-radius:50%;background:var(--ink);border:1px solid var(--gold);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:22px;color:var(--gold);cursor:pointer;position:relative;box-shadow:0 0 0 0 rgba(201,168,76,.4);animation:glowPulse 2.5s ease-in-out infinite;transition:transform .2s;}
 .ai-avatar:hover{transform:scale(1.08)}
-@keyframes glowPulse{
-  0%{box-shadow:0 0 0 0 rgba(201,168,76,.4)}
-  70%{box-shadow:0 0 0 12px rgba(201,168,76,0)}
-  100%{box-shadow:0 0 0 0 rgba(201,168,76,0)}
-}
-.ai-tooltip{
-  position:absolute;bottom:64px;right:0;
-  background:var(--ink);color:var(--cream);
-  font-size:11px;padding:5px 12px;border-radius:4px;white-space:nowrap;
-  border:1px solid rgba(201,168,76,.2);letter-spacing:.04em;
-  opacity:0;transition:opacity .2s;pointer-events:none;
-}
+@keyframes glowPulse{0%{box-shadow:0 0 0 0 rgba(201,168,76,.4)}70%{box-shadow:0 0 0 12px rgba(201,168,76,0)}100%{box-shadow:0 0 0 0 rgba(201,168,76,0)}}
+.ai-tooltip{position:absolute;bottom:64px;right:0;background:var(--ink);color:var(--cream);font-size:11px;padding:5px 12px;border-radius:4px;white-space:nowrap;border:1px solid rgba(201,168,76,.2);letter-spacing:.04em;opacity:0;transition:opacity .2s;pointer-events:none;}
 .ai-float:hover .ai-tooltip{opacity:1}
-
-/* CHATBOT PANEL */
-.chat-panel{
-  position:fixed;bottom:96px;right:28px;z-index:99;
-  width:340px;background:var(--surface);
-  border:1px solid var(--card-border);border-radius:16px;
-  display:flex;flex-direction:column;
-  box-shadow:0 20px 60px rgba(0,0,0,.15);
-  transform:scale(.95) translateY(10px);
-  opacity:0;pointer-events:none;
-  transition:opacity .25s,transform .25s;
-  overflow:hidden;max-height:480px;
-}
+.chat-panel{position:fixed;bottom:96px;right:28px;z-index:99;width:340px;background:var(--surface);border:1px solid var(--card-border);border-radius:16px;display:flex;flex-direction:column;box-shadow:0 20px 60px rgba(0,0,0,.15);transform:scale(.95) translateY(10px);opacity:0;pointer-events:none;transition:opacity .25s,transform .25s;overflow:hidden;max-height:480px;}
 .chat-panel.open{opacity:1;pointer-events:all;transform:scale(1) translateY(0)}
-.chat-panel-header{
-  padding:14px 16px;border-bottom:1px solid var(--card-border);
-  display:flex;align-items:center;justify-content:space-between;
-  background:var(--ink);
-}
+.chat-panel-header{padding:14px 16px;border-bottom:1px solid var(--card-border);display:flex;align-items:center;justify-content:space-between;background:var(--ink);}
 .chat-panel-title{font-family:'Cormorant Garamond',serif;font-size:16px;color:var(--cream);font-weight:300}
 .chat-panel-close{background:none;border:none;color:rgba(250,247,242,.4);cursor:pointer;font-size:14px}
 .chat-msgs{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px;min-height:200px}
 .chat-msgs::-webkit-scrollbar{width:3px}
 .chat-msgs::-webkit-scrollbar-thumb{background:rgba(201,168,76,.15);border-radius:2px}
-.chat-bubble{
-  padding:9px 13px;border-radius:10px;font-size:12px;line-height:1.6;max-width:88%;
-}
+.chat-bubble{padding:9px 13px;border-radius:10px;font-size:12px;line-height:1.6;max-width:88%;}
 .chat-bubble.bot{background:var(--surface2);color:var(--text-muted);align-self:flex-start;border:1px solid var(--card-border)}
 .chat-bubble.user{background:var(--ink);color:var(--cream);align-self:flex-end}
 .chat-input-row{display:flex;gap:8px;padding:10px;border-top:1px solid var(--card-border)}
-.chat-input{
-  flex:1;border:1px solid var(--card-border);border-radius:6px;
-  padding:8px 10px;background:var(--input-bg);color:var(--text);
-  font-family:'DM Sans',sans-serif;font-size:12px;outline:none;
-}
+.chat-input{flex:1;border:1px solid var(--card-border);border-radius:6px;padding:8px 10px;background:var(--input-bg);color:var(--text);font-family:'DM Sans',sans-serif;font-size:12px;outline:none;}
 .chat-input:focus{border-color:var(--gold)}
-.chat-send{
-  width:30px;height:30px;border-radius:6px;border:none;
-  background:var(--gold);color:var(--ink);cursor:pointer;font-size:13px;
-  display:flex;align-items:center;justify-content:center;
-  transition:background .2s;
-}
+.chat-send{width:30px;height:30px;border-radius:6px;border:none;background:var(--gold);color:var(--ink);cursor:pointer;font-size:13px;display:flex;align-items:center;justify-content:center;transition:background .2s;}
 .chat-send:hover{background:var(--gold-light)}
 .quick-qs{display:flex;flex-direction:column;gap:4px;padding:0 14px 10px}
-.quick-q{
-  padding:5px 10px;border:1px solid var(--card-border);border-radius:6px;
-  font-size:11px;color:var(--text-muted);cursor:pointer;transition:all .15s;
-  background:none;font-family:'DM Sans',sans-serif;text-align:left;
-}
+.quick-q{padding:5px 10px;border:1px solid var(--card-border);border-radius:6px;font-size:11px;color:var(--text-muted);cursor:pointer;transition:all .15s;background:none;font-family:'DM Sans',sans-serif;text-align:left;}
 .quick-q:hover{border-color:var(--gold);color:var(--gold)}
 </style>
 </head>
 <body>
 <div class="shell">
 
-<!-- ── SIDE NAV ── -->
 <nav id="sidenav">
   <div class="nav-brand" onclick="goPage('landing')">I</div>
-  <div class="nav-item active" data-page="landing" onclick="goPage('landing')">
-    🏠<span class="nav-tooltip">Landing</span>
-  </div>
-  <div class="nav-item" data-page="dashboard" onclick="goPage('dashboard')">
-    📊<span class="nav-tooltip">Dashboard</span>
-  </div>
-  <div class="nav-item" data-page="competitors" onclick="goPage('competitors')">
-    🔭<span class="nav-tooltip">Competitors</span>
-  </div>
-  <div class="nav-item" data-page="trends" onclick="goPage('trends')">
-    📈<span class="nav-tooltip">Market Trends</span>
-  </div>
-  <div class="nav-item" data-page="simulator" onclick="goPage('simulator')">
-    🎛️<span class="nav-tooltip">Strategy Simulator</span>
-  </div>
-  <div class="nav-item" data-page="report" onclick="goPage('report')">
-    📄<span class="nav-tooltip">Insight Report</span>
-  </div>
-  <div class="nav-item" data-page="pipeline" onclick="goPage('pipeline')">
-    ⚡<span class="nav-tooltip">Data Pipeline</span>
-  </div>
-  <div class="nav-item" onclick="window.location.href='/dashboard'" style="color:rgba(250,247,242,0.35)">
-    💬<span class="nav-tooltip">AI Chat</span>
-  </div>
+  <div class="nav-item active" data-page="landing" onclick="goPage('landing')">🏠<span class="nav-tooltip">Landing</span></div>
+  <div class="nav-item" data-page="dashboard" onclick="goPage('dashboard')">📊<span class="nav-tooltip">Dashboard</span></div>
+  <div class="nav-item" data-page="competitors" onclick="goPage('competitors')">🔭<span class="nav-tooltip">Competitors</span></div>
+  <div class="nav-item" data-page="trends" onclick="goPage('trends')">📈<span class="nav-tooltip">Market Trends</span></div>
+  <div class="nav-item" data-page="simulator" onclick="goPage('simulator')">🎛️<span class="nav-tooltip">Strategy Simulator</span></div>
+  <div class="nav-item" data-page="report" onclick="goPage('report')">📄<span class="nav-tooltip">Insight Report</span></div>
+  <div class="nav-item" data-page="pipeline" onclick="goPage('pipeline')">⚡<span class="nav-tooltip">Data Pipeline</span></div>
+  <div class="nav-item" onclick="window.location.href='/dashboard'" style="color:rgba(250,247,242,0.35)">💬<span class="nav-tooltip">AI Chat</span></div>
   <div class="nav-bottom">
     <button class="nav-theme-btn" id="themeBtn" onclick="toggleTheme()">☀</button>
   </div>
 </nav>
 
-<!-- ── CONTENT ── -->
 <div id="content">
 
-<!-- ══ PAGE: LANDING ══ -->
+<!-- ══ LANDING ══ -->
 <div class="page active" id="page-landing">
   <div class="landing-canvas">
     <div class="landing-bg"><canvas id="demandCanvas"></canvas></div>
@@ -537,64 +331,63 @@ input[type=range]::-webkit-slider-thumb{
     <div class="landing-content">
       <div class="landing-eyebrow">Market Intelligence Engine</div>
       <h1 class="landing-headline">From Market Noise<br/>to <em>Strategic Clarity</em></h1>
-      <p class="landing-sub">Real-time competitor signals, demand forecasting, and AI-powered strategy simulation — all in one elegant platform.</p>
+      <p class="landing-sub">Real-time competitor signals, demand forecasting, and AI-powered strategy simulation — across 70 products, 7 categories.</p>
       <button class="landing-cta" onclick="goPage('dashboard')">Enter Dashboard →</button>
     </div>
     <div class="counter-strip">
       <div class="counter-cell">
         <div class="counter-num" id="cnt1">0</div>
-        <div class="counter-label">Signals Analysed</div>
+        <div class="counter-label">Data Points Analysed</div>
       </div>
       <div class="counter-cell">
         <div class="counter-num" id="cnt2">0</div>
-        <div class="counter-label">Competitors Tracked</div>
+        <div class="counter-label">Products Tracked</div>
       </div>
       <div class="counter-cell">
         <div class="counter-num" id="cnt3">0</div>
-        <div class="counter-label">Insights Generated</div>
+        <div class="counter-label">Alerts Generated</div>
       </div>
     </div>
     <div class="feature-grid">
       <div class="feature-cell">
         <div class="feature-icon">📡</div>
         <div class="feature-name">Competitor Pulse</div>
-        <div class="feature-desc">Live pricing, sentiment & share-of-voice tracking across 20+ brands.</div>
+        <div class="feature-desc">Live pricing, sentiment & demand tracking across 73 brands in 7 categories.</div>
       </div>
       <div class="feature-cell">
         <div class="feature-icon">📈</div>
         <div class="feature-name">Demand Forecast</div>
-        <div class="feature-desc">ML-driven demand index with trend decomposition & anomaly alerts.</div>
+        <div class="feature-desc">XGBoost demand index with regime-shift detection & anomaly alerts.</div>
       </div>
       <div class="feature-cell">
         <div class="feature-icon">💡</div>
         <div class="feature-name">Insight Engine</div>
-        <div class="feature-desc">Auto-generated strategy narratives with confidence scoring.</div>
+        <div class="feature-desc">Auto-generated strategy narratives with event-driven explanations.</div>
       </div>
       <div class="feature-cell">
         <div class="feature-icon">🎛️</div>
         <div class="feature-name">Strategy Simulator</div>
-        <div class="feature-desc">What-if scenario modelling for pricing, ads & sentiment levers.</div>
+        <div class="feature-desc">What-if scenario modelling for pricing, ad intensity & sentiment levers.</div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- ══ PAGE: DASHBOARD ══ -->
+<!-- ══ DASHBOARD ══ -->
 <div class="page" id="page-dashboard">
   <div class="topbar">
     <div class="topbar-title">Intelligence <em>Dashboard</em></div>
     <div class="topbar-right">
       <div class="filter-bar" style="margin:0">
         <div class="filter-chip on" onclick="toggleFilter(this)">All</div>
-        <div class="filter-chip" onclick="toggleFilter(this)">Audio</div>
-        <div class="filter-chip" onclick="toggleFilter(this)">Wearables</div>
-        <div class="filter-chip" onclick="toggleFilter(this)">Smart Home</div>
+        <div class="filter-chip" onclick="toggleFilter(this)">Headphones</div>
+        <div class="filter-chip" onclick="toggleFilter(this)">Smartphones</div>
+        <div class="filter-chip" onclick="toggleFilter(this)">Earbuds</div>
       </div>
-      <div class="badge"><div class="dot-live"></div>Live</div>
+      <div class="badge"><div class="dot-live"></div>Live · Jan–Jun 2025</div>
     </div>
   </div>
   <div class="scroll-area" id="dash-scroll">
-    <!-- shimmer shown first, replaced by real content -->
     <div id="dash-shimmer">
       <div class="grid-4" style="margin-bottom:16px">
         <div class="shimmer" style="height:90px"></div>
@@ -612,111 +405,107 @@ input[type=range]::-webkit-slider-thumb{
       </div>
     </div>
     <div id="dash-real" style="display:none">
-      <!-- stat row -->
       <div class="grid-4" style="margin-bottom:16px">
         <div class="stat-card">
-          <div class="stat-label">Demand Index</div>
-          <div class="stat-value">74.3</div>
-          <div class="stat-delta delta-up">↑ 6.2% this week</div>
+          <div class="stat-label">Avg Demand Index</div>
+          <div class="stat-value" id="kpi-demand">46.2</div>
+          <div class="stat-delta delta-dn" id="kpi-demand-chg">↓ 1.3% this week</div>
         </div>
         <div class="stat-card">
-          <div class="stat-label">Avg. Market Price</div>
-          <div class="stat-value">₹4,820</div>
-          <div class="stat-delta delta-dn">↓ 1.8% vs last month</div>
+          <div class="stat-label">Avg Market Price Index</div>
+          <div class="stat-value" id="kpi-price">191.6</div>
+          <div class="stat-delta delta-dn" id="kpi-price-chg">↓ 1.0% vs last week</div>
         </div>
         <div class="stat-card">
-          <div class="stat-label">Sentiment Score</div>
-          <div class="stat-value">68%</div>
-          <div class="stat-delta delta-up">↑ 3.1 pts</div>
+          <div class="stat-label">Avg Sentiment Score</div>
+          <div class="stat-value" id="kpi-sent">71.0%</div>
+          <div class="stat-delta delta-up" id="kpi-sent-chg">↑ 0.7 pts (30d)</div>
         </div>
         <div class="stat-card">
-          <div class="stat-label">Competitors Active</div>
-          <div class="stat-value">12</div>
-          <div class="stat-delta" style="color:var(--text-muted)">2 new entrants</div>
+          <div class="stat-label">Products Tracked</div>
+          <div class="stat-value" id="kpi-brands">70</div>
+          <div class="stat-delta" style="color:var(--text-muted)" id="kpi-cats">7 categories · 73 brands</div>
         </div>
       </div>
 
-      <!-- charts row 1 -->
       <div class="grid-2" style="margin-bottom:16px">
         <div class="card">
-          <div class="card-title">Demand Index — 12-Week Trend</div>
+          <div class="card-title">Demand Index — 12-Week Trend (Weekly Avg)</div>
           <div class="chart-container"><canvas id="demandTrendChart"></canvas></div>
         </div>
         <div class="card">
-          <div class="card-title">Price vs Rank — Scatter</div>
+          <div class="card-title">Price vs Demand — Top 14 Products</div>
           <div class="chart-container"><canvas id="scatterChart"></canvas></div>
         </div>
       </div>
 
-      <!-- charts row 2 -->
       <div class="grid-2" style="margin-bottom:16px">
         <div class="card">
-          <div class="card-title">Sentiment Gauge</div>
+          <div class="card-title">Sentiment Gauge — Latest</div>
           <div class="gauge-wrap">
             <canvas id="gaugeChart" width="220" height="220"></canvas>
             <div class="gauge-label">
-              <div class="gauge-score">68%</div>
+              <div class="gauge-score" id="gauge-val">71%</div>
               <div class="gauge-sub">Positive Sentiment</div>
             </div>
           </div>
         </div>
         <div class="card">
-          <div class="card-title">Competitor Radar</div>
+          <div class="card-title">Brand Comparison Radar — Top 3 by Health</div>
           <div class="chart-container"><canvas id="radarChart"></canvas></div>
         </div>
       </div>
 
-      <!-- event timeline -->
       <div class="card" style="margin-bottom:16px">
-        <div class="card-title">Event Timeline</div>
+        <div class="card-title">Top Signal Events — Highest Severity Anomalies</div>
         <div class="timeline" id="eventTimeline"></div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- ══ PAGE: COMPETITORS ══ -->
+<!-- ══ COMPETITORS ══ -->
 <div class="page" id="page-competitors">
   <div class="topbar">
     <div class="topbar-title">Competitor <em>Explorer</em></div>
-    <div class="badge"><div class="dot-live"></div>12 brands tracked</div>
+    <div class="badge"><div class="dot-live"></div>Top 12 by Health Index</div>
   </div>
   <div class="scroll-area">
     <div class="comp-grid" id="compGrid"></div>
   </div>
 </div>
 
-<!-- ══ PAGE: TRENDS ══ -->
+<!-- ══ TRENDS ══ -->
 <div class="page" id="page-trends">
   <div class="topbar">
     <div class="topbar-title">Market <em>Trends</em></div>
-    <div class="badge">Updated hourly</div>
+    <div class="badge">Jan–Jun 2025 · 6-Month View</div>
   </div>
   <div class="scroll-area">
     <div class="grid-2" style="margin-bottom:16px">
       <div class="card">
-        <div class="card-title">Search Interest — 6 Months</div>
+        <div class="card-title">Search Interest — Earbuds vs Smartphones (24 Weeks)</div>
         <div class="chart-container"><canvas id="searchAreaChart"></canvas></div>
       </div>
       <div class="card">
-        <div class="card-title">Buzz Heatmap — Weekly Activity</div>
-        <div class="heatmap-label">Mon → Sun (last 8 weeks)</div>
+        <div class="card-title">Market Intensity Heatmap — 8 Weeks × 7 Days</div>
+        <div class="heatmap-label">Mon → Sun (most recent 56 days)</div>
         <div id="buzzHeatmap" class="heatmap-grid"></div>
       </div>
     </div>
     <div class="card">
-      <div class="card-title">Emerging Opportunities</div>
-      <div style="font-size:13px;color:var(--text-muted);margin-bottom:12px;font-weight:300">AI-identified gaps with high capture potential</div>
+      <div class="card-title">Structural Market Signals</div>
+      <div style="font-size:13px;color:var(--text-muted);margin-bottom:12px;font-weight:300">Derived from demand regime shifts, category health, and signal momentum</div>
       <div class="opportunity-tags" id="oppTags"></div>
     </div>
   </div>
 </div>
 
-<!-- ══ PAGE: SIMULATOR ══ -->
+<!-- ══ SIMULATOR ══ -->
 <div class="page" id="page-simulator">
   <div class="topbar">
     <div class="topbar-title">Strategy <em>Simulator</em></div>
-    <div class="badge">🎯 What-if Scenario Engine</div>
+    <div class="badge">🎯 What-if · Baseline: Real 12-Week Demand</div>
   </div>
   <div class="scroll-area">
     <div class="sim-grid">
@@ -761,7 +550,7 @@ input[type=range]::-webkit-slider-thumb{
 
         <div class="card" style="text-align:center">
           <div class="stat-label">Projected Demand Index</div>
-          <div style="font-family:'Cormorant Garamond',serif;font-size:52px;font-weight:300;color:var(--gold)" id="proj-demand">74.3</div>
+          <div style="font-family:'Cormorant Garamond',serif;font-size:52px;font-weight:300;color:var(--gold)" id="proj-demand">46.2</div>
           <div class="project-badge" style="justify-content:center;margin-top:8px" id="proj-badge">
             <span>→</span> No change yet
           </div>
@@ -769,19 +558,19 @@ input[type=range]::-webkit-slider-thumb{
       </div>
 
       <div class="card">
-        <div class="card-title">Projected DemandIndex Curve</div>
+        <div class="card-title">Projected Demand Index Curve — 12 Weeks</div>
         <div style="height:340px;position:relative"><canvas id="simChart"></canvas></div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- ══ PAGE: REPORT ══ -->
+<!-- ══ REPORT ══ -->
 <div class="page" id="page-report">
   <div class="topbar">
     <div class="topbar-title">Insight <em>Narrative Report</em></div>
     <div class="topbar-right">
-      <div class="confidence-badge">✦ Confidence: 87%</div>
+      <div class="confidence-badge">✦ Data-Driven · Jan–Jun 2025</div>
       <button class="dl-btn" onclick="fakeDL()">⬇ Download PDF</button>
     </div>
   </div>
@@ -789,32 +578,21 @@ input[type=range]::-webkit-slider-thumb{
     <div class="report-card">
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">
         <div style="font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:300;color:var(--text)">Market Intelligence Summary</div>
-        <div class="confidence-badge">Confidence 87%</div>
+        <div class="confidence-badge" id="report-conf-badge">H1 2025 · 70 Products</div>
       </div>
-      <div style="font-size:11px;color:var(--text-hint);letter-spacing:.06em">Generated · Q2 2025 · Consumer Electronics — Audio</div>
+      <div style="font-size:11px;color:var(--text-hint);letter-spacing:.06em">Generated · H1 2025 · Consumer Electronics — 7 Categories</div>
       <div class="report-divider"></div>
-      <div class="report-paragraph">
-        The <strong>Consumer Audio market</strong> is experiencing a structurally significant demand acceleration, with the Demand Index reaching <strong>74.3</strong> — a 6.2% week-on-week increase driven primarily by a surge in search interest for budget ANC (Active Noise Cancellation) headphones. This uptick aligns with a broader post-monsoon consumer spending pattern and a notable pullback in average selling prices across mid-tier competitors.
-      </div>
-      <div class="report-paragraph">
-        <strong>Sony WH-1000XM6</strong> and <strong>BoAt Nirvana Ion</strong> are leading competitive aggression, with pricing reductions of 8% and 12% respectively in the last 30 days. This has compressed margins in the ₹3,000–6,000 segment and is likely contributing to the observed sentiment volatility on Amazon and Flipkart. Sentiment analysis across 42,000 reviews places the market-wide positive rate at <strong>68%</strong>, a 3.1-point improvement attributable largely to improved product quality signals from premium entrants.
-      </div>
-      <div class="report-paragraph">
-        The most critical strategic observation is the <strong>underserved Budget ANC segment</strong>. Search demand for "ANC headphones under ₹2000" has grown 340% in 90 days while supply-side options remain thin. First movers in this gap carry a projected <strong>23% market share capture opportunity</strong> within 6 months.
-      </div>
+      <div class="report-paragraph" id="report-p1">Loading report…</div>
+      <div class="report-paragraph" id="report-p2"></div>
+      <div class="report-paragraph" id="report-p3"></div>
       <div class="report-divider"></div>
       <div style="font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);margin-bottom:10px">Key Action Items</div>
-      <div class="insight-list">
-        <div class="insight-item"><div class="insight-bullet"></div><div class="insight-text">Accelerate development of a sub-₹2,000 ANC product to capture the underserved budget segment before competitors react.</div></div>
-        <div class="insight-item"><div class="insight-bullet"></div><div class="insight-text">Monitor BoAt's price trajectory — a further 5% cut will trigger a price war that could suppress category margins for 2+ quarters.</div></div>
-        <div class="insight-item"><div class="insight-bullet"></div><div class="insight-text">Invest in post-purchase review solicitation to close the 3-point sentiment gap versus category leaders.</div></div>
-        <div class="insight-item"><div class="insight-bullet"></div><div class="insight-text">Allocate 40% of Q3 ad spend to awareness campaigns targeting the 18–24 demographic showing highest search growth.</div></div>
-      </div>
+      <div class="insight-list" id="report-insights"></div>
     </div>
   </div>
 </div>
 
-<!-- ══ PAGE: PIPELINE ══ -->
+<!-- ══ PIPELINE ══ -->
 <div class="page" id="page-pipeline">
   <div class="topbar">
     <div class="topbar-title">Data <em>Pipeline</em> Demo</div>
@@ -825,25 +603,25 @@ input[type=range]::-webkit-slider-thumb{
       <div class="pipeline-node active-node" id="pn-0">
         <div class="pipeline-node-icon">🗄️</div>
         <div class="pipeline-node-name">Raw Dataset Ingestion</div>
-        <div class="pipeline-node-sub">Amazon · Flipkart · Twitter · Google Trends</div>
+        <div class="pipeline-node-sub">6,750 rows · 70 products · Jan–Jun 2025</div>
       </div>
       <div class="pipeline-arrow"></div>
       <div class="pipeline-node" id="pn-1">
         <div class="pipeline-node-icon">⚙️</div>
         <div class="pipeline-node-name">Feature Engineering</div>
-        <div class="pipeline-node-sub">Normalisation · Lag features · Seasonality decomp</div>
+        <div class="pipeline-node-sub">168 features · Lag-7 · Momentum · Z-scores</div>
       </div>
       <div class="pipeline-arrow"></div>
       <div class="pipeline-node" id="pn-2">
         <div class="pipeline-node-icon">🤖</div>
-        <div class="pipeline-node-name">AI Engine</div>
-        <div class="pipeline-node-sub">Demand forecast · Sentiment NLP · Competitor scoring</div>
+        <div class="pipeline-node-name">XGBoost + Signal Engine</div>
+        <div class="pipeline-node-sub">Demand forecast · Sentiment NLP · Regime detection</div>
       </div>
       <div class="pipeline-arrow"></div>
       <div class="pipeline-node" id="pn-3">
         <div class="pipeline-node-icon">💡</div>
         <div class="pipeline-node-name">Insight Cards</div>
-        <div class="pipeline-node-sub">Strategy report · Dashboard KPIs · Opportunity tags</div>
+        <div class="pipeline-node-sub">677 alerts · 6 regime shifts · Dashboard KPIs</div>
       </div>
     </div>
     <div class="log-terminal" id="logTerminal"></div>
@@ -853,7 +631,7 @@ input[type=range]::-webkit-slider-thumb{
 </div><!-- end #content -->
 </div><!-- end .shell -->
 
-<!-- ══ FLOATING AI ASSISTANT ══ -->
+<!-- FLOATING AI -->
 <div class="ai-float">
   <div class="ai-tooltip">Ask IntelliM</div>
   <div class="ai-avatar" onclick="toggleChat()">I</div>
@@ -865,12 +643,12 @@ input[type=range]::-webkit-slider-thumb{
     <button class="chat-panel-close" onclick="toggleChat()">✕</button>
   </div>
   <div class="chat-msgs" id="chatMsgs">
-    <div class="chat-bubble bot">Hello! I'm IntelliM. Ask me about demand, competitors, or market risks.</div>
+    <div class="chat-bubble bot">Hello! I'm IntelliM. Ask me about demand trends, top performers, or regime shifts across our 70 tracked products.</div>
   </div>
   <div class="quick-qs">
-    <button class="quick-q" onclick="sendQ(this)">Why did demand increase?</button>
-    <button class="quick-q" onclick="sendQ(this)">Which competitor is most aggressive?</button>
-    <button class="quick-q" onclick="sendQ(this)">Is there a price war risk?</button>
+    <button class="quick-q" onclick="sendQ(this)">Which category has highest demand?</button>
+    <button class="quick-q" onclick="sendQ(this)">What caused the April regime shift?</button>
+    <button class="quick-q" onclick="sendQ(this)">Which brand has the best health index?</button>
   </div>
   <div class="chat-input-row">
     <input class="chat-input" id="chatInput" placeholder="Ask anything…" onkeydown="if(event.key==='Enter')sendChat()"/>
@@ -887,15 +665,15 @@ input[type=range]::-webkit-slider-thumb{
     </div>
     <div class="grid-3" style="margin-bottom:20px" id="modal-stats"></div>
     <div class="card" style="margin-bottom:16px">
-      <div class="card-title">Price History — 12 Weeks</div>
+      <div class="card-title">Price Index History — 12 Weeks</div>
       <div class="modal-chart"><canvas id="modalPriceChart"></canvas></div>
     </div>
     <div class="card" style="margin-bottom:16px">
-      <div class="card-title">Review Sentiment Trend</div>
+      <div class="card-title">Sentiment Trend — 12 Weeks</div>
       <div class="modal-chart"><canvas id="modalSentChart"></canvas></div>
     </div>
     <div class="card">
-      <div class="card-title">Marketing Impact Score</div>
+      <div class="card-title">Health Score Breakdown</div>
       <div id="modal-progress"></div>
     </div>
   </div>
@@ -903,64 +681,20 @@ input[type=range]::-webkit-slider-thumb{
 
 <script>
 // ═══════════════════════════════════
-// DATA
+// REAL DATA — derived from CSV files
 // ═══════════════════════════════════
+const D = {"kpis": {"demand": 46.2, "demand_chg": -1.3, "price": 191.62, "price_chg": -1.0, "sentiment": 71.0, "sent_chg": 0.7, "active_brands": 73, "active_entities": 70, "total_rows": 6750, "total_alerts": 677}, "w12": [46.04, 43.08, 43.84, 46.42, 45.26, 43.79, 45.23, 46.68, 45.44, 44.35, 47.03, 46.44], "scatter": [{"x": 350.0, "y": 46.5, "label": "LuxBrand"}, {"x": 198.0, "y": 61.8, "label": "StudioWave"}, {"x": 148.6, "y": 56.0, "label": "GoldAudio"}, {"x": 244.3, "y": 53.1, "label": "DeepAudio"}, {"x": 199.7, "y": 48.9, "label": "CrystalAudio"}, {"x": 149.1, "y": 29.7, "label": "EduTech"}, {"x": 334.7, "y": 53.5, "label": "EliteBrand"}, {"x": 353.6, "y": 61.6, "label": "TabSlate"}, {"x": 880.4, "y": 67.1, "label": "ApexTech"}, {"x": 227.1, "y": 67.4, "label": "BassAudio"}, {"x": 828.0, "y": 61.2, "label": "HyperTech"}, {"x": 320.4, "y": 54.5, "label": "ChronoBrand"}, {"x": 321.5, "y": 71.9, "label": "SlateTab"}, {"x": 72.2, "y": 62.2, "label": "SonicAudio"}], "radar": [{"brand": "LuxBrand", "vals": [30.0, 84.0, 70.0, 49.0, 45.0]}, {"brand": "StudioWave", "vals": [60.0, 81.0, 93.0, 80.0, 52.0]}, {"brand": "GoldAudio", "vals": [70.0, 87.0, 84.0, 67.0, 45.0]}], "competitors": [{"entity_id": 302, "name": "LuxBrand", "product": "LuxTime Pro", "cat": "Smartwatches", "color": "#1A3A5C", "score": 99.4, "price": 350.0, "sent": 84.4, "demand": 46.5, "mis": 94.4, "price_history": [338.59, 338.51, 338.72, 337.71, 338.36, 338.69, 339.24, 339.2, 339.1, 338.65, 338.91, 349.99], "sent_history": [74.7, 75.5, 75.2, 74.9, 82.0, 84.9, 81.6, 82.1, 86.6, 85.0, 83.9, 85.3]}, {"entity_id": 518, "name": "StudioWave", "product": "StudioWave Elite", "cat": "Bluetooth Speakers", "color": "#C9A84C", "score": 98.3, "price": 215.0, "sent": 80.9, "demand": 61.8, "mis": 93.4, "price_history": [188.07, 187.79, 190.23, 160.67, 189.94, 189.94, 187.95, 190.82, 193.82, 192.0, 190.18, 190.85], "sent_history": [85.5, 76.8, 81.2, 82.4, 81.8, 83.7, 80.6, 84.0, 83.8, 83.1, 81.4, 80.1]}, {"entity_id": 603, "name": "GoldAudio", "product": "GoldEar Classic", "cat": "Earbuds", "color": "#2C2C2C", "score": 97.9, "price": 165.0, "sent": 87.5, "demand": 56.0, "mis": 93.0, "price_history": [126.25, 147.08, 146.13, 147.74, 147.27, 146.82, 145.55, 146.47, 146.31, 145.71, 147.0, 147.11], "sent_history": [85.1, 80.6, 85.0, 80.9, 75.6, 82.3, 87.0, 88.1, 86.9, 87.0, 86.8, 84.3]}, {"entity_id": 622, "name": "DeepAudio", "product": "DeepBass Ultra", "cat": "Headphones", "color": "#E8C97A", "score": 97.7, "price": 275.0, "sent": 84.1, "demand": 53.1, "mis": 92.8, "price_history": [241.67, 246.36, 243.84, 242.77, 244.81, 242.35, 243.88, 207.93, 246.22, 245.32, 243.95, 241.93], "sent_history": [85.9, 84.2, 85.4, 87.8, 87.5, 89.4, 85.2, 80.4, 81.3, 82.3, 86.0, 86.5]}, {"entity_id": 618, "name": "CrystalAudio", "product": "CrystalSound Pro", "cat": "Bluetooth Speakers", "color": "#5B8DB8", "score": 97.6, "price": 225.0, "sent": 82.2, "demand": 48.9, "mis": 92.7, "price_history": [199.1, 202.02, 203.27, 199.85, 202.26, 201.05, 202.23, 200.84, 195.89, 200.54, 201.91, 169.77], "sent_history": [85.8, 83.9, 84.2, 86.8, 86.2, 82.3, 85.5, 86.2, 82.1, 81.2, 79.0, 81.2]}, {"entity_id": 702, "name": "EduTech", "product": "LearningPad Kids", "cat": "Tablets", "color": "#FF4444", "score": 97.6, "price": 150.0, "sent": 66.2, "demand": 29.7, "mis": 92.7, "price_history": [138.94, 138.72, 138.75, 138.64, 139.24, 139.08, 138.8, 138.72, 141.36, 149.56, 149.64, 149.43], "sent_history": [56.5, 55.0, 57.0, 60.5, 62.8, 60.6, 58.9, 60.0, 62.5, 56.9, 59.4, 64.7]}, {"entity_id": 612, "name": "EliteBrand", "product": "EliteWatch X", "cat": "Smartwatches", "color": "#22C55E", "score": 97.5, "price": 380.0, "sent": 91.1, "demand": 53.5, "mis": 92.6, "price_history": [339.28, 341.48, 345.16, 340.27, 339.01, 340.55, 341.52, 334.28, 338.57, 343.77, 333.62, 336.58], "sent_history": [80.5, 85.1, 88.4, 84.2, 80.5, 86.4, 85.1, 77.7, 79.8, 81.3, 81.3, 83.4]}, {"entity_id": 624, "name": "TabSlate", "product": "TabSlate 12", "cat": "Tablets", "color": "#9B59B6", "score": 97.5, "price": 400.0, "sent": 76.1, "demand": 61.6, "mis": 92.6, "price_history": [340.71, 331.91, 340.36, 337.59, 294.0, 288.26, 293.53, 342.89, 333.65, 336.89, 336.21, 340.45], "sent_history": [83.2, 85.9, 86.1, 79.3, 78.1, 82.5, 80.1, 81.2, 80.7, 77.6, 80.2, 83.6]}, {"entity_id": 606, "name": "ApexTech", "product": "ApexPhone Ultra", "cat": "Smartphones", "color": "#FF6B35", "score": 97.5, "price": 1000.0, "sent": 84.8, "demand": 67.1, "mis": 92.6, "price_history": [882.08, 881.9, 869.71, 892.24, 879.29, 760.04, 767.03, 887.09, 753.12, 896.13, 891.26, 886.29], "sent_history": [82.0, 84.9, 83.5, 81.9, 83.2, 83.6, 81.7, 80.4, 78.9, 81.9, 88.5, 81.5]}, {"entity_id": 522, "name": "BassAudio", "product": "BassElite Pro", "cat": "Headphones", "color": "#FF8800", "score": 97.4, "price": 260.0, "sent": 81.8, "demand": 67.4, "mis": 92.5, "price_history": [229.28, 224.57, 194.0, 227.26, 228.76, 227.3, 198.21, 229.14, 229.63, 227.03, 227.77, 225.04], "sent_history": [82.1, 79.6, 85.6, 79.8, 79.0, 79.5, 82.7, 84.1, 80.5, 85.1, 84.2, 80.1]}, {"entity_id": 506, "name": "HyperTech", "product": "HyperPhone Pro", "cat": "Smartphones", "color": "#00CED1", "score": 97.3, "price": 950.0, "sent": 81.1, "demand": 61.2, "mis": 92.5, "price_history": [834.85, 826.62, 829.48, 826.26, 832.73, 833.6, 827.81, 824.21, 825.85, 830.03, 824.98, 827.22], "sent_history": [82.1, 77.5, 80.6, 83.0, 87.5, 85.3, 84.3, 87.6, 84.6, 84.7, 82.3, 83.6]}, {"entity_id": 512, "name": "ChronoBrand", "product": "ChronoLux S", "cat": "Smartwatches", "color": "#FF1493", "score": 97.2, "price": 370.0, "sent": 90.8, "demand": 54.5, "mis": 92.4, "price_history": [328.83, 329.66, 329.05, 328.54, 329.33, 281.68, 301.37, 329.35, 327.93, 327.69, 327.34, 326.72], "sent_history": [81.4, 83.6, 85.1, 84.5, 82.8, 82.5, 84.0, 80.8, 80.4, 86.6, 85.0, 87.5]}], "events": [{"color": "#C9A84C", "brand": "BassAudio", "explanation": "Abnormal movement detected relative to recent trend and signal baseline.", "date": "2025-04-24"}, {"color": "#C9A84C", "brand": "WaveAudio", "explanation": "Abnormal movement detected relative to recent trend and signal baseline.", "date": "2025-05-29"}, {"color": "#C9A84C", "brand": "DeepAudio", "explanation": "Abnormal movement detected relative to recent trend and signal baseline.", "date": "2025-05-28"}, {"color": "#C9A84C", "brand": "CrystalAudio", "explanation": "Abnormal movement detected relative to recent trend and signal baseline.", "date": "2025-06-25"}, {"color": "#C9A84C", "brand": "BlastAudio", "explanation": "Abnormal movement detected relative to recent trend and signal baseline.", "date": "2025-05-25"}, {"color": "#22C55E", "brand": "LuxAudio", "explanation": "Ad surge detected.", "date": "2025-06-29"}], "buzz": [5.0, 43.7, 33.6, 49.1, 99.7, 52.4, 56.9, 29.7, 14.9, 57.4, 17.3, 8.3, 33.4, 68.2, 26.6, 59.5, 89.4, 20.7, 62.6, 36.1, 72.8, 12.5, 52.8, 31.0, 52.6, 5.6, 62.9, 26.8, 9.2, 31.9, 52.0, 63.5, 67.9, 63.7, 42.1, 25.8, 32.5, 39.9, 64.0, 56.0, 64.5, 72.8, 57.5, 79.5, 50.6, 35.9, 18.0, 21.7, 25.5, 0.0, 36.4, 33.7, 42.7, 45.8, 74.6, 67.0], "earbuds_s": [40.4, 37.6, 41.6, 33.8, 28.0, 30.2, 34.3, 35.9, 35.2, 38.0, 38.2, 52.4, 49.9, 43.5, 46.7, 51.0, 49.0, 45.1, 48.4, 49.9, 48.4, 41.2, 48.9, 50.2], "phones_s": [39.5, 37.5, 37.4, 38.9, 36.7, 39.8, 47.9, 43.3, 46.6, 44.7, 39.3, 50.1, 53.2, 40.5, 41.7, 51.5, 50.2, 41.3, 48.5, 53.5, 45.3, 45.2, 56.1, 54.1], "regime": [{"date": "2025-04-03", "regime_type": "positive"}, {"date": "2025-04-18", "regime_type": "negative"}, {"date": "2025-05-02", "regime_type": "positive"}, {"date": "2025-05-14", "regime_type": "negative"}, {"date": "2025-06-11", "regime_type": "negative"}, {"date": "2025-06-21", "regime_type": "positive"}], "report": {"top_cat": "Headphones", "top_cat_demand": 51.5, "top_cat_sent": 74.3, "best_brand": "LuxBrand", "best_brand_health": 99.4, "price_30d_chg": -1.5, "headphones_sent": 74.3, "total_brands": 73, "total_entities": 70, "total_alerts": 677}};
+
 const WEEKS = ['W1','W2','W3','W4','W5','W6','W7','W8','W9','W10','W11','W12'];
-const MONTHS = ['Oct','Nov','Dec','Jan','Feb','Mar'];
-
-const demandData = [62,65,61,67,70,68,72,69,74,71,76,74];
-const scatterData = [
-  {x:3200,y:8,label:'BoAt'},{x:4800,y:5,label:'Sony'},{x:6200,y:3,label:'Bose'},
-  {x:2800,y:9,label:'Noise'},{x:5500,y:4,label:'JBL'},{x:3900,y:7,label:'OnePlus'},
-  {x:7200,y:2,label:'Sennheiser'},{x:2400,y:11,label:'Realme'},{x:4100,y:6,label:'Jabra'},
-];
-const radarLabels = ['Price Comp.','Sentiment','Market Share','Ad Spend','Innovation'];
-
-const competitors = [
-  {name:'Sony',cat:'Premium Audio',color:'#1A3A5C',score:88,price:'₹6,200',sent:82,mis:91},
-  {name:'BoAt',cat:'Budget Audio',color:'#C9A84C',score:79,price:'₹2,800',sent:71,mis:85},
-  {name:'Bose',cat:'Luxury Audio',color:'#2C2C2C',score:72,price:'₹9,500',sent:86,mis:78},
-  {name:'JBL',cat:'Mid-Range Audio',color:'#E8C97A',score:75,price:'₹4,200',sent:74,mis:80},
-  {name:'Noise',cat:'Budget Audio',color:'#5B8DB8',score:65,price:'₹2,200',sent:62,mis:70},
-  {name:'OnePlus',cat:'Tech Audio',color:'#FF4444',score:70,price:'₹3,900',sent:76,mis:74},
-  {name:'Jabra',cat:'Pro Audio',color:'#22C55E',score:68,price:'₹5,800',sent:79,mis:68},
-  {name:'Sennheiser',cat:'Studio Audio',color:'#9B59B6',score:65,price:'₹8,000',sent:84,mis:62},
-  {name:'Realme Buds',cat:'Budget TWS',color:'#FF6B35',score:60,price:'₹1,800',sent:58,mis:65},
-];
-
-const events = [
-  {color:'#C9A84C',text:'<strong>Sony XM6</strong> dropped price by ₹800 — triggering mid-tier repricing',date:'2 days ago'},
-  {color:'#22C55E',text:'<strong>Budget ANC</strong> search volume surpassed 340% 90-day growth milestone',date:'5 days ago'},
-  {color:'#EF4444',text:'<strong>BoAt Nirvana Ion</strong> flash sale — 50K units in 4 hours, stock depleted',date:'1 week ago'},
-  {color:'#5B8DB8',text:'<strong>JBL</strong> launched Tune 770NC targeting the ₹4K segment directly',date:'10 days ago'},
-  {color:'#C9A84C',text:'Sentiment spike: "comfort" keyword up 28% in Amazon reviews across category',date:'2 weeks ago'},
-  {color:'#22C55E',text:'New entrant <strong>CMF by Nothing</strong> crossed 10K reviews with 4.3★ avg',date:'3 weeks ago'},
-];
-
-const oppTags = [
-  {text:'Budget ANC segment underserved',type:'hot'},
-  {text:'Open-ear audio growing 180% YoY',type:'hot'},
-  {text:'Gaming headset crossover opportunity',type:'warm'},
-  {text:'Sports/fitness niche — low competition',type:'warm'},
-  {text:'Refurbished premium market emerging',type:'new'},
-  {text:'B2B corporate WFH procurement rising',type:'new'},
-  {text:'Kids audio — parental control features',type:'warm'},
-  {text:'Bone conduction tech — niche growing',type:'new'},
-];
-
-const chatRules = {
-  'demand': 'Demand rose 6.2% this week primarily due to a 340% surge in budget ANC search queries post-monsoon, coupled with a broader consumer electronics spend uptick. Sony\'s price cut also triggered category-wide interest.',
-  'competitor': 'BoAt is currently the most aggressive competitor — they executed a flash sale clearing 50K units and reduced price by 12% in 30 days. Sony is second, deploying a ₹800 price cut on the XM6 to defend premium share.',
-  'price war': 'Price war risk is elevated — at Medium-High. If BoAt drops another 5%, it crosses the ₹2,500 threshold which historically triggers a cascade of margin compression across mid-tier brands. Monitor their next 2-week pricing window closely.',
-};
+const WEEKS24 = Array.from({length:24},(_,i)=>`W${i+1}`);
 
 // ═══════════════════════════════════
 // NAVIGATION
 // ═══════════════════════════════════
 let charts = {};
 let dashboardLoaded = false;
-let simChartInst = null;
-let modalPriceInst = null, modalSentInst = null;
+let simChartInstance = null;
+let modalPriceChart = null, modalSentChart = null;
 
 function goPage(id) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
@@ -968,12 +702,12 @@ function goPage(id) {
   document.getElementById('page-' + id).classList.add('active');
   const navEl = document.querySelector(`[data-page="${id}"]`);
   if (navEl) navEl.classList.add('active');
-
   if (id === 'landing') animateCounters();
   if (id === 'dashboard' && !dashboardLoaded) loadDashboard();
   if (id === 'competitors') renderCompetitors();
   if (id === 'trends') renderTrends();
   if (id === 'simulator') initSimulator();
+  if (id === 'report') renderReport();
   if (id === 'pipeline') startPipeline();
 }
 
@@ -984,22 +718,13 @@ function toggleTheme() {
   const dark = document.documentElement.classList.toggle('dark');
   document.getElementById('themeBtn').textContent = dark ? '◑' : '☀';
   localStorage.setItem('intellim-theme', dark ? 'dark' : 'light');
-  // re-render charts for theme
-  if (dashboardLoaded) setTimeout(() => {
-    destroyCharts();
-    dashboardLoaded = false;
-    loadDashboard();
-  }, 100);
+  if (dashboardLoaded) setTimeout(() => { destroyCharts(); dashboardLoaded = false; loadDashboard(); }, 100);
 }
 if (localStorage.getItem('intellim-theme') === 'dark') {
   document.documentElement.classList.add('dark');
   document.getElementById('themeBtn').textContent = '◑';
 }
-
-function destroyCharts() {
-  Object.values(charts).forEach(c => { try { c.destroy() } catch(e){} });
-  charts = {};
-}
+function destroyCharts() { Object.values(charts).forEach(c => { try { c.destroy() } catch(e){} }); charts = {}; }
 
 // ═══════════════════════════════════
 // LANDING — animated bg + counters
@@ -1013,21 +738,17 @@ function destroyCharts() {
   function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     const W = canvas.width, H = canvas.height;
-    // Draw animated demand wave
     for (let wave = 0; wave < 3; wave++) {
       ctx.beginPath();
       ctx.strokeStyle = `rgba(201,168,76,${0.6 - wave * 0.15})`;
       ctx.lineWidth = 2 - wave * 0.4;
       for (let x = 0; x <= W; x += 2) {
-        const freq = 0.006 + wave * 0.002;
-        const amp = 60 + wave * 20;
-        const y = H / 2 + Math.sin(x * freq + t + wave * 1.2) * amp
+        const y = H / 2 + Math.sin(x * (0.006 + wave * 0.002) + t + wave * 1.2) * (60 + wave * 20)
                         + Math.sin(x * 0.003 + t * 0.7) * 30;
         x === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
       }
       ctx.stroke();
     }
-    // Grid dots
     ctx.fillStyle = 'rgba(201,168,76,0.15)';
     for (let gx = 0; gx < W; gx += 48)
       for (let gy = 0; gy < H; gy += 48)
@@ -1039,16 +760,15 @@ function destroyCharts() {
 })();
 
 function animateCounters() {
-  const targets = [248600, 12, 4312];
+  const targets = [D.kpis.total_rows, D.kpis.active_entities, D.kpis.total_alerts];
   const ids = ['cnt1','cnt2','cnt3'];
-  const fmts = [n => n.toLocaleString(), n => n, n => n.toLocaleString()];
   ids.forEach((id, i) => {
     let val = 0;
     const step = targets[i] / 60;
     const el = document.getElementById(id);
     const interval = setInterval(() => {
       val = Math.min(val + step, targets[i]);
-      el.textContent = fmts[i](Math.floor(val));
+      el.textContent = Math.floor(val).toLocaleString();
       if (val >= targets[i]) clearInterval(interval);
     }, 16);
   });
@@ -1064,21 +784,34 @@ function getChartColors() {
     text: dark ? '#EAE4D8' : '#0D0D0D',
     muted: dark ? '#9A9086' : '#6B6459',
     grid: dark ? 'rgba(201,168,76,0.08)' : 'rgba(201,168,76,0.15)',
-    gold: '#C9A84C',
-    goldLight: '#E8C97A',
-    surface: dark ? '#141414' : '#ffffff',
-    accent: '#1A3A5C',
+    gold: '#C9A84C', goldLight: '#E8C97A',
+    surface: dark ? '#141414' : '#ffffff', accent: '#1A3A5C',
   };
 }
 
 function loadDashboard() {
+  // Inject real KPIs
+  const K = D.kpis;
+  document.getElementById('kpi-demand').textContent = K.demand.toFixed(1);
+  document.getElementById('kpi-demand-chg').textContent = (K.demand_chg > 0 ? '↑ +' : '↓ ') + Math.abs(K.demand_chg) + '% this week';
+  document.getElementById('kpi-demand-chg').className = 'stat-delta ' + (K.demand_chg > 0 ? 'delta-up' : 'delta-dn');
+  document.getElementById('kpi-price').textContent = K.price.toFixed(1);
+  document.getElementById('kpi-price-chg').textContent = (K.price_chg > 0 ? '↑ +' : '↓ ') + Math.abs(K.price_chg) + '% vs last week';
+  document.getElementById('kpi-price-chg').className = 'stat-delta ' + (K.price_chg > 0 ? 'delta-up' : 'delta-dn');
+  document.getElementById('kpi-sent').textContent = K.sentiment.toFixed(1) + '%';
+  document.getElementById('kpi-sent-chg').textContent = (K.sent_chg > 0 ? '↑ +' : '↓ ') + Math.abs(K.sent_chg) + ' pts (30d)';
+  document.getElementById('kpi-sent-chg').className = 'stat-delta ' + (K.sent_chg > 0 ? 'delta-up' : 'delta-dn');
+  document.getElementById('kpi-brands').textContent = K.active_entities;
+  document.getElementById('kpi-cats').textContent = '7 categories · ' + K.active_brands + ' brands';
+  document.getElementById('gauge-val').textContent = K.sentiment.toFixed(0) + '%';
+
   setTimeout(() => {
     document.getElementById('dash-shimmer').style.display = 'none';
     document.getElementById('dash-real').style.display = 'block';
     renderDashCharts();
     renderTimeline();
     dashboardLoaded = true;
-  }, 1800);
+  }, 1400);
 }
 
 function renderDashCharts() {
@@ -1092,34 +825,28 @@ function renderDashCharts() {
     }
   };
 
-  // Demand trend
+  // Demand 12-week trend — REAL DATA
   charts.demand = new Chart(document.getElementById('demandTrendChart'), {
     type: 'line',
     data: {
       labels: WEEKS,
       datasets: [{
-        label: 'Demand Index',
-        data: demandData,
+        label: 'Avg Demand Index',
+        data: D.w12,
         borderColor: C.gold, backgroundColor: 'rgba(201,168,76,0.08)',
         fill: true, tension: 0.4, pointBackgroundColor: C.gold, pointRadius: 4,
       }]
     },
-    options: { ...baseOpts, plugins: { ...baseOpts.plugins,
-      annotation: { annotations: [{
-        type: 'line', yMin: 68, yMax: 68,
-        borderColor: 'rgba(239,68,68,0.4)', borderWidth: 1, borderDash: [4, 4],
-        label: { display: true, content: 'Baseline', color: '#EF4444', font: { size: 10 } }
-      }]}
-    }}
+    options: { ...baseOpts }
   });
 
-  // Scatter
+  // Scatter — REAL DATA: price index vs demand index top 14 products
   charts.scatter = new Chart(document.getElementById('scatterChart'), {
     type: 'scatter',
     data: {
       datasets: [{
-        label: 'Brands',
-        data: scatterData.map(d => ({ x: d.x, y: d.y, label: d.label })),
+        label: 'Products',
+        data: D.scatter.map(d => ({ x: d.x, y: d.y, label: d.label })),
         backgroundColor: C.gold, pointRadius: 7, pointHoverRadius: 10,
       }]
     },
@@ -1127,112 +854,96 @@ function renderDashCharts() {
       ...baseOpts,
       plugins: {
         ...baseOpts.plugins,
-        tooltip: { callbacks: { label: ctx => `${ctx.raw.label}: ₹${ctx.raw.x} | Rank #${ctx.raw.y}` } }
+        tooltip: { callbacks: { label: ctx => `${ctx.raw.label}: Price ${ctx.raw.x} | Demand ${ctx.raw.y}` } }
       },
       scales: {
-        x: { ...baseOpts.scales.x, title: { display: true, text: 'Price (₹)', color: C.muted } },
-        y: { ...baseOpts.scales.y, reverse: true, title: { display: true, text: 'Sales Rank', color: C.muted } },
+        x: { ...baseOpts.scales.x, title: { display: true, text: 'Price Index', color: C.muted } },
+        y: { ...baseOpts.scales.y, title: { display: true, text: 'Demand Index', color: C.muted } },
       }
     }
   });
 
-  // Gauge (doughnut)
+  // Gauge — REAL sentiment
+  const sentVal = D.kpis.sentiment;
   charts.gauge = new Chart(document.getElementById('gaugeChart'), {
     type: 'doughnut',
     data: {
       datasets: [{
-        data: [68, 32],
+        data: [sentVal, 100 - sentVal],
         backgroundColor: [C.gold, C.grid],
         borderWidth: 0, circumference: 240, rotation: 240,
       }]
     },
-    options: {
-      responsive: false, cutout: '78%',
-      plugins: { legend: { display: false }, tooltip: { enabled: false } }
-    }
+    options: { responsive: false, cutout: '78%', plugins: { legend: { display: false }, tooltip: { enabled: false } } }
   });
 
-  // Radar
+  // Radar — REAL top-3 brands
+  const radarColors = ['#1A3A5C', C.gold, '#888'];
   charts.radar = new Chart(document.getElementById('radarChart'), {
     type: 'radar',
     data: {
-      labels: radarLabels,
-      datasets: [
-        { label: 'Sony', data: [72, 82, 78, 85, 90], borderColor: '#1A3A5C', backgroundColor: 'rgba(26,58,92,0.1)', pointBackgroundColor: '#1A3A5C' },
-        { label: 'BoAt', data: [90, 71, 85, 78, 62], borderColor: C.gold, backgroundColor: 'rgba(201,168,76,0.1)', pointBackgroundColor: C.gold },
-        { label: 'Bose', data: [55, 86, 62, 70, 88], borderColor: '#888', backgroundColor: 'rgba(136,136,136,0.08)', pointBackgroundColor: '#888' },
-      ]
+      labels: ['Price Comp.', 'Sentiment', 'Demand', 'Search', 'Ad Index'],
+      datasets: D.radar.map((r, i) => ({
+        label: r.brand,
+        data: r.vals,
+        borderColor: radarColors[i],
+        backgroundColor: radarColors[i].replace(')', ', 0.1)').replace('rgb', 'rgba').replace('#1A3A5C','rgba(26,58,92,0.1)').replace(C.gold,'rgba(201,168,76,0.1)').replace('#888','rgba(136,136,136,0.08)'),
+        pointBackgroundColor: radarColors[i]
+      }))
     },
     options: {
       responsive: true, maintainAspectRatio: false,
       plugins: { legend: { labels: { color: C.text } } },
-      scales: {
-        r: {
-          ticks: { color: C.muted, backdropColor: 'transparent', font: { size: 9 } },
-          grid: { color: C.grid }, pointLabels: { color: C.text, font: { size: 10 } },
-          min: 0, max: 100,
-        }
-      }
+      scales: { r: { ticks: { color: C.muted, backdropColor: 'transparent', font: { size: 9 } }, grid: { color: C.grid }, pointLabels: { color: C.text, font: { size: 10 } }, min: 0, max: 100 } }
     }
   });
 }
 
 function renderTimeline() {
   const el = document.getElementById('eventTimeline');
-  el.innerHTML = events.map(e => `
+  el.innerHTML = D.events.map(e => `
     <div class="tl-item">
       <div class="tl-dot" style="background:${e.color}"></div>
       <div>
-        <div class="tl-text">${e.text}</div>
+        <div class="tl-text"><strong>${e.brand}</strong>: ${e.explanation}</div>
         <div class="tl-date">${e.date}</div>
       </div>
     </div>
   `).join('');
 }
 
-// ═══════════════════════════════════
-// FILTER BAR
-// ═══════════════════════════════════
 function toggleFilter(el) {
   el.closest('.filter-bar').querySelectorAll('.filter-chip').forEach(c => c.classList.remove('on'));
   el.classList.add('on');
 }
 
 // ═══════════════════════════════════
-// COMPETITORS
+// COMPETITORS — REAL DATA
 // ═══════════════════════════════════
 function renderCompetitors() {
   const grid = document.getElementById('compGrid');
   if (grid.children.length) return;
-  grid.innerHTML = competitors.map((c, i) => `
+  grid.innerHTML = D.competitors.map((c, i) => `
     <div class="comp-card" onclick="openModal(${i})">
-      <div class="comp-logo" style="background:${c.color}20;color:${c.color}">${c.name[0]}</div>
+      <div class="comp-logo" style="background:${c.color}22;color:${c.color}">${c.name[0]}</div>
       <div class="comp-name">${c.name}</div>
-      <div class="comp-cat">${c.cat}</div>
+      <div class="comp-cat">${c.cat} · ${c.product}</div>
       <div class="comp-score-row">
-        <div class="comp-score-bar-bg">
-          <div class="comp-score-bar" style="width:${c.score}%"></div>
-        </div>
+        <div class="comp-score-bar-bg"><div class="comp-score-bar" style="width:${c.score}%"></div></div>
         <div class="comp-score-val">${c.score}</div>
       </div>
     </div>
   `).join('');
 }
 
-let modalPriceChart = null, modalSentChart = null;
-
 function openModal(idx) {
-  const c = competitors[idx];
-  document.getElementById('modal-brand-name').textContent = c.name + ' — Competitive Profile';
+  const c = D.competitors[idx];
+  document.getElementById('modal-brand-name').textContent = c.name + ' — ' + c.product;
   document.getElementById('modal-stats').innerHTML = `
-    <div class="stat-card"><div class="stat-label">Avg Price</div><div class="stat-value" style="font-size:22px">${c.price}</div></div>
-    <div class="stat-card"><div class="stat-label">Sentiment</div><div class="stat-value" style="font-size:22px">${c.sent}%</div></div>
-    <div class="stat-card"><div class="stat-label">Impact Score</div><div class="stat-value" style="font-size:22px">${c.mis}</div></div>
+    <div class="stat-card"><div class="stat-label">Avg Price Index</div><div class="stat-value" style="font-size:22px">${c.price.toFixed(0)}</div></div>
+    <div class="stat-card"><div class="stat-label">Sentiment</div><div class="stat-value" style="font-size:22px">${c.sent.toFixed(1)}%</div></div>
+    <div class="stat-card"><div class="stat-label">Health Score</div><div class="stat-value" style="font-size:22px">${c.score}</div></div>
   `;
-
-  const priceBase = parseInt(c.price.replace(/[₹,]/g,''));
-  const priceHistory = WEEKS.map((_, i) => Math.round(priceBase + (Math.random() - 0.5) * priceBase * 0.1 - i * priceBase * 0.005));
-  const sentHistory = WEEKS.map((_, i) => Math.max(40, Math.min(95, c.sent + (Math.random() - 0.5) * 10 + i * 0.5)));
 
   const C = getChartColors();
   if (modalPriceChart) modalPriceChart.destroy();
@@ -1240,20 +951,20 @@ function openModal(idx) {
 
   modalPriceChart = new Chart(document.getElementById('modalPriceChart'), {
     type: 'line',
-    data: { labels: WEEKS, datasets: [{ label: 'Price ₹', data: priceHistory, borderColor: C.gold, backgroundColor: 'rgba(201,168,76,0.07)', fill: true, tension: 0.4, pointRadius: 3 }] },
+    data: { labels: WEEKS, datasets: [{ label: 'Price Index', data: c.price_history, borderColor: C.gold, backgroundColor: 'rgba(201,168,76,0.07)', fill: true, tension: 0.4, pointRadius: 3 }] },
     options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { ticks: { color: C.muted }, grid: { color: C.grid } }, y: { ticks: { color: C.muted }, grid: { color: C.grid } } } }
   });
   modalSentChart = new Chart(document.getElementById('modalSentChart'), {
     type: 'bar',
-    data: { labels: WEEKS, datasets: [{ label: 'Sentiment %', data: sentHistory, backgroundColor: sentHistory.map(v => v > 70 ? 'rgba(34,197,94,0.5)' : 'rgba(239,68,68,0.4)'), borderRadius: 4 }] },
+    data: { labels: WEEKS, datasets: [{ label: 'Sentiment %', data: c.sent_history, backgroundColor: c.sent_history.map(v => v > 75 ? 'rgba(34,197,94,0.5)' : v > 60 ? 'rgba(201,168,76,0.5)' : 'rgba(239,68,68,0.4)'), borderRadius: 4 }] },
     options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { ticks: { color: C.muted }, grid: { display: false } }, y: { ticks: { color: C.muted }, grid: { color: C.grid }, min: 40, max: 100 } } }
   });
 
   document.getElementById('modal-progress').innerHTML = `
-    <div class="progress-wrap"><div class="progress-label"><span>Brand Awareness</span><span>${Math.round(c.mis * 0.95)}%</span></div><div class="progress-bg"><div class="progress-fill" style="width:${c.mis * 0.95}%;background:#1A3A5C"></div></div></div>
-    <div class="progress-wrap"><div class="progress-label"><span>Ad Efficiency</span><span>${Math.round(c.mis * 0.88)}%</span></div><div class="progress-bg"><div class="progress-fill" style="width:${c.mis * 0.88}%;background:${C.gold}"></div></div></div>
-    <div class="progress-wrap"><div class="progress-label"><span>Content Virality</span><span>${Math.round(c.mis * 0.72)}%</span></div><div class="progress-bg"><div class="progress-fill" style="width:${c.mis * 0.72}%;background:#22C55E"></div></div></div>
-    <div class="progress-wrap"><div class="progress-label"><span>Influencer Reach</span><span>${Math.round(c.mis * 0.65)}%</span></div><div class="progress-bg"><div class="progress-fill" style="width:${c.mis * 0.65}%;background:#5B8DB8"></div></div></div>
+    <div class="progress-wrap"><div class="progress-label"><span>Demand Index</span><span>${c.demand.toFixed(1)}</span></div><div class="progress-bg"><div class="progress-fill" style="width:${Math.min(100,c.demand)}%;background:#1A3A5C"></div></div></div>
+    <div class="progress-wrap"><div class="progress-label"><span>Ad Efficiency</span><span>${c.mis.toFixed(0)}%</span></div><div class="progress-bg"><div class="progress-fill" style="width:${c.mis}%;background:${c.color}"></div></div></div>
+    <div class="progress-wrap"><div class="progress-label"><span>Sentiment Health</span><span>${c.sent.toFixed(1)}%</span></div><div class="progress-bg"><div class="progress-fill" style="width:${c.sent}%;background:#22C55E"></div></div></div>
+    <div class="progress-wrap"><div class="progress-label"><span>Overall Health Score</span><span>${c.score.toFixed(1)}</span></div><div class="progress-bg"><div class="progress-fill" style="width:${c.score}%;background:#5B8DB8"></div></div></div>
   `;
 
   document.getElementById('compModal').classList.add('open');
@@ -1264,64 +975,70 @@ function closeModal(e) {
 }
 
 // ═══════════════════════════════════
-// TRENDS
+// TRENDS — REAL DATA
 // ═══════════════════════════════════
 function renderTrends() {
   if (document.getElementById('buzzHeatmap').children.length) return;
   const C = getChartColors();
 
-  // Search area chart
-  const searchData = [38, 42, 45, 40, 52, 58, 62, 55, 60, 68, 74, 72, 78, 82, 79, 85, 88, 84, 90, 94, 89, 96, 92, 98];
-  if (!charts.search) charts.search = new Chart(document.getElementById('searchAreaChart'), {
+  // Real search trends
+  charts.search = new Chart(document.getElementById('searchAreaChart'), {
     type: 'line',
     data: {
-      labels: Array.from({length:24}, (_,i) => `W${i+1}`),
+      labels: WEEKS24,
       datasets: [
-        { label: 'ANC Headphones', data: searchData, borderColor: C.gold, backgroundColor: 'rgba(201,168,76,0.12)', fill: true, tension: 0.4, pointRadius: 0 },
-        { label: 'TWS Earbuds', data: searchData.map(v => v * 0.75 + Math.random()*5), borderColor: '#5B8DB8', backgroundColor: 'rgba(91,141,184,0.07)', fill: true, tension: 0.4, pointRadius: 0 },
+        { label: 'Earbuds', data: D.earbuds_s, borderColor: C.gold, backgroundColor: 'rgba(201,168,76,0.12)', fill: true, tension: 0.4, pointRadius: 0 },
+        { label: 'Smartphones', data: D.phones_s, borderColor: '#5B8DB8', backgroundColor: 'rgba(91,141,184,0.07)', fill: true, tension: 0.4, pointRadius: 0 },
       ]
     },
     options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { labels: { color: C.text } } }, scales: { x: { ticks: { color: C.muted, maxTicksLimit: 8 }, grid: { color: C.grid } }, y: { ticks: { color: C.muted }, grid: { color: C.grid } } } }
   });
 
-  // Heatmap
+  // Real buzz heatmap
   const hm = document.getElementById('buzzHeatmap');
-  for (let i = 0; i < 56; i++) {
-    const val = Math.random();
-    const alpha = 0.1 + val * 0.9;
+  D.buzz.forEach(val => {
+    const norm = val / 100;
     const cell = document.createElement('div');
     cell.className = 'heatmap-cell';
-    const r = Math.round(201 * val + 30 * (1 - val));
-    const g = Math.round(168 * val + 60 * (1 - val));
-    const b = Math.round(76 * val + 120 * (1 - val));
-    cell.style.background = `rgba(${r},${g},${b},${alpha})`;
-    cell.title = `Activity: ${Math.round(val * 100)}%`;
+    const r = Math.round(201 * norm + 30 * (1-norm));
+    const g = Math.round(168 * norm + 60 * (1-norm));
+    const b = Math.round(76 * norm + 120 * (1-norm));
+    cell.style.background = `rgba(${r},${g},${b},${0.1 + norm*0.9})`;
+    cell.title = `Market Intensity: ${val.toFixed(0)}%`;
     hm.appendChild(cell);
-  }
+  });
 
-  // Opportunity tags
+  // Regime-shift derived opportunity tags
+  const oppTags = [
+    {text:'Headphones: highest avg demand (51.5)', type:'hot'},
+    {text:'Bluetooth Speakers: strong momentum', type:'hot'},
+    {text:'Apr–Jun regime: 3 positive shifts', type:'new'},
+    {text:'Smartphones: 15 products, rising search', type:'warm'},
+    {text:'Earbuds: 12-week search acceleration', type:'warm'},
+    {text:'Tablets: growing sentiment 72%', type:'new'},
+    {text:'Power Banks: stable demand base', type:'warm'},
+    {text:'Smartwatches: sentiment gap opportunity', type:'new'},
+  ];
   const tagsEl = document.getElementById('oppTags');
   if (!tagsEl.children.length)
     tagsEl.innerHTML = oppTags.map(t => `<div class="opp-tag ${t.type}">${t.text}</div>`).join('');
 }
 
 // ═══════════════════════════════════
-// SIMULATOR
+// SIMULATOR — REAL BASELINE
 // ═══════════════════════════════════
-const baselineSim = [62,65,61,67,70,68,72,69,74,71,76,74];
-let simChartInstance = null;
-
 function initSimulator() {
   const C = getChartColors();
   if (simChartInstance) simChartInstance.destroy();
+  document.getElementById('proj-demand').textContent = D.kpis.demand.toFixed(1);
 
   simChartInstance = new Chart(document.getElementById('simChart'), {
     type: 'line',
     data: {
       labels: WEEKS,
       datasets: [
-        { label: 'Baseline', data: [...baselineSim], borderColor: 'rgba(201,168,76,0.4)', borderDash: [5,4], fill: false, tension: 0.4, pointRadius: 0 },
-        { label: 'Projected', data: [...baselineSim], borderColor: '#C9A84C', backgroundColor: 'rgba(201,168,76,0.08)', fill: true, tension: 0.4, pointRadius: 4, pointBackgroundColor: '#C9A84C' },
+        { label: 'Baseline (Actual 12-Week Avg)', data: [...D.w12], borderColor: 'rgba(201,168,76,0.4)', borderDash: [5,4], fill: false, tension: 0.4, pointRadius: 0 },
+        { label: 'Projected', data: [...D.w12], borderColor: '#C9A84C', backgroundColor: 'rgba(201,168,76,0.08)', fill: true, tension: 0.4, pointRadius: 4, pointBackgroundColor: '#C9A84C' },
       ]
     },
     options: {
@@ -1329,7 +1046,7 @@ function initSimulator() {
       plugins: { legend: { labels: { color: C.text } } },
       scales: {
         x: { ticks: { color: C.muted }, grid: { color: C.grid } },
-        y: { ticks: { color: C.muted }, grid: { color: C.grid }, min: 50, max: 100 }
+        y: { ticks: { color: C.muted }, grid: { color: C.grid }, min: 35, max: 70 }
       },
       animation: { duration: 600 }
     }
@@ -1355,7 +1072,7 @@ function updateSim() {
   document.getElementById('si-ads').textContent = '+' + adsLift.toFixed(1) + ' pts';
   document.getElementById('si-sent').textContent = '+' + sentLift.toFixed(1) + ' pts';
 
-  const projected = (74.3 + totalLift).toFixed(1);
+  const projected = (D.kpis.demand + totalLift).toFixed(1);
   document.getElementById('proj-demand').textContent = projected;
 
   const badge = document.getElementById('proj-badge');
@@ -1372,9 +1089,9 @@ function updateSim() {
   }
 
   if (simChartInstance) {
-    const projected_data = baselineSim.map((v, i) => {
-      const ramp = i / (baselineSim.length - 1);
-      return +(v + totalLift * ramp + (Math.random() - 0.5) * 0.6).toFixed(1);
+    const projected_data = D.w12.map((v, i) => {
+      const ramp = i / (D.w12.length - 1);
+      return +(v + totalLift * ramp + (Math.random() - 0.5) * 0.4).toFixed(1);
     });
     simChartInstance.data.datasets[1].data = projected_data;
     simChartInstance.update('none');
@@ -1382,25 +1099,48 @@ function updateSim() {
 }
 
 // ═══════════════════════════════════
-// PIPELINE
+// REPORT — REAL DATA
+// ═══════════════════════════════════
+function renderReport() {
+  const R = D.report;
+  document.getElementById('report-p1').innerHTML = `
+    The <strong>Consumer Electronics market</strong> tracked across ${R.total_entities} products and ${R.total_brands} brands shows <strong>${R.top_cat}</strong> as the highest-demand category with an average demand index of <strong>${R.top_cat_demand}</strong> and sentiment of <strong>${R.top_cat_sent}%</strong>. The overall market saw <strong>${R.total_alerts} signal events</strong> between January and June 2025, including 6 confirmed regime shifts in market structure.
+  `;
+  document.getElementById('report-p2').innerHTML = `
+    <strong>${R.best_brand}</strong> leads the competitive landscape with the highest health index of <strong>${R.best_brand_health}</strong>. Average market price index declined <strong>${Math.abs(R.price_30d_chg)}%</strong> over the last 30 days, indicating modest pricing compression across categories. Sentiment across Headphones sits at <strong>${R.headphones_sent}%</strong> positive, the highest of all tracked categories.
+  `;
+  document.getElementById('report-p3').innerHTML = `
+    Structural regime analysis identified <strong>3 positive and 3 negative demand shifts</strong> between April and June 2025, with the most recent positive shift on <strong>June 21, 2025</strong>. The most volatile anomaly events were concentrated in audio categories — BassAudio, WaveAudio, and DeepAudio all recorded severity scores above 3.4, indicating above-baseline demand spikes requiring further monitoring.
+  `;
+
+  document.getElementById('report-insights').innerHTML = [
+    `<strong>${R.top_cat}</strong> is the dominant category — allocate ad spend proportionally to maintain momentum as sentiment is already at ${R.top_cat_sent}%.`,
+    `Monitor <strong>BassAudio, WaveAudio, DeepAudio</strong> — all triggered high-severity anomalies (>3.4) indicating potential event-driven demand instability.`,
+    `The ${Math.abs(R.price_30d_chg)}% price index decline over 30 days warrants a pricing review to determine if structural compression or promotional activity is driving it.`,
+    `The June 21 positive regime shift creates a window for accelerated launch or campaign activity across high-health brands like <strong>${R.best_brand}</strong>.`
+  ].map(t => `<div class="insight-item"><div class="insight-bullet"></div><div class="insight-text">${t}</div></div>`).join('');
+}
+
+// ═══════════════════════════════════
+// PIPELINE — REAL STATS
 // ═══════════════════════════════════
 const logLines = [
-  { text: '[00:00.12] Initialising data pipeline…', cls: 'info' },
-  { text: '[00:00.34] Connecting to Amazon Reviews API…', cls: '' },
-  { text: '[00:00.71] Fetched 42,618 reviews (last 30 days)', cls: '' },
-  { text: '[00:01.02] Detecting structural shift in ANC demand…', cls: 'warn' },
-  { text: '[00:01.45] Computing sentiment stability index…', cls: '' },
-  { text: '[00:01.89] Sentiment score: 68.4% (↑3.1 pts)', cls: '' },
-  { text: '[00:02.11] Running lag-feature extraction (k=7)…', cls: 'info' },
-  { text: '[00:02.44] Seasonality decomposition complete', cls: '' },
-  { text: '[00:02.89] Price anomaly detected: Sony XM6 −₹800', cls: 'warn' },
-  { text: '[00:03.12] Cross-brand price elasticity: 0.74', cls: '' },
-  { text: '[00:03.55] Feeding features into DemandIndex model…', cls: 'info' },
-  { text: '[00:04.01] DemandIndex prediction: 74.3 (↑6.2%)', cls: '' },
-  { text: '[00:04.44] Generating opportunity tags…', cls: 'info' },
-  { text: '[00:04.78] Budget ANC gap confidence: 91%', cls: 'warn' },
-  { text: '[00:05.01] Compiling insight narrative…', cls: '' },
-  { text: '[00:05.33] Pipeline complete ✓ 8 insights generated', cls: '' },
+  { text: '[00:00.12] Initialising Intelli-M data pipeline…', cls: 'info' },
+  { text: '[00:00.34] Loading 6,750 rows across 70 products…', cls: '' },
+  { text: '[00:00.71] Parsed 7 categories, 73 brands', cls: '' },
+  { text: '[00:01.02] Running lag-feature extraction (k=1,2,3,7)…', cls: 'warn' },
+  { text: '[00:01.45] Engineering 168 features per row…', cls: '' },
+  { text: '[00:01.89] Z-score normalisation complete', cls: '' },
+  { text: '[00:02.11] Regime shift detection: rolling MA-7 vs MA-14…', cls: 'info' },
+  { text: '[00:02.44] 6 regime shifts detected (Apr–Jun 2025)', cls: 'warn' },
+  { text: '[00:02.89] XGBoost demand model: predicting demand_index…', cls: 'info' },
+  { text: '[00:03.12] MAE: 1.24 | R²: 0.91 — model accepted', cls: '' },
+  { text: '[00:03.55] Scoring all 6,750 rows…', cls: '' },
+  { text: '[00:04.01] Generating 677 signal alerts across products', cls: 'warn' },
+  { text: '[00:04.44] Top anomaly: BassAudio severity 3.49 (Apr-24)', cls: 'warn' },
+  { text: '[00:04.78] Computing health_index & composite scores…', cls: 'info' },
+  { text: '[00:05.01] Best: LuxBrand health=99.4', cls: '' },
+  { text: '[00:05.33] Pipeline complete ✓ Dashboard ready', cls: '' },
 ];
 
 let pipelineDone = false;
@@ -1411,7 +1151,6 @@ function startPipeline() {
   const nodes = [0,1,2,3].map(i => document.getElementById('pn-'+i));
   nodes.forEach(n => n.classList.remove('active-node'));
   nodes[0].classList.add('active-node');
-
   let lineIdx = 0;
   const interval = setInterval(() => {
     if (lineIdx >= logLines.length) { clearInterval(interval); return; }
@@ -1421,8 +1160,6 @@ function startPipeline() {
     div.textContent = l.text;
     terminal.appendChild(div);
     terminal.scrollTop = terminal.scrollHeight;
-
-    // advance pipeline nodes
     if (lineIdx === 3) { nodes[0].classList.remove('active-node'); nodes[1].classList.add('active-node'); }
     if (lineIdx === 7) { nodes[1].classList.remove('active-node'); nodes[2].classList.add('active-node'); }
     if (lineIdx === 12) { nodes[2].classList.remove('active-node'); nodes[3].classList.add('active-node'); }
@@ -1433,9 +1170,7 @@ function startPipeline() {
 // ═══════════════════════════════════
 // CHATBOT
 // ═══════════════════════════════════
-function toggleChat() {
-  document.getElementById('chatPanel').classList.toggle('open');
-}
+function toggleChat() { document.getElementById('chatPanel').classList.toggle('open'); }
 
 function addBotMsg(text) {
   const msgs = document.getElementById('chatMsgs');
@@ -1456,7 +1191,6 @@ function addUserMsg(text) {
   msgs.scrollTop = msgs.scrollHeight;
 }
 
-// ─── floating chatbot state ───
 let _floatChatId = null;
 
 async function _ensureFloatChat() {
@@ -1472,14 +1206,12 @@ async function sendChat() {
   if (!msg) return;
   input.value = '';
   addUserMsg(msg);
-  // show typing dots
   const msgs = document.getElementById('chatMsgs');
   const dots = document.createElement('div');
   dots.className = 'chat-bubble bot';
   dots.innerHTML = '<span style="letter-spacing:.2em">···</span>';
   msgs.appendChild(dots);
   msgs.scrollTop = msgs.scrollHeight;
-
   await _ensureFloatChat();
   try {
     const res = await fetch('/chat', {
@@ -1501,9 +1233,6 @@ function sendQ(btn) {
   sendChat();
 }
 
-// ═══════════════════════════════════
-// REPORT — fake PDF download
-// ═══════════════════════════════════
 function fakeDL() {
   const btn = document.querySelector('.dl-btn');
   const orig = btn.innerHTML;
