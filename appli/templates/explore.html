@@ -197,11 +197,15 @@ a{text-decoration:none;color:inherit}
 .filter-chip.on{background:rgba(201,168,76,.12);border-color:var(--gold);color:var(--gold)}
 
 /* ══ COMPETITORS ══ */
-.comp-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px}
-.comp-card{background:var(--surface);border:1px solid var(--card-border);border-radius:12px;padding:20px;cursor:pointer;transition:border-color .2s,transform .15s;}
-.comp-card:hover{border-color:var(--gold);transform:translateY(-2px)}
-.comp-logo{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600;margin-bottom:12px;}
-.comp-name{font-size:15px;font-weight:500;color:var(--text);margin-bottom:4px}
+.comp-page-header{text-align:center;padding:28px 0 20px;flex-shrink:0;}
+.comp-page-title{font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:300;color:var(--text);letter-spacing:-.01em}
+.comp-page-title em{font-style:italic;color:var(--gold)}
+.comp-page-sub{font-size:12px;color:var(--text-hint);letter-spacing:.12em;text-transform:uppercase;margin-top:6px}
+.comp-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.comp-card{background:var(--surface);border:1px solid var(--card-border);border-radius:16px;padding:26px 22px;cursor:pointer;transition:border-color .25s,transform .2s,box-shadow .2s;}
+.comp-card:hover{border-color:var(--gold);transform:translateY(-3px);box-shadow:0 12px 40px rgba(201,168,76,0.1)}
+.comp-logo{width:52px;height:52px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:600;margin-bottom:14px;}
+.comp-name{font-size:16px;font-weight:500;color:var(--text);margin-bottom:5px}
 .comp-cat{font-size:11px;color:var(--text-muted);letter-spacing:.04em}
 .comp-score-row{display:flex;align-items:center;gap:8px;margin-top:12px}
 .comp-score-bar-bg{flex:1;height:4px;background:var(--surface2);border-radius:2px;overflow:hidden}
@@ -301,6 +305,32 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;heigh
 .quick-qs{display:flex;flex-direction:column;gap:4px;padding:0 14px 10px}
 .quick-q{padding:5px 10px;border:1px solid var(--card-border);border-radius:6px;font-size:11px;color:var(--text-muted);cursor:pointer;transition:all .15s;background:none;font-family:'DM Sans',sans-serif;text-align:left;}
 .quick-q:hover{border-color:var(--gold);color:var(--gold)}
+
+/* ══ POINT ANALYSIS BUTTON ══ */
+.analysis-fab{
+  position:fixed;bottom:96px;right:100px;z-index:98;
+  display:flex;align-items:center;gap:10px;
+  padding:12px 20px;
+  background:var(--accent);color:#fff;
+  border:1px solid rgba(26,58,92,0.6);border-radius:100px;
+  font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;
+  cursor:pointer;
+  box-shadow:0 8px 32px rgba(26,58,92,0.35);
+  opacity:0;transform:translateY(20px) scale(.95);pointer-events:none;
+  transition:opacity .3s,transform .3s;letter-spacing:.04em;
+}
+.analysis-fab.show{opacity:1;transform:translateY(0) scale(1);pointer-events:all}
+.analysis-fab:hover{background:#1d4570}
+.analysis-fab .fab-dot{width:7px;height:7px;border-radius:50%;animation:pulseFab 1.5s infinite;}
+.fab-dot-a{background:#22C55E}.fab-dot-b{background:#E8C97A}
+@keyframes pulseFab{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.6;transform:scale(1.4)}}
+.sel-hint{
+  position:absolute;top:8px;right:12px;
+  font-size:10px;letter-spacing:.1em;color:var(--gold);
+  opacity:0;transition:opacity .3s;pointer-events:none;
+  text-transform:uppercase;
+}
+.sel-hint.show{opacity:1}
 </style>
 </head>
 <body>
@@ -426,8 +456,9 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;heigh
       </div>
 
       <div class="grid-2" style="margin-bottom:16px">
-        <div class="card">
+        <div class="card" style="position:relative">
           <div class="card-title" id="demand-chart-title">Demand Index — 12-Week Trend (Weekly Avg)</div>
+          <div class="sel-hint" id="selHint">Click 2 points to analyse</div>
           <div class="chart-container"><canvas id="demandTrendChart"></canvas></div>
         </div>
         <div class="card">
@@ -467,7 +498,11 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;heigh
     <div class="topbar-title">Competitor <em>Explorer</em></div>
     <div class="badge"><div class="dot-live"></div>Top 12 by Health Index</div>
   </div>
-  <div class="scroll-area">
+  <div class="comp-page-header">
+    <div class="comp-page-title">Competitor <em>Explorer</em></div>
+    <div class="comp-page-sub">Top 12 brands · Ranked by Health Index · Jan–Jun 2025</div>
+  </div>
+  <div class="scroll-area" style="padding-top:4px">
     <div class="comp-grid" id="compGrid"></div>
   </div>
 </div>
@@ -493,6 +528,24 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;heigh
         <div class="card-title">Market Intensity Heatmap — 8 Weeks × 7 Days</div>
         <div class="heatmap-label">Mon → Sun (most recent 56 days)</div>
         <div id="buzzHeatmap" class="heatmap-grid"></div>
+      </div>
+    </div>
+    <!-- PIE CHART — intensity share by brand per week -->
+    <div class="grid-2" style="margin-bottom:16px">
+      <div class="card">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+          <div class="card-title" style="margin-bottom:0" id="pie-chart-title">Demand Share by Brand — Week 1</div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <button onclick="shiftPieWeek(-1)" style="width:28px;height:28px;border-radius:6px;border:1px solid var(--card-border);background:none;cursor:pointer;color:var(--gold);font-size:14px;display:flex;align-items:center;justify-content:center;transition:background .2s" onmouseover="this.style.background='rgba(201,168,76,0.1)'" onmouseout="this.style.background='none'">‹</button>
+            <span id="pie-week-label" style="font-size:11px;color:var(--gold);letter-spacing:.1em;min-width:32px;text-align:center">W1</span>
+            <button onclick="shiftPieWeek(1)" style="width:28px;height:28px;border-radius:6px;border:1px solid var(--card-border);background:none;cursor:pointer;color:var(--gold);font-size:14px;display:flex;align-items:center;justify-content:center;transition:background .2s" onmouseover="this.style.background='rgba(201,168,76,0.1)'" onmouseout="this.style.background='none'">›</button>
+          </div>
+        </div>
+        <div style="height:220px;position:relative"><canvas id="intensityPieChart"></canvas></div>
+      </div>
+      <div class="card">
+        <div class="card-title">Weekly Intensity Trend — All 3 Brands</div>
+        <div style="height:220px;position:relative"><canvas id="intensityBarChart"></canvas></div>
       </div>
     </div>
     <div class="card">
@@ -639,6 +692,13 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;heigh
   <div class="ai-avatar" onclick="toggleChat()">I</div>
 </div>
 
+<!-- POINT ANALYSIS FAB -->
+<button class="analysis-fab" id="analysisFab" onclick="triggerPointAnalysis()">
+  <span class="fab-dot fab-dot-a"></span>
+  Analyse Selected Range
+  <span class="fab-dot fab-dot-b"></span>
+</button>
+
 <div class="chat-panel" id="chatPanel">
   <div class="chat-panel-header">
     <div class="chat-panel-title">IntelliM Assistant</div>
@@ -701,6 +761,7 @@ const WEEKS24 = Array.from({length:24},(_,i)=>`W${i+1}`);
 // ═══════════════════════════════════
 let charts = {};
 let dashboardLoaded = false;
+let selectedPoints = [];
 let simChartInstance = null;
 let modalPriceChart = null, modalSentChart = null;
 
@@ -739,6 +800,8 @@ function toggleTheme() {
   if (trendsRendered) {
     trendsRendered = false;
     if (trendsChartInstance) { trendsChartInstance.destroy(); trendsChartInstance = null; }
+    if (intensityPieChart) { intensityPieChart.destroy(); intensityPieChart = null; }
+    if (intensityBarChart) { intensityBarChart.destroy(); intensityBarChart = null; }
     document.getElementById('buzzHeatmap').innerHTML = '';
     document.getElementById('oppTags').innerHTML = '';
     renderTrends();
@@ -830,6 +893,11 @@ function loadDashboard() {
     renderDashCharts();
     renderTimeline(null);
     dashboardLoaded = true;
+    // Show selection hint
+    setTimeout(() => {
+      const selHint = document.getElementById('selHint');
+      if (selHint) { selHint.classList.add('show'); selHint.textContent = 'Click 2 points to analyse'; }
+    }, 400);
   }, 1400);
 }
 
@@ -844,7 +912,8 @@ function renderDashCharts() {
     }
   };
 
-  // Demand 12-week trend — REAL DATA
+  // Demand 12-week trend — REAL DATA with click-two-points analysis
+  selectedPoints = []; // reset global
   charts.demand = new Chart(document.getElementById('demandTrendChart'), {
     type: 'line',
     data: {
@@ -853,12 +922,37 @@ function renderDashCharts() {
         label: 'Avg Demand Index',
         data: D.w12,
         borderColor: C.gold, backgroundColor: 'rgba(201,168,76,0.08)',
-        fill: true, tension: 0.4, pointBackgroundColor: C.gold, pointRadius: 4,
+        fill: true, tension: 0.4, pointBackgroundColor: D.w12.map(() => C.gold),
+        pointRadius: D.w12.map(() => 4), pointHoverRadius: 8,
       }]
     },
-    options: { ...baseOpts }
+    options: {
+      ...baseOpts,
+      onClick: (evt, elements) => {
+        if (!elements.length) return;
+        const idx = elements[0].index;
+        const selHint = document.getElementById('selHint');
+        if (selectedPoints.length === 0) {
+          selectedPoints = [idx];
+          selHint.classList.add('show');
+          selHint.textContent = `Point 1 selected (${WEEKS[idx]}) — click another`;
+          highlightDemandPoint(idx, null);
+        } else if (selectedPoints.length === 1) {
+          if (selectedPoints[0] === idx) return;
+          const sorted = [selectedPoints[0], idx].sort((a,b) => a-b);
+          selectedPoints = sorted;
+          selHint.textContent = `${WEEKS[sorted[0]]} → ${WEEKS[sorted[1]]} selected`;
+          highlightDemandPoint(sorted[0], sorted[1]);
+          document.getElementById('analysisFab').classList.add('show');
+        } else {
+          selectedPoints = [idx];
+          selHint.textContent = `Point 1 selected (${WEEKS[idx]}) — click another`;
+          highlightDemandPoint(idx, null);
+          document.getElementById('analysisFab').classList.remove('show');
+        }
+      }
+    }
   });
-
   // Scatter — REAL DATA: price index vs demand index top 14 products
   charts.scatter = new Chart(document.getElementById('scatterChart'), {
     type: 'scatter',
@@ -1011,7 +1105,15 @@ function updateDashboardData(cat) {
 function updateDemandChart(data) {
   if (!charts.demand) return;
   charts.demand.data.datasets[0].data = data;
+  charts.demand.data.datasets[0].pointBackgroundColor = data.map(() => getChartColors().gold);
+  charts.demand.data.datasets[0].pointRadius = data.map(() => 4);
   charts.demand.update('active');
+  // reset selection
+  selectedPoints = [];
+  document.getElementById('analysisFab').classList.remove('show');
+  const selHint = document.getElementById('selHint');
+  selHint.classList.add('show');
+  selHint.textContent = 'Click 2 points to analyse';
 }
 
 function updateScatterChart(data) {
@@ -1175,6 +1277,11 @@ function renderTrends() {
       }
     }
   });
+
+  // Init intensity charts
+  currentPieWeek = 0;
+  currentPieCat = 'headphones';
+  renderIntensityCharts('headphones');
 }
 
 function updateTrendsChart(cat) {
@@ -1190,6 +1297,136 @@ function updateTrendsChart(cat) {
     fill: false, tension: 0.4, pointRadius: 3, pointHoverRadius: 5, borderWidth: 2,
   }));
   trendsChartInstance.update('active');
+  // Reset pie to W1 for new category
+  currentPieWeek = 0;
+  currentPieCat = cat;
+  renderIntensityCharts(cat);
+}
+
+// ═══════════════════════════════════
+// DEMAND CHART — POINT SELECTION ANALYSIS
+// ═══════════════════════════════════
+
+function highlightDemandPoint(a, b) {
+  if (!charts.demand) return;
+  const C = getChartColors();
+  const len = charts.demand.data.datasets[0].data.length;
+  const radii = new Array(len).fill(4);
+  const colors = new Array(len).fill(C.gold);
+  radii[a] = 8; colors[a] = '#22C55E';
+  if (b !== null) { radii[b] = 8; colors[b] = '#E8C97A'; }
+  charts.demand.data.datasets[0].pointRadius = radii;
+  charts.demand.data.datasets[0].pointBackgroundColor = colors;
+  charts.demand.update('none');
+}
+
+async function triggerPointAnalysis() {
+  if (selectedPoints.length < 2) return;
+  const [i1, i2] = selectedPoints;
+  const labels = charts.demand.data.labels;
+  const data = charts.demand.data.datasets[0].data;
+  const w1 = labels[i1], w2 = labels[i2];
+  const v1 = data[i1].toFixed(2), v2 = data[i2].toFixed(2);
+  const delta = (data[i2] - data[i1]).toFixed(2);
+  const dir = delta >= 0 ? 'increased' : 'decreased';
+
+  // Open chat
+  const chatPanel = document.getElementById('chatPanel');
+  chatPanel.classList.add('open');
+
+  const question = `The demand index ${dir} from ${v1} at ${w1} to ${v2} at ${w2} (Δ${delta}). What happened between these two points? What caused this change and how does it affect the market?`;
+  document.getElementById('chatInput').value = question;
+  sendChat();
+}
+
+// ═══════════════════════════════════
+// TRENDS — PIE / BAR INTENSITY CHARTS
+// ═══════════════════════════════════
+let intensityPieChart = null;
+let intensityBarChart = null;
+let currentPieWeek = 0;
+let currentPieCat = 'headphones';
+
+function renderIntensityCharts(cat) {
+  currentPieCat = cat || currentPieCat;
+  const C = getChartColors();
+  const td = D.trends_data[currentPieCat];
+  const numWeeks = td.series[0].length;
+
+  // Update pie for current week
+  updateIntensityPie(C, td);
+
+  // Bar chart — avg intensity per week stacked across all 13 weeks
+  if (intensityBarChart) { intensityBarChart.destroy(); intensityBarChart = null; }
+  const WEEKS13 = Array.from({length: numWeeks}, (_,i) => `W${i+1}`);
+  intensityBarChart = new Chart(document.getElementById('intensityBarChart'), {
+    type: 'bar',
+    data: {
+      labels: WEEKS13,
+      datasets: td.brands.map((brand, i) => ({
+        label: brand,
+        data: td.series[i],
+        backgroundColor: td.colors[i] + '99',
+        borderColor: td.colors[i],
+        borderWidth: 1,
+        borderRadius: 3,
+      }))
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { labels: { color: C.text, font: { family: 'DM Sans', size: 11 } } } },
+      scales: {
+        x: { ticks: { color: C.muted, font: { size: 10 } }, grid: { color: C.grid }, stacked: false },
+        y: { ticks: { color: C.muted }, grid: { color: C.grid }, min: 30, max: 80 },
+      }
+    }
+  });
+}
+
+function updateIntensityPie(C, td) {
+  C = C || getChartColors();
+  td = td || D.trends_data[currentPieCat];
+  const weekVals = td.brands.map((_, i) => td.series[i][currentPieWeek]);
+  const total = weekVals.reduce((a, b) => a + b, 0);
+
+  document.getElementById('pie-week-label').textContent = `W${currentPieWeek + 1}`;
+  document.getElementById('pie-chart-title').textContent = `Demand Share by Brand — Week ${currentPieWeek + 1}`;
+
+  if (intensityPieChart) { intensityPieChart.destroy(); intensityPieChart = null; }
+  intensityPieChart = new Chart(document.getElementById('intensityPieChart'), {
+    type: 'pie',
+    data: {
+      labels: td.brands,
+      datasets: [{
+        data: weekVals,
+        backgroundColor: td.colors.map(c => c + 'CC'),
+        borderColor: td.colors,
+        borderWidth: 2,
+        hoverOffset: 10,
+      }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { labels: { color: C.text, font: { family: 'DM Sans', size: 11 }, padding: 16 }, position: 'right' },
+        tooltip: {
+          callbacks: {
+            label: ctx => {
+              const pct = ((ctx.parsed / total) * 100).toFixed(1);
+              return ` ${ctx.label}: ${ctx.parsed.toFixed(1)} (${pct}%)`;
+            }
+          }
+        }
+      }
+    }
+  });
+}
+
+function shiftPieWeek(dir) {
+  const td = D.trends_data[currentPieCat];
+  const maxWeeks = td.series[0].length;
+  currentPieWeek = Math.max(0, Math.min(maxWeeks - 1, currentPieWeek + dir));
+  updateIntensityPie();
 }
 
 // ═══════════════════════════════════
