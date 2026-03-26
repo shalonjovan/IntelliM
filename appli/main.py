@@ -13,6 +13,13 @@ import numpy as np
 from db import get_db
 from llm import chat_with_gemini
 
+# ── New autonomous modules ────────────────────────────────────────────────────
+import autonomous_engine
+from state_manager import StateManager
+from realtime_ingestor import RealtimeIngestor
+from drift_manager import DriftManager
+from model_manager import ModelManager
+
 load_dotenv()
 
 MONGO_URI = os.getenv("MONGO_URI")
@@ -55,6 +62,12 @@ events_df    = pd.read_csv(os.path.join(DATA_DIR, "events.csv"))
 latest_master = master.sort_values("date").groupby("entity_id").last().reset_index()
 
 print(f"✅ Loaded {len(master)} rows · {master['entity_id'].nunique()} products · {master['brand'].nunique()} brands")
+
+# ── Autonomous module singletons (lazy, data_dir bound) ───────────────────────
+_state_mgr   = StateManager(DATA_DIR)
+_ingestor    = RealtimeIngestor(DATA_DIR)
+_drift_mgr   = DriftManager(DATA_DIR)
+_model_mgr   = ModelManager(DATA_DIR)
 
 
 # ─────────────────────────────────────────
@@ -230,8 +243,12 @@ def api_daily_summary():
 
 @app.get("/api/forecast")
 def api_forecast():
-    """Price forecast for the next 14 days."""
-    df = forecast_df[["date", "forecast_avg_price"]].copy()
+    """Price forecast for the next 14 days — refreshed from disk on each call."""
+    try:
+        df = pd.read_csv(os.path.join(DATA_DIR, "app_forecast.csv"))
+    except Exception:
+        df = forecast_df.copy()
+    df = df[["date", "forecast_avg_price"]].copy()
     df = df.where(pd.notnull(df), None)
     return df.to_dict("records")
 
@@ -245,8 +262,11 @@ def api_regime_shifts():
 
 @app.get("/api/alerts")
 def api_alerts(limit: int = 20, brand: str = None):
-    """Top signal alerts, optionally filtered by brand."""
-    df = alerts_df.copy()
+    """Top signal alerts, optionally filtered by brand — refreshed from disk."""
+    try:
+        df = pd.read_csv(os.path.join(DATA_DIR, "app_alerts.csv"))
+    except Exception:
+        df = alerts_df.copy()
     if brand:
         df = df[df["brand"].str.lower() == brand.lower()]
     df = df.sort_values("event_severity_score", ascending=False).head(limit)
@@ -254,7 +274,8 @@ def api_alerts(limit: int = 20, brand: str = None):
             "alert_title", "event_explanation", "narrative",
             "event_severity_score", "demand_index", "price_index",
             "sentiment_index", "search_index", "ad_index"]
-    df = df[cols].where(pd.notnull(df[cols]), None)
+    available_cols = [c for c in cols if c in df.columns]
+    df = df[available_cols].where(pd.notnull(df[available_cols]), None)
     return df.to_dict("records")
 
 @app.get("/api/product/{entity_id}/overview")
@@ -403,3 +424,143 @@ def api_category_summary(category: str):
                    .sort_values("health_index", ascending=False)
                    .to_dict("records"),
     }
+
+
+# ═════════════════════════════════════════════════════════════════════════════
+# AUTONOMOUS LOOP ROUTES — /api/autonomous/*
+# ═════════════════════════════════════════════════════════════════════════════
+
+@app.post("/api/autonomous/start")
+async def autonomous_start():
+    """Start the 60s simulation loop."""
+    result = autonomous_engine.start(DATA_DIR)
+    return result
+
+@app.post("/api/autonomous/stop")
+async def autonomous_stop():
+    """Stop the simulation loop."""
+    result = autonomous_engine.stop()
+    return result
+
+@app.get("/api/autonomous/status")
+async def autonomous_status():
+    """
+    Full status snapshot:
+      - running flag
+      - current sim day
+      - latest ingested date
+      - latest prediction vs actual
+      - rolling drift
+      - model version
+      - whether retraining occurred last tick
+    """
+    state = _state_mgr.get_all_state()
+    # Flatten to {key: value} for easy UI consumption
+    flat = {k: v["value"] for k, v in state.items()}
+    flat["is_running"] = autonomous_engine.is_running()
+
+    # Attach latest FVA row
+    fva = _drift_mgr.get_fva_recent(limit=1)
+    flat["latest_fva"] = fva[0] if fva else None
+
+    # Next date waiting to be ingested
+    flat["next_pending_date"] = _ingestor.peek_next_date()
+
+    return flat
+
+
+# ─────────────────────────────────────────
+# REALTIME ROUTES — /api/realtime/*
+# ─────────────────────────────────────────
+
+@app.post("/api/realtime/ingest-next-date")
+async def realtime_ingest_next():
+    """
+    Manually trigger ingestion of the next date from query.csv.
+    Useful for demos / step-through mode without the full loop.
+    """
+    next_date = _ingestor.peek_next_date()
+    if next_date is None:
+        return JSONResponse({"status": "exhausted", "message": "No more dates in query.csv"})
+
+    actuals = _ingestor.ingest_next_date()
+    if actuals.empty:
+        return JSONResponse({"status": "empty", "date": next_date})
+
+    # Run the same processing pipeline as the autonomous loop
+    _drift_mgr.compare_and_log(actuals, next_date)
+    drift_score = _drift_mgr.compute_rolling_drift(window=7)
+
+    sim_day = _state_mgr.increment_sim_day()
+    should_retrain = _model_mgr.should_retrain(sim_day, drift_score)
+    model_version = _state_mgr.get_field("model_version", "v1.0")
+
+    if should_retrain:
+        model_version = _model_mgr.retrain(actuals)
+        _state_mgr.set_field("model_version", model_version)
+
+    from forecast_manager import ForecastManager
+    fm = ForecastManager(DATA_DIR)
+    fm.refresh_forecast(actuals, model_version)
+    fm.update_serving_layers(actuals, next_date)
+
+    _state_mgr.update_tick(
+        sim_day=sim_day,
+        latest_date=next_date,
+        drift_score=drift_score,
+        model_version=model_version,
+        retrained=should_retrain,
+        rows_ingested=len(actuals),
+    )
+
+    return {
+        "status": "ok",
+        "date_ingested": next_date,
+        "rows": len(actuals),
+        "sim_day": sim_day,
+        "drift_score": drift_score,
+        "model_version": model_version,
+        "retrained": should_retrain,
+    }
+
+@app.get("/api/realtime/drift")
+async def realtime_drift():
+    """Rolling drift metrics and recent history."""
+    current_drift = float(_state_mgr.get_field("current_drift", 0.0))
+    history = _drift_mgr.get_drift_history(limit=30)
+    return {
+        "current_drift": current_drift,
+        "drift_flag": current_drift > 5.0,
+        "threshold": 5.0,
+        "history": history,
+    }
+
+@app.get("/api/realtime/forecast-vs-actual")
+async def realtime_fva(limit: int = 50):
+    """Recent forecast vs actual comparison rows."""
+    rows = _drift_mgr.get_fva_recent(limit=limit)
+    return {"count": len(rows), "rows": rows}
+
+
+# ─────────────────────────────────────────
+# MODEL ROUTES — /api/model/*
+# ─────────────────────────────────────────
+
+@app.post("/api/model/retrain")
+async def model_retrain():
+    """Manually trigger a model retrain."""
+    actuals = _ingestor.get_all_actuals()
+    if actuals.empty:
+        return JSONResponse({"status": "no_data", "message": "No actuals ingested yet"})
+    new_version = _model_mgr.retrain(actuals)
+    _state_mgr.set_field("model_version", new_version)
+    _state_mgr.set_field("last_retrain_ts", datetime.utcnow().isoformat())
+    return {"status": "ok", "new_version": new_version}
+
+@app.get("/api/model/status")
+async def model_status():
+    """Current model version and registry info."""
+    status = _model_mgr.get_model_status()
+    status["current_sim_day"] = _state_mgr.get_field("sim_day", 0)
+    status["last_retrain_sim_day"] = _state_mgr.get_field("last_retrain_sim_day", 0)
+    return status

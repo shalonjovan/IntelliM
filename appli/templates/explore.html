@@ -746,7 +746,9 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;heigh
 // REAL DATA — derived from CSV files
 // ═══════════════════════════════════
 const D = {"kpis": {"demand": 46.2, "demand_chg": -1.3, "price": 191.62, "price_chg": -1.0, "sentiment": 71.0, "sent_chg": 0.7, "active_brands": 73, "active_entities": 70, "total_rows": 6750, "total_alerts": 677}, "w12": [46.04, 43.08, 43.84, 46.42, 45.26, 43.79, 45.23, 46.68, 45.44, 44.35, 47.03, 46.44],
+"w12_pred": [45.43, 42.84, 44.68, 46.64, 44.45, 43.78, 46.04, 46.74, 44.55, 44.73, 47.47, 46.18],
 "w12_by_cat": {"headphones": [48.32,47.75,47.88,48.19,49.01,51.27,49.56,49.07,51.23,49.73,51.07,50.46], "earbuds": [44.65,42.19,43.41,44.85,44.31,42.65,44.18,44.52,43.75,41.26,43.8,44.82], "smartphones": [46.18,41.38,41.89,45.57,45.09,42.15,44.4,46.01,43.31,43.69,47.5,46.88]},
+"w12_by_cat_pred": {"headphones": [48.19, 47.12, 48.3, 48.55, 49.55, 50.91, 49.39, 49.82, 51.03, 50.12, 50.31, 50.72], "earbuds": [44.23, 42.07, 44.11, 45.09, 43.13, 43.2, 44.75, 43.95, 42.69, 41.9, 44.83, 44.18], "smartphones": [45.44, 40.95, 42.73, 46.46, 43.71, 41.49, 45.51, 46.79, 42.46, 44.04, 48.0, 46.47]},
 "kpis_by_cat": {"headphones": {"demand": 45.8, "price": 143.3, "sentiment": 66.5, "count": 9}, "earbuds": {"demand": 40.9, "price": 59.8, "sentiment": 65.7, "count": 15}, "smartphones": {"demand": 41.9, "price": 508.0, "sentiment": 65.3, "count": 15}},
 "scatter": {"all": [{"x": 828.5, "y": 67.8, "label": "HyperTech"}, {"x": 74.3, "y": 64.3, "label": "ProAudio"}, {"x": 855.7, "y": 63.3, "label": "ApexTech"}, {"x": 170.6, "y": 61.1, "label": "PulseTech"}, {"x": 327.7, "y": 60.8, "label": "SlateTab"}, {"x": 810.7, "y": 60.1, "label": "NovaTech"}, {"x": 78.1, "y": 59.4, "label": "BlastAudio"}, {"x": 241.0, "y": 58.8, "label": "DeepAudio"}, {"x": 71.2, "y": 58.5, "label": "SonicAudio"}, {"x": 323.4, "y": 56.9, "label": "TabTech"}, {"x": 45.1, "y": 56.3, "label": "ChargeTech"}, {"x": 326.8, "y": 56.3, "label": "TabSlate"}, {"x": 83.7, "y": 56.1, "label": "BoomAudio"}, {"x": 183.4, "y": 55.8, "label": "FitCore"}], "headphones": [{"x": 241.0, "y": 58.8, "label": "DeepAudio"}, {"x": 228.4, "y": 53.3, "label": "BassAudio"}, {"x": 112.4, "y": 50.1, "label": "VoiceAudio"}, {"x": 114.5, "y": 48.0, "label": "WaveGear"}, {"x": 108.1, "y": 41.4, "label": "ClearAudio"}, {"x": 88.6, "y": 38.9, "label": "CasualGear"}, {"x": 85.7, "y": 38.1, "label": "EasyGear"}, {"x": 82.2, "y": 30.7, "label": "ComfortGear"}], "earbuds": [{"x": 74.3, "y": 64.3, "label": "ProAudio"}, {"x": 71.2, "y": 58.5, "label": "SonicAudio"}, {"x": 63.2, "y": 53.2, "label": "SoundWave"}, {"x": 138.8, "y": 53.1, "label": "LuxAudio"}, {"x": 145.2, "y": 51.9, "label": "GoldAudio"}, {"x": 61.3, "y": 45.5, "label": "TurboWave"}, {"x": 56.8, "y": 44.1, "label": "FlashGear"}, {"x": 113.5, "y": 41.2, "label": "PureAudio"}], "smartphones": [{"x": 828.5, "y": 67.8, "label": "HyperTech"}, {"x": 855.7, "y": 63.3, "label": "ApexTech"}, {"x": 810.7, "y": 60.1, "label": "NovaTech"}, {"x": 418.3, "y": 51.4, "label": "MegaMobile"}, {"x": 317.5, "y": 45.3, "label": "VivaTech"}, {"x": 219.1, "y": 43.6, "label": "ValueMobile"}, {"x": 359.9, "y": 42.0, "label": "SprintTech"}, {"x": 407.1, "y": 41.8, "label": "CoreMobile"}]},
 "radar": [{"brand": "LuxBrand", "vals": [30.0, 84.0, 70.0, 49.0, 45.0]}, {"brand": "StudioWave", "vals": [60.0, 81.0, 93.0, 80.0, 52.0]}, {"brand": "GoldAudio", "vals": [70.0, 87.0, 84.0, 67.0, 45.0]}],
@@ -919,11 +921,23 @@ function renderDashCharts() {
     data: {
       labels: WEEKS,
       datasets: [{
-        label: 'Avg Demand Index',
+        label: 'Actual Demand Index',
         data: D.w12,
         borderColor: C.gold, backgroundColor: 'rgba(201,168,76,0.08)',
         fill: true, tension: 0.4, pointBackgroundColor: D.w12.map(() => C.gold),
         pointRadius: D.w12.map(() => 4), pointHoverRadius: 8,
+      }, {
+        label: 'Predicted Demand Index',
+        data: D.w12_pred,
+        borderColor: 'rgba(91,141,184,0.9)',
+        backgroundColor: 'transparent',
+        borderDash: [6, 4],
+        fill: false, tension: 0.4,
+        pointBackgroundColor: D.w12_pred.map(() => 'transparent'),
+        pointBorderColor: D.w12_pred.map(() => 'rgba(91,141,184,0.9)'),
+        pointBorderWidth: 2,
+        pointRadius: D.w12_pred.map(() => 5), pointHoverRadius: 8,
+        pointStyle: 'circle',
       }]
     },
     options: {
@@ -1063,7 +1077,7 @@ function updateDashboardData(cat) {
     document.getElementById('demand-chart-title').textContent = 'Demand Index — 12-Week Trend (Weekly Avg)';
     document.getElementById('scatter-chart-title').textContent = 'Price vs Demand — Top 14 Products';
     document.getElementById('radar-chart-title').textContent = 'Brand Comparison Radar — Top 3 by Health';
-    updateDemandChart(D.w12);
+    updateDemandChart(D.w12, D.w12_pred);
     updateScatterChart(D.scatter.all);
     updateGauge(K.sentiment);
     updateRadar(D.radar, ['#1A3A5C', '#C9A84C', '#888888']);
@@ -1089,7 +1103,7 @@ function updateDashboardData(cat) {
     document.getElementById('demand-chart-title').textContent = catLabel + ' — Demand Index 12-Week Trend';
     document.getElementById('scatter-chart-title').textContent = catLabel + ' — Price vs Demand by Brand';
     document.getElementById('radar-chart-title').textContent = catLabel + ' — Top 3 Brands Radar';
-    updateDemandChart(D.w12_by_cat[cat]);
+    updateDemandChart(D.w12_by_cat[cat], D.w12_by_cat_pred[cat]);
     updateScatterChart(D.scatter[cat]);
     updateGauge(ck.sentiment);
     const catRadarColors = {
@@ -1102,11 +1116,20 @@ function updateDashboardData(cat) {
   }
 }
 
-function updateDemandChart(data) {
+function updateDemandChart(data, predData) {
   if (!charts.demand) return;
+  const C = getChartColors();
+  // Update actual dataset
   charts.demand.data.datasets[0].data = data;
-  charts.demand.data.datasets[0].pointBackgroundColor = data.map(() => getChartColors().gold);
+  charts.demand.data.datasets[0].pointBackgroundColor = data.map(() => C.gold);
   charts.demand.data.datasets[0].pointRadius = data.map(() => 4);
+  // Update predicted dataset
+  if (predData) {
+    charts.demand.data.datasets[1].data = predData;
+    charts.demand.data.datasets[1].pointBackgroundColor = predData.map(() => 'transparent');
+    charts.demand.data.datasets[1].pointBorderColor = predData.map(() => 'rgba(91,141,184,0.9)');
+    charts.demand.data.datasets[1].pointRadius = predData.map(() => 5);
+  }
   charts.demand.update('active');
   // reset selection
   selectedPoints = [];

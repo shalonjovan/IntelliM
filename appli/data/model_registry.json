@@ -1,0 +1,51 @@
+{
+    "model_version": "v1.0",
+    "last_trained": "2026-03-26T08:18:46.337120",
+    "models": {
+        "xgboost_demand": {
+            "path": "xgb_demand_model.pkl",
+            "type": "tabular",
+            "status": "active",
+            "target": "demand_index"
+        },
+        "xgboost_price": {
+            "path": "xgb_price_model.pkl",
+            "type": "tabular",
+            "status": "active",
+            "target": "price_index"
+        },
+        "lstm_price_forecast": {
+            "path": "lstm_model.h5",
+            "type": "sequence",
+            "status": "active",
+            "target": "avg_actual_price",
+            "scaler_path": "lstm_scaler.pkl"
+        }
+    },
+    "performance": {
+        "xgboost_demand": {
+            "mae": 0.38885224039482,
+            "rmse": 0.5503281196302521,
+            "r2": 0.9987318547971485
+        },
+        "xgboost_price": {
+            "mae": 4.119637341113082,
+            "rmse": 13.202818484542556,
+            "r2": 0.9958697643769807
+        },
+        "lstm_price_forecast": {
+            "mae": 3.144734258443079,
+            "rmse": 4.300614892765557,
+            "r2": -0.07855934155272193
+        }
+    },
+    "drift": {
+        "status": "stable",
+        "last_checked": "2026-03-26T08:18:46.337137",
+        "rolling_mae": 0.38885224039482
+    },
+    "retrain_policy": {
+        "frequency_days": 3,
+        "drift_threshold": 0.15
+    }
+}
