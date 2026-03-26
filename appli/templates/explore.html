@@ -375,11 +375,11 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;heigh
   <div class="topbar">
     <div class="topbar-title">Intelligence <em>Dashboard</em></div>
     <div class="topbar-right">
-      <div class="filter-bar" style="margin:0">
-        <div class="filter-chip on" onclick="toggleFilter(this)">All</div>
-        <div class="filter-chip" onclick="toggleFilter(this)">Headphones</div>
-        <div class="filter-chip" onclick="toggleFilter(this)">Smartphones</div>
-        <div class="filter-chip" onclick="toggleFilter(this)">Earbuds</div>
+      <div class="filter-bar" style="margin:0" id="dashFilterBar">
+        <div class="filter-chip on" data-cat="all" onclick="setDashFilter(this)">All</div>
+        <div class="filter-chip" data-cat="headphones" onclick="setDashFilter(this)">Headphones</div>
+        <div class="filter-chip" data-cat="smartphones" onclick="setDashFilter(this)">Smartphones</div>
+        <div class="filter-chip" data-cat="earbuds" onclick="setDashFilter(this)">Earbuds</div>
       </div>
       <div class="badge"><div class="dot-live"></div>Live · Jan–Jun 2025</div>
     </div>
@@ -427,11 +427,11 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;heigh
 
       <div class="grid-2" style="margin-bottom:16px">
         <div class="card">
-          <div class="card-title">Demand Index — 12-Week Trend (Weekly Avg)</div>
+          <div class="card-title" id="demand-chart-title">Demand Index — 12-Week Trend (Weekly Avg)</div>
           <div class="chart-container"><canvas id="demandTrendChart"></canvas></div>
         </div>
         <div class="card">
-          <div class="card-title">Price vs Demand — Top 14 Products</div>
+          <div class="card-title" id="scatter-chart-title">Price vs Demand — Top Products</div>
           <div class="chart-container"><canvas id="scatterChart"></canvas></div>
         </div>
       </div>
@@ -448,7 +448,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;heigh
           </div>
         </div>
         <div class="card">
-          <div class="card-title">Brand Comparison Radar — Top 3 by Health</div>
+          <div class="card-title" id="radar-chart-title">Brand Comparison Radar — Top 3 by Health</div>
           <div class="chart-container"><canvas id="radarChart"></canvas></div>
         </div>
       </div>
@@ -476,19 +476,17 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;heigh
 <div class="page" id="page-trends">
   <div class="topbar">
     <div class="topbar-title">Market <em>Trends</em></div>
-    <div class="topbar-right">
-      <div class="filter-bar" style="margin:0">
-        <div class="filter-chip on" onclick="setTrendsCategory(this,'earbuds')">Earbuds</div>
-        <div class="filter-chip" onclick="setTrendsCategory(this,'headphones')">Headphones</div>
-        <div class="filter-chip" onclick="setTrendsCategory(this,'smartphones')">Smartphones</div>
-      </div>
-      <div class="badge">Jan–Jun 2025 · 6-Month View</div>
-    </div>
+    <div class="badge">Jan–Jun 2025 · 6-Month View</div>
   </div>
   <div class="scroll-area">
+    <div style="display:flex;gap:8px;margin-bottom:16px">
+      <div class="filter-chip on" data-cat="headphones" onclick="setTrendCat(this)">Headphones</div>
+      <div class="filter-chip" data-cat="earbuds" onclick="setTrendCat(this)">Earbuds</div>
+      <div class="filter-chip" data-cat="smartphones" onclick="setTrendCat(this)">Smartphones</div>
+    </div>
     <div class="grid-2" style="margin-bottom:16px">
       <div class="card">
-        <div class="card-title" id="trends-chart-title">Search Interest — Top Brands: Earbuds (24 Weeks)</div>
+        <div class="card-title" id="trends-chart-title">Company Demand Index — Top 3 Brands in Headphones (13 Weeks)</div>
         <div class="chart-container"><canvas id="searchAreaChart"></canvas></div>
       </div>
       <div class="card">
@@ -687,7 +685,13 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;heigh
 // ═══════════════════════════════════
 // REAL DATA — derived from CSV files
 // ═══════════════════════════════════
-const D = {"kpis": {"demand": 46.2, "demand_chg": -1.3, "price": 191.62, "price_chg": -1.0, "sentiment": 71.0, "sent_chg": 0.7, "active_brands": 73, "active_entities": 70, "total_rows": 6750, "total_alerts": 677}, "w12": [46.04, 43.08, 43.84, 46.42, 45.26, 43.79, 45.23, 46.68, 45.44, 44.35, 47.03, 46.44], "scatter": [{"x": 350.0, "y": 46.5, "label": "LuxBrand"}, {"x": 198.0, "y": 61.8, "label": "StudioWave"}, {"x": 148.6, "y": 56.0, "label": "GoldAudio"}, {"x": 244.3, "y": 53.1, "label": "DeepAudio"}, {"x": 199.7, "y": 48.9, "label": "CrystalAudio"}, {"x": 149.1, "y": 29.7, "label": "EduTech"}, {"x": 334.7, "y": 53.5, "label": "EliteBrand"}, {"x": 353.6, "y": 61.6, "label": "TabSlate"}, {"x": 880.4, "y": 67.1, "label": "ApexTech"}, {"x": 227.1, "y": 67.4, "label": "BassAudio"}, {"x": 828.0, "y": 61.2, "label": "HyperTech"}, {"x": 320.4, "y": 54.5, "label": "ChronoBrand"}, {"x": 321.5, "y": 71.9, "label": "SlateTab"}, {"x": 72.2, "y": 62.2, "label": "SonicAudio"}], "radar": [{"brand": "LuxBrand", "vals": [30.0, 84.0, 70.0, 49.0, 45.0]}, {"brand": "StudioWave", "vals": [60.0, 81.0, 93.0, 80.0, 52.0]}, {"brand": "GoldAudio", "vals": [70.0, 87.0, 84.0, 67.0, 45.0]}], "competitors": [{"entity_id": 302, "name": "LuxBrand", "product": "LuxTime Pro", "cat": "Smartwatches", "color": "#1A3A5C", "score": 99.4, "price": 350.0, "sent": 84.4, "demand": 46.5, "mis": 94.4, "price_history": [338.59, 338.51, 338.72, 337.71, 338.36, 338.69, 339.24, 339.2, 339.1, 338.65, 338.91, 349.99], "sent_history": [74.7, 75.5, 75.2, 74.9, 82.0, 84.9, 81.6, 82.1, 86.6, 85.0, 83.9, 85.3]}, {"entity_id": 518, "name": "StudioWave", "product": "StudioWave Elite", "cat": "Bluetooth Speakers", "color": "#C9A84C", "score": 98.3, "price": 215.0, "sent": 80.9, "demand": 61.8, "mis": 93.4, "price_history": [188.07, 187.79, 190.23, 160.67, 189.94, 189.94, 187.95, 190.82, 193.82, 192.0, 190.18, 190.85], "sent_history": [85.5, 76.8, 81.2, 82.4, 81.8, 83.7, 80.6, 84.0, 83.8, 83.1, 81.4, 80.1]}, {"entity_id": 603, "name": "GoldAudio", "product": "GoldEar Classic", "cat": "Earbuds", "color": "#2C2C2C", "score": 97.9, "price": 165.0, "sent": 87.5, "demand": 56.0, "mis": 93.0, "price_history": [126.25, 147.08, 146.13, 147.74, 147.27, 146.82, 145.55, 146.47, 146.31, 145.71, 147.0, 147.11], "sent_history": [85.1, 80.6, 85.0, 80.9, 75.6, 82.3, 87.0, 88.1, 86.9, 87.0, 86.8, 84.3]}, {"entity_id": 622, "name": "DeepAudio", "product": "DeepBass Ultra", "cat": "Headphones", "color": "#E8C97A", "score": 97.7, "price": 275.0, "sent": 84.1, "demand": 53.1, "mis": 92.8, "price_history": [241.67, 246.36, 243.84, 242.77, 244.81, 242.35, 243.88, 207.93, 246.22, 245.32, 243.95, 241.93], "sent_history": [85.9, 84.2, 85.4, 87.8, 87.5, 89.4, 85.2, 80.4, 81.3, 82.3, 86.0, 86.5]}, {"entity_id": 618, "name": "CrystalAudio", "product": "CrystalSound Pro", "cat": "Bluetooth Speakers", "color": "#5B8DB8", "score": 97.6, "price": 225.0, "sent": 82.2, "demand": 48.9, "mis": 92.7, "price_history": [199.1, 202.02, 203.27, 199.85, 202.26, 201.05, 202.23, 200.84, 195.89, 200.54, 201.91, 169.77], "sent_history": [85.8, 83.9, 84.2, 86.8, 86.2, 82.3, 85.5, 86.2, 82.1, 81.2, 79.0, 81.2]}, {"entity_id": 702, "name": "EduTech", "product": "LearningPad Kids", "cat": "Tablets", "color": "#FF4444", "score": 97.6, "price": 150.0, "sent": 66.2, "demand": 29.7, "mis": 92.7, "price_history": [138.94, 138.72, 138.75, 138.64, 139.24, 139.08, 138.8, 138.72, 141.36, 149.56, 149.64, 149.43], "sent_history": [56.5, 55.0, 57.0, 60.5, 62.8, 60.6, 58.9, 60.0, 62.5, 56.9, 59.4, 64.7]}, {"entity_id": 612, "name": "EliteBrand", "product": "EliteWatch X", "cat": "Smartwatches", "color": "#22C55E", "score": 97.5, "price": 380.0, "sent": 91.1, "demand": 53.5, "mis": 92.6, "price_history": [339.28, 341.48, 345.16, 340.27, 339.01, 340.55, 341.52, 334.28, 338.57, 343.77, 333.62, 336.58], "sent_history": [80.5, 85.1, 88.4, 84.2, 80.5, 86.4, 85.1, 77.7, 79.8, 81.3, 81.3, 83.4]}, {"entity_id": 624, "name": "TabSlate", "product": "TabSlate 12", "cat": "Tablets", "color": "#9B59B6", "score": 97.5, "price": 400.0, "sent": 76.1, "demand": 61.6, "mis": 92.6, "price_history": [340.71, 331.91, 340.36, 337.59, 294.0, 288.26, 293.53, 342.89, 333.65, 336.89, 336.21, 340.45], "sent_history": [83.2, 85.9, 86.1, 79.3, 78.1, 82.5, 80.1, 81.2, 80.7, 77.6, 80.2, 83.6]}, {"entity_id": 606, "name": "ApexTech", "product": "ApexPhone Ultra", "cat": "Smartphones", "color": "#FF6B35", "score": 97.5, "price": 1000.0, "sent": 84.8, "demand": 67.1, "mis": 92.6, "price_history": [882.08, 881.9, 869.71, 892.24, 879.29, 760.04, 767.03, 887.09, 753.12, 896.13, 891.26, 886.29], "sent_history": [82.0, 84.9, 83.5, 81.9, 83.2, 83.6, 81.7, 80.4, 78.9, 81.9, 88.5, 81.5]}, {"entity_id": 522, "name": "BassAudio", "product": "BassElite Pro", "cat": "Headphones", "color": "#FF8800", "score": 97.4, "price": 260.0, "sent": 81.8, "demand": 67.4, "mis": 92.5, "price_history": [229.28, 224.57, 194.0, 227.26, 228.76, 227.3, 198.21, 229.14, 229.63, 227.03, 227.77, 225.04], "sent_history": [82.1, 79.6, 85.6, 79.8, 79.0, 79.5, 82.7, 84.1, 80.5, 85.1, 84.2, 80.1]}, {"entity_id": 506, "name": "HyperTech", "product": "HyperPhone Pro", "cat": "Smartphones", "color": "#00CED1", "score": 97.3, "price": 950.0, "sent": 81.1, "demand": 61.2, "mis": 92.5, "price_history": [834.85, 826.62, 829.48, 826.26, 832.73, 833.6, 827.81, 824.21, 825.85, 830.03, 824.98, 827.22], "sent_history": [82.1, 77.5, 80.6, 83.0, 87.5, 85.3, 84.3, 87.6, 84.6, 84.7, 82.3, 83.6]}, {"entity_id": 512, "name": "ChronoBrand", "product": "ChronoLux S", "cat": "Smartwatches", "color": "#FF1493", "score": 97.2, "price": 370.0, "sent": 90.8, "demand": 54.5, "mis": 92.4, "price_history": [328.83, 329.66, 329.05, 328.54, 329.33, 281.68, 301.37, 329.35, 327.93, 327.69, 327.34, 326.72], "sent_history": [81.4, 83.6, 85.1, 84.5, 82.8, 82.5, 84.0, 80.8, 80.4, 86.6, 85.0, 87.5]}], "events": [{"color": "#C9A84C", "brand": "BassAudio", "explanation": "Abnormal movement detected relative to recent trend and signal baseline.", "date": "2025-04-24"}, {"color": "#C9A84C", "brand": "WaveAudio", "explanation": "Abnormal movement detected relative to recent trend and signal baseline.", "date": "2025-05-29"}, {"color": "#C9A84C", "brand": "DeepAudio", "explanation": "Abnormal movement detected relative to recent trend and signal baseline.", "date": "2025-05-28"}, {"color": "#C9A84C", "brand": "CrystalAudio", "explanation": "Abnormal movement detected relative to recent trend and signal baseline.", "date": "2025-06-25"}, {"color": "#C9A84C", "brand": "BlastAudio", "explanation": "Abnormal movement detected relative to recent trend and signal baseline.", "date": "2025-05-25"}, {"color": "#22C55E", "brand": "LuxAudio", "explanation": "Ad surge detected.", "date": "2025-06-29"}], "buzz": [5.0, 43.7, 33.6, 49.1, 99.7, 52.4, 56.9, 29.7, 14.9, 57.4, 17.3, 8.3, 33.4, 68.2, 26.6, 59.5, 89.4, 20.7, 62.6, 36.1, 72.8, 12.5, 52.8, 31.0, 52.6, 5.6, 62.9, 26.8, 9.2, 31.9, 52.0, 63.5, 67.9, 63.7, 42.1, 25.8, 32.5, 39.9, 64.0, 56.0, 64.5, 72.8, 57.5, 79.5, 50.6, 35.9, 18.0, 21.7, 25.5, 0.0, 36.4, 33.7, 42.7, 45.8, 74.6, 67.0], "earbuds_s": [40.4, 37.6, 41.6, 33.8, 28.0, 30.2, 34.3, 35.9, 35.2, 38.0, 38.2, 52.4, 49.9, 43.5, 46.7, 51.0, 49.0, 45.1, 48.4, 49.9, 48.4, 41.2, 48.9, 50.2], "phones_s": [39.5, 37.5, 37.4, 38.9, 36.7, 39.8, 47.9, 43.3, 46.6, 44.7, 39.3, 50.1, 53.2, 40.5, 41.7, 51.5, 50.2, 41.3, 48.5, 53.5, 45.3, 45.2, 56.1, 54.1], "regime": [{"date": "2025-04-03", "regime_type": "positive"}, {"date": "2025-04-18", "regime_type": "negative"}, {"date": "2025-05-02", "regime_type": "positive"}, {"date": "2025-05-14", "regime_type": "negative"}, {"date": "2025-06-11", "regime_type": "negative"}, {"date": "2025-06-21", "regime_type": "positive"}], "report": {"top_cat": "Headphones", "top_cat_demand": 51.5, "top_cat_sent": 74.3, "best_brand": "LuxBrand", "best_brand_health": 99.4, "price_30d_chg": -1.5, "headphones_sent": 74.3, "total_brands": 73, "total_entities": 70, "total_alerts": 677}};
+const D = {"kpis": {"demand": 46.2, "demand_chg": -1.3, "price": 191.62, "price_chg": -1.0, "sentiment": 71.0, "sent_chg": 0.7, "active_brands": 73, "active_entities": 70, "total_rows": 6750, "total_alerts": 677}, "w12": [46.04, 43.08, 43.84, 46.42, 45.26, 43.79, 45.23, 46.68, 45.44, 44.35, 47.03, 46.44],
+"w12_by_cat": {"headphones": [48.32,47.75,47.88,48.19,49.01,51.27,49.56,49.07,51.23,49.73,51.07,50.46], "earbuds": [44.65,42.19,43.41,44.85,44.31,42.65,44.18,44.52,43.75,41.26,43.8,44.82], "smartphones": [46.18,41.38,41.89,45.57,45.09,42.15,44.4,46.01,43.31,43.69,47.5,46.88]},
+"kpis_by_cat": {"headphones": {"demand": 45.8, "price": 143.3, "sentiment": 66.5, "count": 9}, "earbuds": {"demand": 40.9, "price": 59.8, "sentiment": 65.7, "count": 15}, "smartphones": {"demand": 41.9, "price": 508.0, "sentiment": 65.3, "count": 15}},
+"scatter": {"all": [{"x": 828.5, "y": 67.8, "label": "HyperTech"}, {"x": 74.3, "y": 64.3, "label": "ProAudio"}, {"x": 855.7, "y": 63.3, "label": "ApexTech"}, {"x": 170.6, "y": 61.1, "label": "PulseTech"}, {"x": 327.7, "y": 60.8, "label": "SlateTab"}, {"x": 810.7, "y": 60.1, "label": "NovaTech"}, {"x": 78.1, "y": 59.4, "label": "BlastAudio"}, {"x": 241.0, "y": 58.8, "label": "DeepAudio"}, {"x": 71.2, "y": 58.5, "label": "SonicAudio"}, {"x": 323.4, "y": 56.9, "label": "TabTech"}, {"x": 45.1, "y": 56.3, "label": "ChargeTech"}, {"x": 326.8, "y": 56.3, "label": "TabSlate"}, {"x": 83.7, "y": 56.1, "label": "BoomAudio"}, {"x": 183.4, "y": 55.8, "label": "FitCore"}], "headphones": [{"x": 241.0, "y": 58.8, "label": "DeepAudio"}, {"x": 228.4, "y": 53.3, "label": "BassAudio"}, {"x": 112.4, "y": 50.1, "label": "VoiceAudio"}, {"x": 114.5, "y": 48.0, "label": "WaveGear"}, {"x": 108.1, "y": 41.4, "label": "ClearAudio"}, {"x": 88.6, "y": 38.9, "label": "CasualGear"}, {"x": 85.7, "y": 38.1, "label": "EasyGear"}, {"x": 82.2, "y": 30.7, "label": "ComfortGear"}], "earbuds": [{"x": 74.3, "y": 64.3, "label": "ProAudio"}, {"x": 71.2, "y": 58.5, "label": "SonicAudio"}, {"x": 63.2, "y": 53.2, "label": "SoundWave"}, {"x": 138.8, "y": 53.1, "label": "LuxAudio"}, {"x": 145.2, "y": 51.9, "label": "GoldAudio"}, {"x": 61.3, "y": 45.5, "label": "TurboWave"}, {"x": 56.8, "y": 44.1, "label": "FlashGear"}, {"x": 113.5, "y": 41.2, "label": "PureAudio"}], "smartphones": [{"x": 828.5, "y": 67.8, "label": "HyperTech"}, {"x": 855.7, "y": 63.3, "label": "ApexTech"}, {"x": 810.7, "y": 60.1, "label": "NovaTech"}, {"x": 418.3, "y": 51.4, "label": "MegaMobile"}, {"x": 317.5, "y": 45.3, "label": "VivaTech"}, {"x": 219.1, "y": 43.6, "label": "ValueMobile"}, {"x": 359.9, "y": 42.0, "label": "SprintTech"}, {"x": 407.1, "y": 41.8, "label": "CoreMobile"}]},
+"radar": [{"brand": "LuxBrand", "vals": [30.0, 84.0, 70.0, 49.0, 45.0]}, {"brand": "StudioWave", "vals": [60.0, 81.0, 93.0, 80.0, 52.0]}, {"brand": "GoldAudio", "vals": [70.0, 87.0, 84.0, 67.0, 45.0]}],
+"radar_by_cat": {"headphones": [{"brand": "DeepAudio", "vals": [62.0, 84.1, 72.0, 61.0, 55.0]}, {"brand": "BassAudio", "vals": [55.0, 81.8, 85.0, 87.0, 68.0]}, {"brand": "VoiceAudio", "vals": [58.0, 74.5, 63.0, 58.0, 48.0]}], "earbuds": [{"brand": "ProAudio", "vals": [72.0, 75.4, 82.0, 93.0, 71.0]}, {"brand": "SonicAudio", "vals": [74.0, 76.4, 78.0, 85.0, 65.0]}, {"brand": "GoldAudio", "vals": [70.0, 87.5, 71.0, 67.0, 45.0]}], "smartphones": [{"brand": "HyperTech", "vals": [30.0, 81.1, 78.0, 97.0, 76.0]}, {"brand": "ApexTech", "vals": [28.0, 84.8, 85.0, 88.0, 79.0]}, {"brand": "NovaTech", "vals": [32.0, 79.3, 78.0, 85.0, 70.0]}]},
+"trends_data": {"headphones": {"brands": ["BassAudio","DeepAudio","VoiceAudio"], "colors": ["#C9A84C","#1A3A5C","#22C55E"], "series": [[56.41,62.2,60.41,58.62,62.16,62.15,63.27,57.58,65.58,61.6,63.95,63.53,63.47],[56.72,56.18,58.71,57.31,58.21,59.85,60.54,59.34,55.04,63.63,56.21,61.98,59.96],[48.06,51.93,48.78,50.69,48.37,50.53,48.97,49.72,51.16,52.1,49.16,51.3,50.23]]}, "earbuds": {"brands": ["ProAudio","SonicAudio","LuxAudio"], "colors": ["#C9A84C","#5B8DB8","#FF6B35"], "series": [[65.48,64.29,66.08,65.68,64.27,66.07,61.27,65.33,60.05,66.7,65.13,63.15,61.94],[58.32,56.9,57.03,58.39,55.86,59.85,58.78,59.61,58.45,59.57,59.64,58.36,60.29],[52.38,54.15,52.76,55.56,51.91,54.62,56.79,52.58,51.04,54.24,49.4,50.95,54.28]]}, "smartphones": {"brands": ["HyperTech","ApexTech","MegaMobile"], "colors": ["#C9A84C","#00CED1","#FF4444"], "series": [[64.67,65.3,68.91,71.56,68.28,57.28,65.83,65.68,71.49,71.33,70.43,70.68,70.03],[65.44,67.43,60.85,65.9,60.91,67.14,63.06,59.78,59.35,55.54,68.24,65.23,64.47],[45.03,52.32,60.04,56.96,46.79,49.2,55.68,50.28,47.17,53.51,51.12,47.68,51.3]]}}, "competitors": [{"entity_id": 302, "name": "LuxBrand", "product": "LuxTime Pro", "cat": "Smartwatches", "color": "#1A3A5C", "score": 99.4, "price": 350.0, "sent": 84.4, "demand": 46.5, "mis": 94.4, "price_history": [338.59, 338.51, 338.72, 337.71, 338.36, 338.69, 339.24, 339.2, 339.1, 338.65, 338.91, 349.99], "sent_history": [74.7, 75.5, 75.2, 74.9, 82.0, 84.9, 81.6, 82.1, 86.6, 85.0, 83.9, 85.3]}, {"entity_id": 518, "name": "StudioWave", "product": "StudioWave Elite", "cat": "Bluetooth Speakers", "color": "#C9A84C", "score": 98.3, "price": 215.0, "sent": 80.9, "demand": 61.8, "mis": 93.4, "price_history": [188.07, 187.79, 190.23, 160.67, 189.94, 189.94, 187.95, 190.82, 193.82, 192.0, 190.18, 190.85], "sent_history": [85.5, 76.8, 81.2, 82.4, 81.8, 83.7, 80.6, 84.0, 83.8, 83.1, 81.4, 80.1]}, {"entity_id": 603, "name": "GoldAudio", "product": "GoldEar Classic", "cat": "Earbuds", "color": "#2C2C2C", "score": 97.9, "price": 165.0, "sent": 87.5, "demand": 56.0, "mis": 93.0, "price_history": [126.25, 147.08, 146.13, 147.74, 147.27, 146.82, 145.55, 146.47, 146.31, 145.71, 147.0, 147.11], "sent_history": [85.1, 80.6, 85.0, 80.9, 75.6, 82.3, 87.0, 88.1, 86.9, 87.0, 86.8, 84.3]}, {"entity_id": 622, "name": "DeepAudio", "product": "DeepBass Ultra", "cat": "Headphones", "color": "#E8C97A", "score": 97.7, "price": 275.0, "sent": 84.1, "demand": 53.1, "mis": 92.8, "price_history": [241.67, 246.36, 243.84, 242.77, 244.81, 242.35, 243.88, 207.93, 246.22, 245.32, 243.95, 241.93], "sent_history": [85.9, 84.2, 85.4, 87.8, 87.5, 89.4, 85.2, 80.4, 81.3, 82.3, 86.0, 86.5]}, {"entity_id": 618, "name": "CrystalAudio", "product": "CrystalSound Pro", "cat": "Bluetooth Speakers", "color": "#5B8DB8", "score": 97.6, "price": 225.0, "sent": 82.2, "demand": 48.9, "mis": 92.7, "price_history": [199.1, 202.02, 203.27, 199.85, 202.26, 201.05, 202.23, 200.84, 195.89, 200.54, 201.91, 169.77], "sent_history": [85.8, 83.9, 84.2, 86.8, 86.2, 82.3, 85.5, 86.2, 82.1, 81.2, 79.0, 81.2]}, {"entity_id": 702, "name": "EduTech", "product": "LearningPad Kids", "cat": "Tablets", "color": "#FF4444", "score": 97.6, "price": 150.0, "sent": 66.2, "demand": 29.7, "mis": 92.7, "price_history": [138.94, 138.72, 138.75, 138.64, 139.24, 139.08, 138.8, 138.72, 141.36, 149.56, 149.64, 149.43], "sent_history": [56.5, 55.0, 57.0, 60.5, 62.8, 60.6, 58.9, 60.0, 62.5, 56.9, 59.4, 64.7]}, {"entity_id": 612, "name": "EliteBrand", "product": "EliteWatch X", "cat": "Smartwatches", "color": "#22C55E", "score": 97.5, "price": 380.0, "sent": 91.1, "demand": 53.5, "mis": 92.6, "price_history": [339.28, 341.48, 345.16, 340.27, 339.01, 340.55, 341.52, 334.28, 338.57, 343.77, 333.62, 336.58], "sent_history": [80.5, 85.1, 88.4, 84.2, 80.5, 86.4, 85.1, 77.7, 79.8, 81.3, 81.3, 83.4]}, {"entity_id": 624, "name": "TabSlate", "product": "TabSlate 12", "cat": "Tablets", "color": "#9B59B6", "score": 97.5, "price": 400.0, "sent": 76.1, "demand": 61.6, "mis": 92.6, "price_history": [340.71, 331.91, 340.36, 337.59, 294.0, 288.26, 293.53, 342.89, 333.65, 336.89, 336.21, 340.45], "sent_history": [83.2, 85.9, 86.1, 79.3, 78.1, 82.5, 80.1, 81.2, 80.7, 77.6, 80.2, 83.6]}, {"entity_id": 606, "name": "ApexTech", "product": "ApexPhone Ultra", "cat": "Smartphones", "color": "#FF6B35", "score": 97.5, "price": 1000.0, "sent": 84.8, "demand": 67.1, "mis": 92.6, "price_history": [882.08, 881.9, 869.71, 892.24, 879.29, 760.04, 767.03, 887.09, 753.12, 896.13, 891.26, 886.29], "sent_history": [82.0, 84.9, 83.5, 81.9, 83.2, 83.6, 81.7, 80.4, 78.9, 81.9, 88.5, 81.5]}, {"entity_id": 522, "name": "BassAudio", "product": "BassElite Pro", "cat": "Headphones", "color": "#FF8800", "score": 97.4, "price": 260.0, "sent": 81.8, "demand": 67.4, "mis": 92.5, "price_history": [229.28, 224.57, 194.0, 227.26, 228.76, 227.3, 198.21, 229.14, 229.63, 227.03, 227.77, 225.04], "sent_history": [82.1, 79.6, 85.6, 79.8, 79.0, 79.5, 82.7, 84.1, 80.5, 85.1, 84.2, 80.1]}, {"entity_id": 506, "name": "HyperTech", "product": "HyperPhone Pro", "cat": "Smartphones", "color": "#00CED1", "score": 97.3, "price": 950.0, "sent": 81.1, "demand": 61.2, "mis": 92.5, "price_history": [834.85, 826.62, 829.48, 826.26, 832.73, 833.6, 827.81, 824.21, 825.85, 830.03, 824.98, 827.22], "sent_history": [82.1, 77.5, 80.6, 83.0, 87.5, 85.3, 84.3, 87.6, 84.6, 84.7, 82.3, 83.6]}, {"entity_id": 512, "name": "ChronoBrand", "product": "ChronoLux S", "cat": "Smartwatches", "color": "#FF1493", "score": 97.2, "price": 370.0, "sent": 90.8, "demand": 54.5, "mis": 92.4, "price_history": [328.83, 329.66, 329.05, 328.54, 329.33, 281.68, 301.37, 329.35, 327.93, 327.69, 327.34, 326.72], "sent_history": [81.4, 83.6, 85.1, 84.5, 82.8, 82.5, 84.0, 80.8, 80.4, 86.6, 85.0, 87.5]}], "events": [{"color": "#C9A84C", "brand": "BassAudio", "cat": "headphones", "explanation": "Abnormal movement detected relative to recent trend and signal baseline.", "date": "2025-04-24"}, {"color": "#C9A84C", "brand": "WaveAudio", "cat": "headphones", "explanation": "Abnormal movement detected relative to recent trend and signal baseline.", "date": "2025-05-29"}, {"color": "#C9A84C", "brand": "DeepAudio", "cat": "headphones", "explanation": "Abnormal movement detected relative to recent trend and signal baseline.", "date": "2025-05-28"}, {"color": "#C9A84C", "brand": "CrystalAudio", "cat": "bluetooth_speakers", "explanation": "Abnormal movement detected relative to recent trend and signal baseline.", "date": "2025-06-25"}, {"color": "#C9A84C", "brand": "BlastAudio", "cat": "bluetooth_speakers", "explanation": "Abnormal movement detected relative to recent trend and signal baseline.", "date": "2025-05-25"}, {"color": "#22C55E", "brand": "LuxAudio", "cat": "earbuds", "explanation": "Ad surge detected.", "date": "2025-06-29"}], "buzz": [5.0, 43.7, 33.6, 49.1, 99.7, 52.4, 56.9, 29.7, 14.9, 57.4, 17.3, 8.3, 33.4, 68.2, 26.6, 59.5, 89.4, 20.7, 62.6, 36.1, 72.8, 12.5, 52.8, 31.0, 52.6, 5.6, 62.9, 26.8, 9.2, 31.9, 52.0, 63.5, 67.9, 63.7, 42.1, 25.8, 32.5, 39.9, 64.0, 56.0, 64.5, 72.8, 57.5, 79.5, 50.6, 35.9, 18.0, 21.7, 25.5, 0.0, 36.4, 33.7, 42.7, 45.8, 74.6, 67.0], "earbuds_s": [40.4, 37.6, 41.6, 33.8, 28.0, 30.2, 34.3, 35.9, 35.2, 38.0, 38.2, 52.4, 49.9, 43.5, 46.7, 51.0, 49.0, 45.1, 48.4, 49.9, 48.4, 41.2, 48.9, 50.2], "phones_s": [39.5, 37.5, 37.4, 38.9, 36.7, 39.8, 47.9, 43.3, 46.6, 44.7, 39.3, 50.1, 53.2, 40.5, 41.7, 51.5, 50.2, 41.3, 48.5, 53.5, 45.3, 45.2, 56.1, 54.1], "regime": [{"date": "2025-04-03", "regime_type": "positive"}, {"date": "2025-04-18", "regime_type": "negative"}, {"date": "2025-05-02", "regime_type": "positive"}, {"date": "2025-05-14", "regime_type": "negative"}, {"date": "2025-06-11", "regime_type": "negative"}, {"date": "2025-06-21", "regime_type": "positive"}], "report": {"top_cat": "Headphones", "top_cat_demand": 51.5, "top_cat_sent": 74.3, "best_brand": "LuxBrand", "best_brand_health": 99.4, "price_30d_chg": -1.5, "headphones_sent": 74.3, "total_brands": 73, "total_entities": 70, "total_alerts": 677}};
 
 const WEEKS = ['W1','W2','W3','W4','W5','W6','W7','W8','W9','W10','W11','W12'];
 const WEEKS24 = Array.from({length:24},(_,i)=>`W${i+1}`);
@@ -726,6 +730,20 @@ if (localStorage.getItem('intellim-theme') === 'dark') {
   document.getElementById('themeBtn').textContent = '◑';
 }
 function destroyCharts() { Object.values(charts).forEach(c => { try { c.destroy() } catch(e){} }); charts = {}; }
+
+function toggleTheme() {
+  const dark = document.documentElement.classList.toggle('dark');
+  document.getElementById('themeBtn').textContent = dark ? '◑' : '☀';
+  localStorage.setItem('intellim-theme', dark ? 'dark' : 'light');
+  if (dashboardLoaded) setTimeout(() => { destroyCharts(); dashboardLoaded = false; loadDashboard(); }, 100);
+  if (trendsRendered) {
+    trendsRendered = false;
+    if (trendsChartInstance) { trendsChartInstance.destroy(); trendsChartInstance = null; }
+    document.getElementById('buzzHeatmap').innerHTML = '';
+    document.getElementById('oppTags').innerHTML = '';
+    renderTrends();
+  }
+}
 
 // ═══════════════════════════════════
 // LANDING — animated bg + counters
@@ -810,7 +828,7 @@ function loadDashboard() {
     document.getElementById('dash-shimmer').style.display = 'none';
     document.getElementById('dash-real').style.display = 'block';
     renderDashCharts();
-    renderTimeline();
+    renderTimeline(null);
     dashboardLoaded = true;
   }, 1400);
 }
@@ -847,7 +865,7 @@ function renderDashCharts() {
     data: {
       datasets: [{
         label: 'Products',
-        data: D.scatter.map(d => ({ x: d.x, y: d.y, label: d.label })),
+        data: D.scatter.all.map(d => ({ x: d.x, y: d.y, label: d.label })),
         backgroundColor: C.gold, pointRadius: 7, pointHoverRadius: 10,
       }]
     },
@@ -900,9 +918,17 @@ function renderDashCharts() {
   });
 }
 
-function renderTimeline() {
+function renderTimeline(catFilter) {
   const el = document.getElementById('eventTimeline');
-  el.innerHTML = D.events.map(e => `
+  let events = D.events;
+  if (catFilter) {
+    events = events.filter(e => e.cat === catFilter);
+  }
+  if (events.length === 0) {
+    el.innerHTML = `<div style="font-size:13px;color:var(--text-muted);padding:12px 0;">No high-severity signal events for ${catFilter} in the tracked period.</div>`;
+    return;
+  }
+  el.innerHTML = events.map(e => `
     <div class="tl-item">
       <div class="tl-dot" style="background:${e.color}"></div>
       <div>
@@ -913,51 +939,107 @@ function renderTimeline() {
   `).join('');
 }
 
-// Per-category KPI data
-const CAT_KPIS = {
-  all: {demand: 46.2, demand_chg: -1.3, price: 191.62, price_chg: -1.0, sentiment: 71.0, sent_chg: 0.7, products: 70, cats: '7 categories · 73 brands'},
-  headphones: {demand: 51.5, demand_chg: 2.1, price: 146.0, price_chg: -0.8, sentiment: 74.3, sent_chg: 1.2, products: 6, cats: '6 products · headphones'},
-  earbuds: {demand: 40.5, demand_chg: -0.9, price: 50.3, price_chg: -1.4, sentiment: 67.3, sent_chg: 0.5, products: 15, cats: '15 products · earbuds'},
-  smartphones: {demand: 42.1, demand_chg: -1.8, price: 505.9, price_chg: -2.1, sentiment: 66.7, sent_chg: -0.3, products: 15, cats: '15 products · smartphones'},
-};
-const CAT_W12 = {
-  all: [46.04, 43.08, 43.84, 46.42, 45.26, 43.79, 45.23, 46.68, 45.44, 44.35, 47.03, 46.44],
-  headphones: [48.32, 47.75, 47.88, 48.19, 49.01, 51.27, 49.56, 49.07, 51.23, 49.73, 51.07, 50.46],
-  earbuds: [44.65, 42.19, 43.41, 44.85, 44.31, 42.65, 44.18, 44.52, 43.75, 41.26, 43.8, 44.82],
-  smartphones: [46.18, 41.38, 41.89, 45.57, 45.09, 42.15, 44.4, 46.01, 43.31, 43.69, 47.5, 46.88],
-};
-
-function toggleFilter(el) {
-  el.closest('.filter-bar').querySelectorAll('.filter-chip').forEach(c => c.classList.remove('on'));
+// ═══════════════════════════════════
+// DASHBOARD — with full filter support
+// ═══════════════════════════════════
+function setDashFilter(el) {
+  document.querySelectorAll('#dashFilterBar .filter-chip').forEach(c => c.classList.remove('on'));
   el.classList.add('on');
-  const label = el.textContent.trim().toLowerCase().replace(' ','');
-  const key = (label === 'all') ? 'all' : label;
-  const K = CAT_KPIS[key] || CAT_KPIS.all;
-  const W = CAT_W12[key] || CAT_W12.all;
+  updateDashboardData(el.dataset.cat);
+}
 
-  document.getElementById('kpi-demand').textContent = K.demand.toFixed(1);
-  document.getElementById('kpi-demand-chg').textContent = (K.demand_chg > 0 ? '↑ +' : '↓ ') + Math.abs(K.demand_chg) + '% this week';
-  document.getElementById('kpi-demand-chg').className = 'stat-delta ' + (K.demand_chg > 0 ? 'delta-up' : 'delta-dn');
-  document.getElementById('kpi-price').textContent = K.price.toFixed(1);
-  document.getElementById('kpi-price-chg').textContent = (K.price_chg > 0 ? '↑ +' : '↓ ') + Math.abs(K.price_chg) + '% vs last week';
-  document.getElementById('kpi-price-chg').className = 'stat-delta ' + (K.price_chg > 0 ? 'delta-up' : 'delta-dn');
-  document.getElementById('kpi-sent').textContent = K.sentiment.toFixed(1) + '%';
-  document.getElementById('kpi-sent-chg').textContent = (K.sent_chg > 0 ? '↑ +' : '↓ ') + Math.abs(K.sent_chg) + ' pts (30d)';
-  document.getElementById('kpi-sent-chg').className = 'stat-delta ' + (K.sent_chg > 0 ? 'delta-up' : 'delta-dn');
-  document.getElementById('kpi-brands').textContent = K.products;
-  document.getElementById('kpi-cats').textContent = K.cats;
-  document.getElementById('gauge-val').textContent = K.sentiment.toFixed(0) + '%';
+function updateDashboardData(cat) {
+  if (cat === 'all') {
+    const K = D.kpis;
+    document.getElementById('kpi-demand').textContent = K.demand.toFixed(1);
+    document.getElementById('kpi-demand-chg').textContent = '↓ ' + Math.abs(K.demand_chg) + '% this week';
+    document.getElementById('kpi-demand-chg').className = 'stat-delta delta-dn';
+    document.getElementById('kpi-demand-chg').style.color = '';
+    document.getElementById('kpi-price').textContent = K.price.toFixed(1);
+    document.getElementById('kpi-price-chg').textContent = '↓ ' + Math.abs(K.price_chg) + '% vs last week';
+    document.getElementById('kpi-price-chg').className = 'stat-delta delta-dn';
+    document.getElementById('kpi-price-chg').style.color = '';
+    document.getElementById('kpi-sent').textContent = K.sentiment.toFixed(1) + '%';
+    document.getElementById('kpi-sent-chg').textContent = '↑ +' + K.sent_chg + ' pts (30d)';
+    document.getElementById('kpi-sent-chg').className = 'stat-delta delta-up';
+    document.getElementById('kpi-sent-chg').style.color = '';
+    document.getElementById('kpi-brands').textContent = K.active_entities;
+    document.getElementById('kpi-cats').textContent = '7 categories · ' + K.active_brands + ' brands';
+    document.getElementById('gauge-val').textContent = K.sentiment.toFixed(0) + '%';
+    document.getElementById('demand-chart-title').textContent = 'Demand Index — 12-Week Trend (Weekly Avg)';
+    document.getElementById('scatter-chart-title').textContent = 'Price vs Demand — Top 14 Products';
+    document.getElementById('radar-chart-title').textContent = 'Brand Comparison Radar — Top 3 by Health';
+    updateDemandChart(D.w12);
+    updateScatterChart(D.scatter.all);
+    updateGauge(K.sentiment);
+    updateRadar(D.radar, ['#1A3A5C', '#C9A84C', '#888888']);
+    renderTimeline(null);
+  } else {
+    const ck = D.kpis_by_cat[cat];
+    document.getElementById('kpi-demand').textContent = ck.demand.toFixed(1);
+    document.getElementById('kpi-demand-chg').textContent = cat + ' category avg';
+    document.getElementById('kpi-demand-chg').className = 'stat-delta';
+    document.getElementById('kpi-demand-chg').style.color = 'var(--text-muted)';
+    document.getElementById('kpi-price').textContent = ck.price.toFixed(1);
+    document.getElementById('kpi-price-chg').textContent = cat + ' avg price index';
+    document.getElementById('kpi-price-chg').className = 'stat-delta';
+    document.getElementById('kpi-price-chg').style.color = 'var(--text-muted)';
+    document.getElementById('kpi-sent').textContent = ck.sentiment.toFixed(1) + '%';
+    document.getElementById('kpi-sent-chg').textContent = cat + ' avg sentiment';
+    document.getElementById('kpi-sent-chg').className = 'stat-delta';
+    document.getElementById('kpi-sent-chg').style.color = 'var(--text-muted)';
+    document.getElementById('kpi-brands').textContent = ck.count;
+    document.getElementById('kpi-cats').textContent = cat + ' products tracked';
+    document.getElementById('gauge-val').textContent = ck.sentiment.toFixed(0) + '%';
+    const catLabel = cat.charAt(0).toUpperCase() + cat.slice(1);
+    document.getElementById('demand-chart-title').textContent = catLabel + ' — Demand Index 12-Week Trend';
+    document.getElementById('scatter-chart-title').textContent = catLabel + ' — Price vs Demand by Brand';
+    document.getElementById('radar-chart-title').textContent = catLabel + ' — Top 3 Brands Radar';
+    updateDemandChart(D.w12_by_cat[cat]);
+    updateScatterChart(D.scatter[cat]);
+    updateGauge(ck.sentiment);
+    const catRadarColors = {
+      headphones: ['#C9A84C', '#E8C97A', '#5B8DB8'],
+      earbuds:    ['#C9A84C', '#5B8DB8', '#FF6B35'],
+      smartphones:['#C9A84C', '#00CED1', '#FF6B35'],
+    };
+    updateRadar(D.radar_by_cat[cat], catRadarColors[cat] || ['#C9A84C','#5B8DB8','#888888']);
+    renderTimeline(cat);
+  }
+}
 
-  // Update gauge
-  if (charts.gauge) {
-    charts.gauge.data.datasets[0].data = [K.sentiment, 100 - K.sentiment];
-    charts.gauge.update();
-  }
-  // Update demand trend chart
-  if (charts.demand) {
-    charts.demand.data.datasets[0].data = W;
-    charts.demand.update();
-  }
+function updateDemandChart(data) {
+  if (!charts.demand) return;
+  charts.demand.data.datasets[0].data = data;
+  charts.demand.update('active');
+}
+
+function updateScatterChart(data) {
+  if (!charts.scatter) return;
+  charts.scatter.data.datasets[0].data = data.map(d => ({ x: d.x, y: d.y, label: d.label }));
+  charts.scatter.update('active');
+}
+
+function updateGauge(val) {
+  if (!charts.gauge) return;
+  charts.gauge.data.datasets[0].data = [val, 100 - val];
+  charts.gauge.update('active');
+}
+
+function updateRadar(radarData, colors) {
+  if (!charts.radar) return;
+  const C = getChartColors();
+  const defaultColors = ['#1A3A5C', '#C9A84C', '#888888'];
+  const useColors = colors || defaultColors;
+  const bgAlphas = ['rgba(26,58,92,0.1)','rgba(201,168,76,0.1)','rgba(136,136,136,0.08)','rgba(0,206,209,0.08)'];
+  charts.radar.data.datasets = radarData.map((r, i) => ({
+    label: r.brand,
+    data: r.vals,
+    borderColor: useColors[i] || C.gold,
+    backgroundColor: bgAlphas[i] || 'rgba(201,168,76,0.08)',
+    pointBackgroundColor: useColors[i] || C.gold,
+  }));
+  charts.radar.update('active');
 }
 
 // ═══════════════════════════════════
@@ -1018,74 +1100,24 @@ function closeModal(e) {
 }
 
 // ═══════════════════════════════════
-// TRENDS — Company comparison per category
+// TRENDS — company comparison by category
 // ═══════════════════════════════════
-const BRAND_SEARCH = {
-  earbuds: {
-    GoldAudio:  [57.6,51.0,65.8,64.4,56.6,56.6,64.7,58.9,59.4,60.0,50.6,61.2,57.5,59.1,60.4,62.0,58.3,61.5,63.2,60.8,59.7,61.3,62.5,63.8],
-    SonicAudio: [75.3,68.1,73.4,75.1,68.3,77.7,76.2,77.9,74.4,79.0,77.7,74.5,78.1,76.8,79.2,80.1,77.4,78.6,81.0,79.3,80.5,78.9,82.1,83.4],
-    ProAudio:   [90.2,86.4,91.7,90.3,85.5,84.0,78.3,90.4,77.6,92.3,84.7,84.1,78.6,82.0,88.5,91.2,86.3,89.7,87.4,90.6,88.1,91.0,89.5,92.3],
-  },
-  headphones: {
-    DeepAudio:  [70.3,66.9,72.2,66.3,70.2,71.6,72.9,72.5,63.1,82.6,65.2,77.6,72.6,74.1,75.8,73.2,76.5,78.0,74.3,77.9,75.1,79.4,76.8,80.2],
-    BassAudio:  [59.3,44.3,49.5,49.9,56.9,61.1,66.3,95.7,78.2,57.5,56.0,62.0,65.2,68.6,80.0,76.9,69.3,78.7,80.6,82.7,68.7,83.5,80.1,82.1],
-    VoiceAudio: [55.3,60.7,53.7,57.4,51.8,58.2,54.0,55.0,62.1,60.7,53.8,57.9,59.1,56.4,60.2,58.7,61.3,59.8,62.5,60.1,63.7,61.4,64.2,62.9],
-  },
-  smartphones: {
-    ApexTech:  [84.7,90.3,73.9,87.1,73.4,88.8,79.2,72.9,73.9,63.1,91.6,85.5,86.3,83.8,87.4,89.2,85.6,88.0,86.7,89.5,87.1,90.4,88.3,91.7],
-    HyperTech: [87.3,86.7,98.3,98.5,92.0,63.3,83.7,83.1,96.8,97.2,99.6,96.7,97.6,95.2,98.0,96.5,97.8,99.1,96.3,98.7,97.0,99.4,96.9,98.5],
-    NovaTech:  [72.1,68.4,74.5,71.3,69.8,73.6,70.2,75.4,68.9,72.7,76.3,70.8,74.1,71.6,75.9,73.2,77.1,74.6,78.3,75.8,79.5,76.4,80.2,77.9],
-  },
-};
+let trendsChartInstance = null;
+let trendsRendered = false;
+let currentTrendCat = 'headphones';
 
-const BRAND_COLORS = {
-  GoldAudio: '#C9A84C', SonicAudio: '#1A3A5C', ProAudio: '#22C55E',
-  DeepAudio: '#C9A84C', BassAudio: '#5B8DB8', VoiceAudio: '#E8C97A',
-  ApexTech: '#C9A84C', HyperTech: '#5B8DB8', NovaTech: '#22C55E',
-};
-
-let currentTrendsCategory = 'earbuds';
-
-function setTrendsCategory(el, cat) {
-  el.closest('.filter-bar').querySelectorAll('.filter-chip').forEach(c => c.classList.remove('on'));
+function setTrendCat(el) {
+  document.querySelectorAll('#page-trends .filter-chip').forEach(t => t.classList.remove('on'));
   el.classList.add('on');
-  currentTrendsCategory = cat;
-  updateTrendsChart(cat);
-}
-
-function updateTrendsChart(cat) {
-  const C = getChartColors();
-  const brands = BRAND_SEARCH[cat];
-  const catLabel = cat.charAt(0).toUpperCase() + cat.slice(1);
-  document.getElementById('trends-chart-title').textContent = `Search Interest — Top Brands: ${catLabel} (24 Weeks)`;
-
-  if (charts.search) { charts.search.destroy(); delete charts.search; }
-
-  charts.search = new Chart(document.getElementById('searchAreaChart'), {
-    type: 'line',
-    data: {
-      labels: WEEKS24,
-      datasets: Object.entries(brands).map(([brand, data]) => ({
-        label: brand,
-        data,
-        borderColor: BRAND_COLORS[brand] || C.gold,
-        backgroundColor: (BRAND_COLORS[brand] || C.gold).replace('#','rgba(').replace(/([0-9A-F]{2})/gi, (m) => parseInt(m,16)+',').slice(0,-1) + '0.07)',
-        fill: false, tension: 0.4, pointRadius: 0, borderWidth: 2,
-      }))
-    },
-    options: {
-      responsive: true, maintainAspectRatio: false,
-      plugins: { legend: { labels: { color: C.text } } },
-      scales: {
-        x: { ticks: { color: C.muted, maxTicksLimit: 8 }, grid: { color: C.grid } },
-        y: { ticks: { color: C.muted }, grid: { color: C.grid }, min: 0, max: 110 }
-      }
-    }
-  });
+  currentTrendCat = el.dataset.cat;
+  updateTrendsChart(currentTrendCat);
 }
 
 function renderTrends() {
+  if (trendsRendered) return;
+  trendsRendered = true;
   const C = getChartColors();
+  const WEEKS13 = Array.from({length:13},(_,i)=>`W${i+1}`);
 
   // Build heatmap once
   const hm = document.getElementById('buzzHeatmap');
@@ -1103,23 +1135,61 @@ function renderTrends() {
     });
   }
 
-  // Render or re-render search chart for current category
-  updateTrendsChart(currentTrendsCategory);
-
   // Opportunity tags
   const oppTags = [
-    {text:'Headphones: highest avg demand (51.5)', type:'hot'},
-    {text:'BassAudio: search surge Apr–Jun 2025', type:'hot'},
-    {text:'Bluetooth Speakers: strong momentum', type:'hot'},
-    {text:'Apr–Jun regime: 3 positive shifts', type:'new'},
-    {text:'Smartphones: ApexTech & HyperTech leading', type:'warm'},
-    {text:'Earbuds: ProAudio & SonicAudio accelerating', type:'warm'},
-    {text:'Tablets: growing sentiment 72%', type:'new'},
-    {text:'Smartwatches: sentiment gap opportunity', type:'new'},
+    {text:'Headphones: BassAudio leads demand (61.7)', type:'hot'},
+    {text:'Smartphones: HyperTech dominant (67.8 demand)', type:'hot'},
+    {text:'Jun 21 positive regime shift — growth window open', type:'new'},
+    {text:'Earbuds: ProAudio surging (64.3 demand)', type:'hot'},
+    {text:'Bluetooth Speakers: strong Q2 momentum', type:'warm'},
+    {text:'Apr–Jun: 3 positive regime shifts detected', type:'new'},
+    {text:'Smartwatches: sentiment gap opportunity', type:'warm'},
+    {text:'Tablets: growing sentiment, high demand spikes', type:'new'},
   ];
   const tagsEl = document.getElementById('oppTags');
-  if (!tagsEl.children.length)
+  if (!tagsEl.children.length) {
     tagsEl.innerHTML = oppTags.map(t => `<div class="opp-tag ${t.type}">${t.text}</div>`).join('');
+  }
+
+  // Build initial chart for headphones
+  const td = D.trends_data.headphones;
+  const WEEKS13arr = Array.from({length:13},(_,i)=>`W${i+1}`);
+  trendsChartInstance = new Chart(document.getElementById('searchAreaChart'), {
+    type: 'line',
+    data: {
+      labels: WEEKS13arr,
+      datasets: td.brands.map((brand, i) => ({
+        label: brand,
+        data: td.series[i],
+        borderColor: td.colors[i],
+        backgroundColor: 'transparent',
+        fill: false, tension: 0.4, pointRadius: 3, pointHoverRadius: 5, borderWidth: 2,
+      }))
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { labels: { color: C.text } } },
+      scales: {
+        x: { ticks: { color: C.muted, maxTicksLimit: 8 }, grid: { color: C.grid } },
+        y: { ticks: { color: C.muted }, grid: { color: C.grid }, min: 30, max: 80 }
+      }
+    }
+  });
+}
+
+function updateTrendsChart(cat) {
+  if (!trendsChartInstance) return;
+  const td = D.trends_data[cat];
+  const catLabel = cat.charAt(0).toUpperCase() + cat.slice(1);
+  document.getElementById('trends-chart-title').textContent = `Company Demand Index — Top 3 Brands in ${catLabel} (13 Weeks)`;
+  trendsChartInstance.data.datasets = td.brands.map((brand, i) => ({
+    label: brand,
+    data: td.series[i],
+    borderColor: td.colors[i],
+    backgroundColor: 'transparent',
+    fill: false, tension: 0.4, pointRadius: 3, pointHoverRadius: 5, borderWidth: 2,
+  }));
+  trendsChartInstance.update('active');
 }
 
 // ═══════════════════════════════════
