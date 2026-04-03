@@ -1,0 +1,92 @@
+{
+  "category": "cameras",
+  "version": "1.0",
+  "domains": [
+    "amazon.in",
+    "flipkart.com",
+    "croma.com",
+    "vijaysales.com",
+    "reliancedigital.in"
+  ],
+  "start_urls": [
+    "https://www.amazon.in/s?k=digital+camera&rh=n%3A1388888031",
+    "https://www.flipkart.com/cameras-accessories/digital-cameras/pr?sid=lyw,cbu",
+    "https://www.croma.com/cameras-accessories/digital-cameras/c/35",
+    "https://www.vijaysales.com/cameras",
+    "https://www.reliancedigital.in/cameras/c/RLMD60001"
+  ],
+  "max_depth": 4,
+  "respect_robots": true,
+  "products": [
+    {
+      "name": "Sony ZV-E10 II",
+      "brand": "Sony",
+      "model_id": "sony-zve10-ii",
+      "search_keywords": ["sony zv e10 ii", "sony zve10 mark 2"],
+      "known_urls": []
+    },
+    {
+      "name": "Canon EOS R50",
+      "brand": "Canon",
+      "model_id": "canon-eos-r50",
+      "search_keywords": ["canon eos r50", "canon r50"],
+      "known_urls": []
+    },
+    {
+      "name": "Fujifilm X-T30 II",
+      "brand": "Fujifilm",
+      "model_id": "fujifilm-xt30-ii",
+      "search_keywords": ["fujifilm x-t30 ii", "fuji xt30 mark 2"],
+      "known_urls": []
+    },
+    {
+      "name": "Nikon Z30",
+      "brand": "Nikon",
+      "model_id": "nikon-z30",
+      "search_keywords": ["nikon z30"],
+      "known_urls": []
+    },
+    {
+      "name": "GoPro Hero 12 Black",
+      "brand": "GoPro",
+      "model_id": "gopro-hero-12-black",
+      "search_keywords": ["gopro hero 12 black", "gopro hero12"],
+      "known_urls": []
+    },
+    {
+      "name": "DJI Osmo Pocket 3",
+      "brand": "DJI",
+      "model_id": "dji-osmo-pocket-3",
+      "search_keywords": ["dji osmo pocket 3", "osmo pocket 3"],
+      "known_urls": []
+    },
+    {
+      "name": "Sony RX100 VII",
+      "brand": "Sony",
+      "model_id": "sony-rx100-vii",
+      "search_keywords": ["sony rx100 vii", "sony rx100 mark 7"],
+      "known_urls": []
+    },
+    {
+      "name": "Panasonic Lumix S5 II",
+      "brand": "Panasonic",
+      "model_id": "panasonic-lumix-s5-ii",
+      "search_keywords": ["panasonic lumix s5 ii", "lumix s5 mark 2"],
+      "known_urls": []
+    },
+    {
+      "name": "Insta360 X4",
+      "brand": "Insta360",
+      "model_id": "insta360-x4",
+      "search_keywords": ["insta360 x4"],
+      "known_urls": []
+    },
+    {
+      "name": "OM System OM-5",
+      "brand": "OM System",
+      "model_id": "om-system-om5",
+      "search_keywords": ["om system om-5", "olympus om5"],
+      "known_urls": []
+    }
+  ]
+}

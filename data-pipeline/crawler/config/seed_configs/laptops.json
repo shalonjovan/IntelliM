@@ -1,0 +1,92 @@
+{
+  "category": "laptops",
+  "version": "1.0",
+  "domains": [
+    "amazon.in",
+    "flipkart.com",
+    "croma.com",
+    "vijaysales.com",
+    "reliancedigital.in"
+  ],
+  "start_urls": [
+    "https://www.amazon.in/s?k=laptops&rh=n%3A1375424031",
+    "https://www.flipkart.com/computers/laptops/pr?sid=6bo,b5g",
+    "https://www.croma.com/laptops-tablets/laptops/c/14",
+    "https://www.vijaysales.com/laptops",
+    "https://www.reliancedigital.in/laptops/c/RLMD20001"
+  ],
+  "max_depth": 4,
+  "respect_robots": true,
+  "products": [
+    {
+      "name": "Apple MacBook Pro 16 M3 Max",
+      "brand": "Apple",
+      "model_id": "apple-macbook-pro-16-m3-max",
+      "search_keywords": ["macbook pro 16 m3 max", "macbook pro m3 max 16 inch"],
+      "known_urls": []
+    },
+    {
+      "name": "Dell XPS 15 9530",
+      "brand": "Dell",
+      "model_id": "dell-xps-15-9530",
+      "search_keywords": ["dell xps 15 9530", "xps 15 2023"],
+      "known_urls": []
+    },
+    {
+      "name": "ASUS ROG Zephyrus G14",
+      "brand": "ASUS",
+      "model_id": "asus-rog-zephyrus-g14-2024",
+      "search_keywords": ["rog zephyrus g14 2024", "asus g14 2024"],
+      "known_urls": []
+    },
+    {
+      "name": "Lenovo ThinkPad X1 Carbon Gen 12",
+      "brand": "Lenovo",
+      "model_id": "lenovo-thinkpad-x1-carbon-gen12",
+      "search_keywords": ["thinkpad x1 carbon gen 12", "x1 carbon 2024"],
+      "known_urls": []
+    },
+    {
+      "name": "HP Spectre x360 16",
+      "brand": "HP",
+      "model_id": "hp-spectre-x360-16",
+      "search_keywords": ["hp spectre x360 16", "spectre x360 16 inch"],
+      "known_urls": []
+    },
+    {
+      "name": "Microsoft Surface Laptop 6",
+      "brand": "Microsoft",
+      "model_id": "microsoft-surface-laptop-6",
+      "search_keywords": ["surface laptop 6", "microsoft surface laptop 6"],
+      "known_urls": []
+    },
+    {
+      "name": "Samsung Galaxy Book4 Ultra",
+      "brand": "Samsung",
+      "model_id": "samsung-galaxy-book4-ultra",
+      "search_keywords": ["galaxy book4 ultra", "samsung galaxy book 4 ultra"],
+      "known_urls": []
+    },
+    {
+      "name": "Acer Swift Go 16",
+      "brand": "Acer",
+      "model_id": "acer-swift-go-16",
+      "search_keywords": ["acer swift go 16", "swift go 16 2024"],
+      "known_urls": []
+    },
+    {
+      "name": "Razer Blade 16",
+      "brand": "Razer",
+      "model_id": "razer-blade-16-2024",
+      "search_keywords": ["razer blade 16 2024", "razer blade 16"],
+      "known_urls": []
+    },
+    {
+      "name": "LG Gram 17",
+      "brand": "LG",
+      "model_id": "lg-gram-17-2024",
+      "search_keywords": ["lg gram 17 2024", "lg gram 17"],
+      "known_urls": []
+    }
+  ]
+}

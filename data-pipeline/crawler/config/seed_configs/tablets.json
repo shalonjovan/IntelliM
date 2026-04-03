@@ -1,0 +1,92 @@
+{
+  "category": "tablets",
+  "version": "1.0",
+  "domains": [
+    "amazon.in",
+    "flipkart.com",
+    "croma.com",
+    "vijaysales.com",
+    "reliancedigital.in"
+  ],
+  "start_urls": [
+    "https://www.amazon.in/s?k=tablets&rh=n%3A1375424031",
+    "https://www.flipkart.com/tablets/pr?sid=dhd",
+    "https://www.croma.com/laptops-tablets/tablets/c/15",
+    "https://www.vijaysales.com/tablets",
+    "https://www.reliancedigital.in/tablets/c/RLMD50001"
+  ],
+  "max_depth": 4,
+  "respect_robots": true,
+  "products": [
+    {
+      "name": "Apple iPad Pro 12.9 M2",
+      "brand": "Apple",
+      "model_id": "apple-ipad-pro-129-m2",
+      "search_keywords": ["ipad pro 12.9 m2", "ipad pro m2 12.9 inch"],
+      "known_urls": []
+    },
+    {
+      "name": "Samsung Galaxy Tab S9 Ultra",
+      "brand": "Samsung",
+      "model_id": "samsung-galaxy-tab-s9-ultra",
+      "search_keywords": ["galaxy tab s9 ultra", "samsung tab s9 ultra"],
+      "known_urls": []
+    },
+    {
+      "name": "Xiaomi Pad 6 Pro",
+      "brand": "Xiaomi",
+      "model_id": "xiaomi-pad-6-pro",
+      "search_keywords": ["xiaomi pad 6 pro", "mi pad 6 pro"],
+      "known_urls": []
+    },
+    {
+      "name": "OnePlus Pad",
+      "brand": "OnePlus",
+      "model_id": "oneplus-pad",
+      "search_keywords": ["oneplus pad", "one plus pad"],
+      "known_urls": []
+    },
+    {
+      "name": "Lenovo Tab P12 Pro",
+      "brand": "Lenovo",
+      "model_id": "lenovo-tab-p12-pro",
+      "search_keywords": ["lenovo tab p12 pro"],
+      "known_urls": []
+    },
+    {
+      "name": "Realme Pad X",
+      "brand": "Realme",
+      "model_id": "realme-pad-x",
+      "search_keywords": ["realme pad x"],
+      "known_urls": []
+    },
+    {
+      "name": "Apple iPad Air 5th Gen",
+      "brand": "Apple",
+      "model_id": "apple-ipad-air-5",
+      "search_keywords": ["ipad air 5th generation", "ipad air 5 m1"],
+      "known_urls": []
+    },
+    {
+      "name": "Samsung Galaxy Tab S9 FE",
+      "brand": "Samsung",
+      "model_id": "samsung-galaxy-tab-s9-fe",
+      "search_keywords": ["galaxy tab s9 fe", "tab s9 fan edition"],
+      "known_urls": []
+    },
+    {
+      "name": "Honor Pad 9",
+      "brand": "Honor",
+      "model_id": "honor-pad-9",
+      "search_keywords": ["honor pad 9"],
+      "known_urls": []
+    },
+    {
+      "name": "Nokia T21",
+      "brand": "Nokia",
+      "model_id": "nokia-t21",
+      "search_keywords": ["nokia t21 tablet"],
+      "known_urls": []
+    }
+  ]
+}

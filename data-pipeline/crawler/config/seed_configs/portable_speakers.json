@@ -1,0 +1,92 @@
+{
+  "category": "portable_speakers",
+  "version": "1.0",
+  "domains": [
+    "amazon.in",
+    "flipkart.com",
+    "croma.com",
+    "vijaysales.com",
+    "reliancedigital.in"
+  ],
+  "start_urls": [
+    "https://www.amazon.in/s?k=portable+bluetooth+speaker&rh=n%3A1388921031",
+    "https://www.flipkart.com/audio/portable-speakers/pr?sid=0pm,czl",
+    "https://www.croma.com/audio/bluetooth-speakers/c/22",
+    "https://www.vijaysales.com/audio/bluetooth-speakers",
+    "https://www.reliancedigital.in/speakers/c/RLMD70001"
+  ],
+  "max_depth": 4,
+  "respect_robots": true,
+  "products": [
+    {
+      "name": "JBL Charge 5",
+      "brand": "JBL",
+      "model_id": "jbl-charge-5",
+      "search_keywords": ["jbl charge 5"],
+      "known_urls": []
+    },
+    {
+      "name": "Sony SRS-XB100",
+      "brand": "Sony",
+      "model_id": "sony-srs-xb100",
+      "search_keywords": ["sony srs xb100", "sony srs-xb100"],
+      "known_urls": []
+    },
+    {
+      "name": "Bose SoundLink Flex",
+      "brand": "Bose",
+      "model_id": "bose-soundlink-flex",
+      "search_keywords": ["bose soundlink flex"],
+      "known_urls": []
+    },
+    {
+      "name": "Marshall Emberton III",
+      "brand": "Marshall",
+      "model_id": "marshall-emberton-iii",
+      "search_keywords": ["marshall emberton 3", "marshall emberton iii"],
+      "known_urls": []
+    },
+    {
+      "name": "Anker Soundcore Motion X600",
+      "brand": "Anker",
+      "model_id": "anker-soundcore-motion-x600",
+      "search_keywords": ["anker soundcore motion x600", "soundcore motion x600"],
+      "known_urls": []
+    },
+    {
+      "name": "Ultimate Ears Hyperboom",
+      "brand": "Ultimate Ears",
+      "model_id": "ue-hyperboom",
+      "search_keywords": ["ue hyperboom", "ultimate ears hyperboom"],
+      "known_urls": []
+    },
+    {
+      "name": "boAt Stone 1400",
+      "brand": "boAt",
+      "model_id": "boat-stone-1400",
+      "search_keywords": ["boat stone 1400"],
+      "known_urls": []
+    },
+    {
+      "name": "Tribit StormBox Micro 2",
+      "brand": "Tribit",
+      "model_id": "tribit-stormbox-micro-2",
+      "search_keywords": ["tribit stormbox micro 2"],
+      "known_urls": []
+    },
+    {
+      "name": "Harman Kardon Onyx Studio 8",
+      "brand": "Harman Kardon",
+      "model_id": "harman-kardon-onyx-studio-8",
+      "search_keywords": ["harman kardon onyx studio 8", "onyx studio 8"],
+      "known_urls": []
+    },
+    {
+      "name": "Zebronics Zeb-Action Pro",
+      "brand": "Zebronics",
+      "model_id": "zebronics-zeb-action-pro",
+      "search_keywords": ["zebronics zeb action pro", "zebronics action pro"],
+      "known_urls": []
+    }
+  ]
+}

@@ -1,0 +1,92 @@
+{
+  "category": "earphones",
+  "version": "1.0",
+  "domains": [
+    "amazon.in",
+    "flipkart.com",
+    "croma.com",
+    "vijaysales.com",
+    "reliancedigital.in"
+  ],
+  "start_urls": [
+    "https://www.amazon.in/s?k=wireless+earbuds&rh=n%3A1388921031",
+    "https://www.flipkart.com/headphones-earphones/earphones-headphones/pr?sid=0pm,0pl",
+    "https://www.croma.com/audio/headphones-earphones/c/21",
+    "https://www.vijaysales.com/audio/headphones-earphones",
+    "https://www.reliancedigital.in/headphones/c/RLMD30001"
+  ],
+  "max_depth": 4,
+  "respect_robots": true,
+  "products": [
+    {
+      "name": "Apple AirPods Pro 2nd Gen",
+      "brand": "Apple",
+      "model_id": "apple-airpods-pro-2",
+      "search_keywords": ["airpods pro 2", "airpods pro 2nd generation", "MQD83HN"],
+      "known_urls": []
+    },
+    {
+      "name": "Sony WF-1000XM5",
+      "brand": "Sony",
+      "model_id": "sony-wf-1000xm5",
+      "search_keywords": ["sony wf 1000xm5", "sony wf1000xm5"],
+      "known_urls": []
+    },
+    {
+      "name": "Samsung Galaxy Buds3 Pro",
+      "brand": "Samsung",
+      "model_id": "samsung-galaxy-buds3-pro",
+      "search_keywords": ["galaxy buds3 pro", "galaxy buds 3 pro"],
+      "known_urls": []
+    },
+    {
+      "name": "Bose QuietComfort Ultra Earbuds",
+      "brand": "Bose",
+      "model_id": "bose-qc-ultra-earbuds",
+      "search_keywords": ["bose quietcomfort ultra earbuds", "bose qc ultra earbuds"],
+      "known_urls": []
+    },
+    {
+      "name": "Nothing Ear 2",
+      "brand": "Nothing",
+      "model_id": "nothing-ear-2",
+      "search_keywords": ["nothing ear 2", "nothing ear(2)"],
+      "known_urls": []
+    },
+    {
+      "name": "OnePlus Buds 3",
+      "brand": "OnePlus",
+      "model_id": "oneplus-buds-3",
+      "search_keywords": ["oneplus buds 3", "one plus buds 3"],
+      "known_urls": []
+    },
+    {
+      "name": "Jabra Elite 10",
+      "brand": "Jabra",
+      "model_id": "jabra-elite-10",
+      "search_keywords": ["jabra elite 10"],
+      "known_urls": []
+    },
+    {
+      "name": "Sennheiser Momentum True Wireless 4",
+      "brand": "Sennheiser",
+      "model_id": "sennheiser-mtw-4",
+      "search_keywords": ["sennheiser momentum true wireless 4", "sennheiser mtw4"],
+      "known_urls": []
+    },
+    {
+      "name": "Realme Buds Air 6 Pro",
+      "brand": "Realme",
+      "model_id": "realme-buds-air-6-pro",
+      "search_keywords": ["realme buds air 6 pro"],
+      "known_urls": []
+    },
+    {
+      "name": "boAt Airdopes 141",
+      "brand": "boAt",
+      "model_id": "boat-airdopes-141",
+      "search_keywords": ["boat airdopes 141", "boat airdopes141"],
+      "known_urls": []
+    }
+  ]
+}

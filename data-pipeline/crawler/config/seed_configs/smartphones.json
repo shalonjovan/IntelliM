@@ -1,0 +1,92 @@
+{
+  "category": "smartphones",
+  "version": "1.0",
+  "domains": [
+    "amazon.in",
+    "flipkart.com",
+    "croma.com",
+    "vijaysales.com",
+    "reliancedigital.in"
+  ],
+  "start_urls": [
+    "https://www.amazon.in/s?k=smartphones&rh=n%3A1389401031",
+    "https://www.flipkart.com/mobiles/pr?sid=tyy,4io",
+    "https://www.croma.com/mobiles-tablets/smartphones/c/13",
+    "https://www.vijaysales.com/mobile-phones",
+    "https://www.reliancedigital.in/mobiles/mobile-phones/c/RLMD10001"
+  ],
+  "max_depth": 4,
+  "respect_robots": true,
+  "products": [
+    {
+      "name": "Samsung Galaxy S24 Ultra",
+      "brand": "Samsung",
+      "model_id": "samsung-galaxy-s24-ultra",
+      "search_keywords": ["galaxy s24 ultra", "samsung s24 ultra", "SM-S928B"],
+      "known_urls": []
+    },
+    {
+      "name": "Apple iPhone 15 Pro Max",
+      "brand": "Apple",
+      "model_id": "apple-iphone-15-pro-max",
+      "search_keywords": ["iphone 15 pro max", "apple iphone 15 promax"],
+      "known_urls": []
+    },
+    {
+      "name": "Google Pixel 8 Pro",
+      "brand": "Google",
+      "model_id": "google-pixel-8-pro",
+      "search_keywords": ["pixel 8 pro", "google pixel 8pro"],
+      "known_urls": []
+    },
+    {
+      "name": "OnePlus 12",
+      "brand": "OnePlus",
+      "model_id": "oneplus-12",
+      "search_keywords": ["oneplus 12", "one plus 12 5g"],
+      "known_urls": []
+    },
+    {
+      "name": "Xiaomi 14 Ultra",
+      "brand": "Xiaomi",
+      "model_id": "xiaomi-14-ultra",
+      "search_keywords": ["xiaomi 14 ultra", "mi 14 ultra"],
+      "known_urls": []
+    },
+    {
+      "name": "Vivo X100 Pro",
+      "brand": "Vivo",
+      "model_id": "vivo-x100-pro",
+      "search_keywords": ["vivo x100 pro"],
+      "known_urls": []
+    },
+    {
+      "name": "OPPO Find X7 Ultra",
+      "brand": "OPPO",
+      "model_id": "oppo-find-x7-ultra",
+      "search_keywords": ["oppo find x7 ultra", "find x7 ultra"],
+      "known_urls": []
+    },
+    {
+      "name": "Motorola Edge 50 Pro",
+      "brand": "Motorola",
+      "model_id": "motorola-edge-50-pro",
+      "search_keywords": ["moto edge 50 pro", "motorola edge 50pro"],
+      "known_urls": []
+    },
+    {
+      "name": "Nothing Phone 2",
+      "brand": "Nothing",
+      "model_id": "nothing-phone-2",
+      "search_keywords": ["nothing phone 2", "nothing phone2"],
+      "known_urls": []
+    },
+    {
+      "name": "Realme GT 6",
+      "brand": "Realme",
+      "model_id": "realme-gt-6",
+      "search_keywords": ["realme gt 6", "realme gt6"],
+      "known_urls": []
+    }
+  ]
+}

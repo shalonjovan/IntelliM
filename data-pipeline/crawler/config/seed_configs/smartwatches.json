@@ -1,0 +1,92 @@
+{
+  "category": "smartwatches",
+  "version": "1.0",
+  "domains": [
+    "amazon.in",
+    "flipkart.com",
+    "croma.com",
+    "vijaysales.com",
+    "reliancedigital.in"
+  ],
+  "start_urls": [
+    "https://www.amazon.in/s?k=smartwatch&rh=n%3A1350380031",
+    "https://www.flipkart.com/wearable-smart-devices/smartwatches/pr?sid=ajy,buh",
+    "https://www.croma.com/wearables/smartwatches/c/31",
+    "https://www.vijaysales.com/wearables/smart-watches",
+    "https://www.reliancedigital.in/smartwatches/c/RLMD40001"
+  ],
+  "max_depth": 4,
+  "respect_robots": true,
+  "products": [
+    {
+      "name": "Apple Watch Series 9",
+      "brand": "Apple",
+      "model_id": "apple-watch-series-9",
+      "search_keywords": ["apple watch series 9", "apple watch s9"],
+      "known_urls": []
+    },
+    {
+      "name": "Samsung Galaxy Watch 6 Classic",
+      "brand": "Samsung",
+      "model_id": "samsung-galaxy-watch-6-classic",
+      "search_keywords": ["galaxy watch 6 classic", "samsung watch 6 classic"],
+      "known_urls": []
+    },
+    {
+      "name": "Google Pixel Watch 2",
+      "brand": "Google",
+      "model_id": "google-pixel-watch-2",
+      "search_keywords": ["pixel watch 2", "google pixel watch 2"],
+      "known_urls": []
+    },
+    {
+      "name": "Garmin Fenix 7 Pro",
+      "brand": "Garmin",
+      "model_id": "garmin-fenix-7-pro",
+      "search_keywords": ["garmin fenix 7 pro", "fenix 7 pro"],
+      "known_urls": []
+    },
+    {
+      "name": "Fitbit Sense 2",
+      "brand": "Fitbit",
+      "model_id": "fitbit-sense-2",
+      "search_keywords": ["fitbit sense 2"],
+      "known_urls": []
+    },
+    {
+      "name": "Amazfit GTR 4",
+      "brand": "Amazfit",
+      "model_id": "amazfit-gtr-4",
+      "search_keywords": ["amazfit gtr 4", "amazfit gtr4"],
+      "known_urls": []
+    },
+    {
+      "name": "Noise ColorFit Ultra 3",
+      "brand": "Noise",
+      "model_id": "noise-colorfit-ultra-3",
+      "search_keywords": ["noise colorfit ultra 3"],
+      "known_urls": []
+    },
+    {
+      "name": "boAt Xtend Pro",
+      "brand": "boAt",
+      "model_id": "boat-xtend-pro",
+      "search_keywords": ["boat xtend pro", "boat watch xtend pro"],
+      "known_urls": []
+    },
+    {
+      "name": "Fire-Boltt Phoenix Ultra",
+      "brand": "Fire-Boltt",
+      "model_id": "fire-boltt-phoenix-ultra",
+      "search_keywords": ["fire boltt phoenix ultra"],
+      "known_urls": []
+    },
+    {
+      "name": "Huawei Watch GT 4",
+      "brand": "Huawei",
+      "model_id": "huawei-watch-gt-4",
+      "search_keywords": ["huawei watch gt 4", "huawei gt4"],
+      "known_urls": []
+    }
+  ]
+}
