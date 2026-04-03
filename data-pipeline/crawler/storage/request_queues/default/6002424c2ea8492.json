@@ -1,0 +1,25 @@
+{
+  "unique_key": "https://www.flipkart.com/vivo-t5x-5g-star-silver-256-gb/product-reviews/itm7da8aa253e72b?aid=3ac62744-ab96-4f53-82f7-02eb72b6a662&an=battery&cat=mobile&lid=lstmobhh69nhr7wur3hybc1af&mid=flipkart&pid=mobhh69nhr7wur3h&vert=handset",
+  "url": "https://www.flipkart.com/vivo-t5x-5g-star-silver-256-gb/product-reviews/itm7da8aa253e72b?pid=MOBHH69NHR7WUR3H&lid=LSTMOBHH69NHR7WUR3HYBC1AF&aid=3ac62744-ab96-4f53-82f7-02eb72b6a662&mid=FLIPKART&an=Battery&cat=Mobile&vert=Handset",
+  "method": "GET",
+  "payload": null,
+  "headers": {},
+  "user_data": {
+    "__crawlee": {},
+    "label": "queue_trend_data",
+    "seed_category": "smartphones",
+    "seed_domain": "www.flipkart.com",
+    "origin_url": "https://www.flipkart.com/mobiles/pr?sid=tyy,4io",
+    "depth": 2,
+    "max_depth": 4,
+    "parent_url": "https://www.flipkart.com/mobiles/pr?sid=tyy,4io",
+    "product_hint": null,
+    "crawled_at": "2026-04-03T12:23:04.252539",
+    "extra": {},
+    "page_type": "trend_data"
+  },
+  "retry_count": 0,
+  "no_retry": false,
+  "loaded_url": null,
+  "handled_at": null
+}

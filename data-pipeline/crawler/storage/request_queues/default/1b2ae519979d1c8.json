@@ -1,0 +1,25 @@
+{
+  "unique_key": "https://aax-eu-zaz.amazon.in/hz/reviews-render/report-review/ref=cm_cr_dp_d_report?csrft=hoofjygqow6jaq7xyzgavxaxm3sbz3nulhadsyihoeofaaaaagnpspsaaaab&reviewid=r1pjyv6p77ed9u",
+  "url": "https://aax-eu-zaz.amazon.in/hz/reviews-render/report-review/ref=cm_cr_dp_d_report?csrfT=hOOfjyGQOW6jAQ7xYZgAVXAxM3sBZ3nUlHadsYIHOEOfAAAAAGnPsPsAAAAB&reviewId=R1PJYV6P77ED9U",
+  "method": "GET",
+  "payload": null,
+  "headers": {},
+  "user_data": {
+    "__crawlee": {},
+    "label": "queue_trend_data",
+    "seed_category": "smartphones",
+    "seed_domain": "www.amazon.in",
+    "origin_url": "https://www.amazon.in/s?k=smartphones&rh=n%3A1389401031",
+    "depth": 2,
+    "max_depth": 4,
+    "parent_url": "https://www.amazon.in/s?k=smartphones&rh=n%3A1389401031",
+    "product_hint": null,
+    "crawled_at": "2026-04-03T12:22:50.990344",
+    "extra": {},
+    "page_type": "trend_data"
+  },
+  "retry_count": 0,
+  "no_retry": false,
+  "loaded_url": null,
+  "handled_at": null
+}

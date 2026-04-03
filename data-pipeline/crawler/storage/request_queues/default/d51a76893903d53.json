@@ -1,0 +1,25 @@
+{
+  "unique_key": "https://services.amazon.in/services/fulfilment-by-amazon/benefits.html/ref=az_footer_fba?ld=awrginfbafooter",
+  "url": "https://services.amazon.in/services/fulfilment-by-amazon/benefits.html/ref=az_footer_fba?ld=AWRGINFBAfooter",
+  "method": "GET",
+  "payload": null,
+  "headers": {},
+  "user_data": {
+    "__crawlee": {},
+    "label": "queue_ad_creative",
+    "seed_category": "smartphones",
+    "seed_domain": "www.amazon.in",
+    "origin_url": "https://www.amazon.in/s?k=smartphones&rh=n%3A1389401031",
+    "depth": 1,
+    "max_depth": 4,
+    "parent_url": "https://www.amazon.in/s?k=smartphones&rh=n%3A1389401031",
+    "product_hint": null,
+    "crawled_at": "2026-04-03T12:22:12.040206",
+    "extra": {},
+    "page_type": "ad_creative"
+  },
+  "retry_count": 0,
+  "no_retry": false,
+  "loaded_url": null,
+  "handled_at": null
+}

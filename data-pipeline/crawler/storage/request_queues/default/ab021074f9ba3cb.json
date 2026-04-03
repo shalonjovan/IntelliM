@@ -1,0 +1,25 @@
+{
+  "unique_key": "https://www.flipkart.com/realme-p4-lite-5g-mosaic-blue-64-gb/product-reviews/itm90c243961f214?aid=3ac62744-ab96-4f53-82f7-02eb72b6a662&an=battery&cat=mobile&lid=lstmobhhfbuhtzg3gtn6cu6z3&mid=flipkart&pid=mobhhfbuhtzg3gtn&vert=handset",
+  "url": "https://www.flipkart.com/realme-p4-lite-5g-mosaic-blue-64-gb/product-reviews/itm90c243961f214?pid=MOBHHFBUHTZG3GTN&lid=LSTMOBHHFBUHTZG3GTN6CU6Z3&aid=3ac62744-ab96-4f53-82f7-02eb72b6a662&mid=FLIPKART&an=Battery&cat=Mobile&vert=Handset",
+  "method": "GET",
+  "payload": null,
+  "headers": {},
+  "user_data": {
+    "__crawlee": {},
+    "label": "queue_ad_creative",
+    "seed_category": "smartphones",
+    "seed_domain": "www.flipkart.com",
+    "origin_url": "https://www.flipkart.com/mobiles/pr?sid=tyy,4io",
+    "depth": 2,
+    "max_depth": 4,
+    "parent_url": "https://www.flipkart.com/mobiles/pr?sid=tyy,4io",
+    "product_hint": null,
+    "crawled_at": "2026-04-03T12:23:22.974300",
+    "extra": {},
+    "page_type": "ad_creative"
+  },
+  "retry_count": 0,
+  "no_retry": false,
+  "loaded_url": null,
+  "handled_at": null
+}

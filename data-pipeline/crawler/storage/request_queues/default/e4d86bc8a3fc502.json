@@ -1,0 +1,25 @@
+{
+  "unique_key": "https://aax-eu-zaz.amazon.in/amazon-brand-solimo-mobile-silicon_black/dp/b0bg1v476v/ref=pb_allspark_dp_sims_pao_desktop_session_based_d_sccl_1_2/520-2405812-8424813?content-id=amzn1.sym.e84a26b2-5470-42e6-b7fa-162e7bb17185&pd_rd_i=b0bg1v476v&pd_rd_r=2765cb63-da61-46b0-8303-c1f945a49f2b&pd_rd_w=5jbxz&pd_rd_wg=rgp7v&pf_rd_p=e84a26b2-5470-42e6-b7fa-162e7bb17185&pf_rd_r=p1fr6swffx250qbstp3z&psc=1",
+  "url": "https://aax-eu-zaz.amazon.in/Amazon-Brand-Solimo-Mobile-Silicon_Black/dp/B0BG1V476V/ref=pb_allspark_dp_sims_pao_desktop_session_based_d_sccl_1_2/520-2405812-8424813?pd_rd_w=5JbxZ&content-id=amzn1.sym.e84a26b2-5470-42e6-b7fa-162e7bb17185&pf_rd_p=e84a26b2-5470-42e6-b7fa-162e7bb17185&pf_rd_r=P1FR6SWFFX250QBSTP3Z&pd_rd_wg=RGP7v&pd_rd_r=2765cb63-da61-46b0-8303-c1f945a49f2b&pd_rd_i=B0BG1V476V&psc=1",
+  "method": "GET",
+  "payload": null,
+  "headers": {},
+  "user_data": {
+    "__crawlee": {},
+    "label": "queue_product_page",
+    "seed_category": "smartphones",
+    "seed_domain": "www.amazon.in",
+    "origin_url": "https://www.amazon.in/s?k=smartphones&rh=n%3A1389401031",
+    "depth": 2,
+    "max_depth": 4,
+    "parent_url": "https://www.amazon.in/s?k=smartphones&rh=n%3A1389401031",
+    "product_hint": null,
+    "crawled_at": "2026-04-03T12:22:50.985325",
+    "extra": {},
+    "page_type": "product_page"
+  },
+  "retry_count": 0,
+  "no_retry": false,
+  "loaded_url": null,
+  "handled_at": null
+}

@@ -16,9 +16,10 @@ from __future__ import annotations
 
 import random
 
-from crawlee.http_crawler import HttpCrawler, HttpCrawlingContext
-from crawlee.playwright_crawler import PlaywrightCrawler, PlaywrightCrawlingContext
-from crawlee import Router
+from crawlee.crawlers import HttpCrawler, HttpCrawlingContext
+from crawlee.crawlers import PlaywrightCrawler, PlaywrightCrawlingContext
+from crawlee.router import Router
+from crawlee import ConcurrencySettings
 from loguru import logger
 
 from classifier.page_types import PageType
@@ -53,14 +54,17 @@ def build_http_crawler(fetcher: UrlFetcher) -> HttpCrawler:
 
     # Register a handler for every PageType label
     for pt in PageType:
-        router.add_handler(pt.queue_name)(handler)
+        router.handler(pt.queue_name)(handler)
 
     # Default handler catches seed requests and anything unclassified
     router.default_handler(handler)
 
     crawler = HttpCrawler(
         request_handler=router,
-        max_concurrency=settings.max_concurrency,
+        concurrency_settings=ConcurrencySettings(
+            max_concurrency=settings.max_concurrency,
+            desired_concurrency=settings.max_concurrency,
+        ),
         max_request_retries=settings.max_retries,
         request_handler_timeout=_timeout(),
         additional_http_error_status_codes=[403, 429],
@@ -85,7 +89,10 @@ def build_playwright_crawler(fetcher: UrlFetcher) -> PlaywrightCrawler:
 
     crawler = PlaywrightCrawler(
         request_handler=router,
-        max_concurrency=settings.max_concurrency,
+        concurrency_settings=ConcurrencySettings(
+            max_concurrency=settings.max_concurrency,
+            desired_concurrency=settings.max_concurrency,
+        ),
         max_request_retries=settings.max_retries,
         request_handler_timeout=_timeout(),
         headless=settings.headless,

@@ -1,0 +1,27 @@
+{
+  "unique_key": "https://www.flipkart.com/vivo-t5x-5g-cyber-green-128-gb/p/itm7da8aa253e72b?fm=organic&iid=en_ulfjhnirdqq3pmh-7yy92cfbws8ys9eatcmtwj2ib5sslka8uq5o5cxnbsj_g0fxqfgq9opn53ykzrsnivx92_ufjctyohohzs-z5_ps_w0%3d&lid=lstmobhh69ngfzayk6myqknqd&marketplace=flipkart&otracker=browse&ov_redirect=true&pid=mobhh69ngfzayk6m&ppn=none&ppt=none&srno=b_1_1&ssid=wz4lpocp400000001775218932854&store=tyy/4io",
+  "url": "https://www.flipkart.com/vivo-t5x-5g-cyber-green-128-gb/p/itm7da8aa253e72b?pid=MOBHH69NGFZAYK6M&lid=LSTMOBHH69NGFZAYK6MYQKNQD&marketplace=FLIPKART&store=tyy%2F4io&srno=b_1_1&otracker=browse&fm=organic&iid=en_ULfjhNirDqQ3pMh-7Yy92CfbwS8ys9eATcmTwJ2Ib5ssLKA8UQ5O5cXnbSj_g0FxqfGQ9opn53ykzrsNivX92_UFjCTyOHoHZs-Z5_PS_w0%3D&ppt=None&ppn=None&ssid=wz4lpocp400000001775218932854&ov_redirect=true",
+  "method": "GET",
+  "payload": null,
+  "headers": {},
+  "user_data": {
+    "__crawlee": {
+      "state": 5
+    },
+    "label": "queue_product_page",
+    "seed_category": "smartphones",
+    "seed_domain": "www.flipkart.com",
+    "origin_url": "https://www.flipkart.com/mobiles/pr?sid=tyy,4io",
+    "depth": 1,
+    "max_depth": 4,
+    "parent_url": "https://www.flipkart.com/mobiles/pr?sid=tyy,4io",
+    "product_hint": null,
+    "crawled_at": "2026-04-03T12:22:10.646367",
+    "extra": {},
+    "page_type": "product_page"
+  },
+  "retry_count": 1,
+  "no_retry": false,
+  "loaded_url": "https://www.flipkart.com/vivo-t5x-5g-cyber-green-128-gb/p/itm7da8aa253e72b?pid=MOBHH69NGFZAYK6M&lid=LSTMOBHH69NGFZAYK6MYQKNQD&marketplace=FLIPKART&store=tyy%2F4io&srno=b_1_1&otracker=browse&fm=organic&iid=en_ULfjhNirDqQ3pMh-7Yy92CfbwS8ys9eATcmTwJ2Ib5ssLKA8UQ5O5cXnbSj_g0FxqfGQ9opn53ykzrsNivX92_UFjCTyOHoHZs-Z5_PS_w0%3D&ppt=None&ppn=None&ssid=wz4lpocp400000001775218932854&ov_redirect=true",
+  "handled_at": null
+}

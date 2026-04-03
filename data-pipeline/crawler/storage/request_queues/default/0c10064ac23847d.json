@@ -1,0 +1,25 @@
+{
+  "unique_key": "https://www.amazon.in/gp/video/ssoredirect?ie=utf8&pf_rd_i=navbar-4201&pf_rd_m=a21tjruun4kgv&pf_rd_p=67223884-7511-4b85-9c28-d07cfca9d774&pf_rd_r=rf74wrp0zy9mrjmy9vcx&pf_rd_s=nav-sitewide-msg&pf_rd_t=4201&pvp=/?ref_%3ddvm_crs_in_s_gw_swm_dk_np_crime101&ref_=nav_swm_dvm_crs_in_s_gw_swm_dk_np_crime101",
+  "url": "https://www.amazon.in/gp/video/ssoredirect/?ie=UTF8&pvp=%2F%3Fref_%3Ddvm_crs_in_s_gw_swm_dk_np_crime101&ref_=nav_swm_dvm_crs_in_s_gw_swm_dk_np_crime101&pf_rd_p=67223884-7511-4b85-9c28-d07cfca9d774&pf_rd_s=nav-sitewide-msg&pf_rd_t=4201&pf_rd_i=navbar-4201&pf_rd_m=A21TJRUUN4KGV&pf_rd_r=RF74WRP0ZY9MRJMY9VCX",
+  "method": "GET",
+  "payload": null,
+  "headers": {},
+  "user_data": {
+    "__crawlee": {},
+    "label": "queue_ad_creative",
+    "seed_category": "smartphones",
+    "seed_domain": "www.amazon.in",
+    "origin_url": "https://www.amazon.in/s?k=smartphones&rh=n%3A1389401031",
+    "depth": 1,
+    "max_depth": 4,
+    "parent_url": "https://www.amazon.in/s?k=smartphones&rh=n%3A1389401031",
+    "product_hint": null,
+    "crawled_at": "2026-04-03T12:22:12.026708",
+    "extra": {},
+    "page_type": "ad_creative"
+  },
+  "retry_count": 0,
+  "no_retry": false,
+  "loaded_url": null,
+  "handled_at": null
+}

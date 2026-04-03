@@ -1,0 +1,25 @@
+{
+  "unique_key": "https://aax-eu-zaz.amazon.in/product-reviews/b0bg1pzn54/ref=pb_allspark_dp_sims_pao_desktop_session_based_d_sccl_1_4_cr/524-3289840-3598765?content-id=amzn1.sym.e84a26b2-5470-42e6-b7fa-162e7bb17185&pd_rd_i=b0bg1pzn54&pd_rd_r=cfd8dbfd-4894-4345-8699-157c37baa9b1&pd_rd_w=mb3zc&pd_rd_wg=sqgaq&pf_rd_p=e84a26b2-5470-42e6-b7fa-162e7bb17185&pf_rd_r=ct67qnby8ccxr2ze6gs2",
+  "url": "https://aax-eu-zaz.amazon.in/product-reviews/B0BG1PZN54/ref=pb_allspark_dp_sims_pao_desktop_session_based_d_sccl_1_4_cr/524-3289840-3598765?pd_rd_w=mb3zc&content-id=amzn1.sym.e84a26b2-5470-42e6-b7fa-162e7bb17185&pf_rd_p=e84a26b2-5470-42e6-b7fa-162e7bb17185&pf_rd_r=CT67QNBY8CCXR2ZE6GS2&pd_rd_wg=SqgAq&pd_rd_r=cfd8dbfd-4894-4345-8699-157c37baa9b1&pd_rd_i=B0BG1PZN54",
+  "method": "GET",
+  "payload": null,
+  "headers": {},
+  "user_data": {
+    "__crawlee": {},
+    "label": "queue_review_page",
+    "seed_category": "smartphones",
+    "seed_domain": "www.amazon.in",
+    "origin_url": "https://www.amazon.in/s?k=smartphones&rh=n%3A1389401031",
+    "depth": 2,
+    "max_depth": 4,
+    "parent_url": "https://www.amazon.in/s?k=smartphones&rh=n%3A1389401031",
+    "product_hint": null,
+    "crawled_at": "2026-04-03T12:23:17.586581",
+    "extra": {},
+    "page_type": "review_page"
+  },
+  "retry_count": 0,
+  "no_retry": false,
+  "loaded_url": null,
+  "handled_at": null
+}

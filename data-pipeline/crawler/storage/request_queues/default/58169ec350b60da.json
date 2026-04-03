@@ -1,0 +1,25 @@
+{
+  "unique_key": "https://aax-eu-zaz.amazon.in/gp/video/ssoredirect?ie=utf8&pf_rd_i=navbar-4201&pf_rd_m=a21tjruun4kgv&pf_rd_p=67223884-7511-4b85-9c28-d07cfca9d774&pf_rd_r=fw15m0qt2ae9fcyg9z0w&pf_rd_s=nav-sitewide-msg&pf_rd_t=4201&pvp=/?ref_%3ddvm_crs_in_s_gw_swm_dk_np_crime101&ref_=nav_swm_dvm_crs_in_s_gw_swm_dk_np_crime101",
+  "url": "https://aax-eu-zaz.amazon.in/gp/video/ssoredirect/?ie=UTF8&pvp=%2F%3Fref_%3Ddvm_crs_in_s_gw_swm_dk_np_crime101&ref_=nav_swm_dvm_crs_in_s_gw_swm_dk_np_crime101&pf_rd_p=67223884-7511-4b85-9c28-d07cfca9d774&pf_rd_s=nav-sitewide-msg&pf_rd_t=4201&pf_rd_i=navbar-4201&pf_rd_m=A21TJRUUN4KGV&pf_rd_r=FW15M0QT2AE9FCYG9Z0W",
+  "method": "GET",
+  "payload": null,
+  "headers": {},
+  "user_data": {
+    "__crawlee": {},
+    "label": "queue_trend_data",
+    "seed_category": "smartphones",
+    "seed_domain": "www.amazon.in",
+    "origin_url": "https://www.amazon.in/s?k=smartphones&rh=n%3A1389401031",
+    "depth": 2,
+    "max_depth": 4,
+    "parent_url": "https://www.amazon.in/s?k=smartphones&rh=n%3A1389401031",
+    "product_hint": null,
+    "crawled_at": "2026-04-03T12:22:37.894997",
+    "extra": {},
+    "page_type": "trend_data"
+  },
+  "retry_count": 0,
+  "no_retry": false,
+  "loaded_url": null,
+  "handled_at": null
+}

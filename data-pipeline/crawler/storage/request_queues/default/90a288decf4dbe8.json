@@ -1,0 +1,25 @@
+{
+  "unique_key": "https://www.flipkart.com/realme-15-lite-5g-satin-green-128-gb/p/itm61bed7bc32848?fm=eyj3dhaioijyzwnviiwichjwdci6inbwiiwibwlkijoichjvzhvjdfjly29tbwvuzgf0aw9ul3npbwlsyxiifq%3d%3d&hl_lid=&lid=lstmobhjc7yxha7yncw8dbh6r&marketplace=flipkart&pid=mobhjc7yxha7yncw",
+  "url": "https://www.flipkart.com/realme-15-lite-5g-satin-green-128-gb/p/itm61bed7bc32848?pid=MOBHJC7YXHA7YNCW&lid=LSTMOBHJC7YXHA7YNCW8DBH6R&hl_lid=&marketplace=FLIPKART&fm=eyJ3dHAiOiJyZWNvIiwicHJwdCI6InBwIiwibWlkIjoicHJvZHVjdFJlY29tbWVuZGF0aW9uL3NpbWlsYXIifQ%3D%3D",
+  "method": "GET",
+  "payload": null,
+  "headers": {},
+  "user_data": {
+    "__crawlee": {},
+    "label": "queue_product_page",
+    "seed_category": "smartphones",
+    "seed_domain": "www.flipkart.com",
+    "origin_url": "https://www.flipkart.com/mobiles/pr?sid=tyy,4io",
+    "depth": 2,
+    "max_depth": 4,
+    "parent_url": "https://www.flipkart.com/mobiles/pr?sid=tyy,4io",
+    "product_hint": null,
+    "crawled_at": "2026-04-03T12:22:24.938468",
+    "extra": {},
+    "page_type": "product_page"
+  },
+  "retry_count": 0,
+  "no_retry": false,
+  "loaded_url": null,
+  "handled_at": null
+}

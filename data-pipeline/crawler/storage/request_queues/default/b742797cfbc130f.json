@@ -1,0 +1,26 @@
+{
+  "unique_key": "https://www.vijaysales.com/mobile-phones",
+  "url": "https://www.vijaysales.com/mobile-phones",
+  "method": "GET",
+  "payload": null,
+  "headers": {},
+  "user_data": {
+    "__crawlee": {
+      "state": 6
+    },
+    "label": "SEED",
+    "seed_category": "smartphones",
+    "seed_domain": "www.vijaysales.com",
+    "origin_url": "https://www.vijaysales.com/mobile-phones",
+    "depth": 0,
+    "max_depth": 4,
+    "parent_url": null,
+    "product_hint": null,
+    "crawled_at": "2026-04-03T12:22:07.722918",
+    "extra": {}
+  },
+  "retry_count": 0,
+  "no_retry": false,
+  "loaded_url": null,
+  "handled_at": "2026-04-03 12:22:12.044177+00:00"
+}

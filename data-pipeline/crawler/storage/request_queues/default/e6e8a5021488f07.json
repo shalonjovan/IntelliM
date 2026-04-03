@@ -1,0 +1,25 @@
+{
+  "unique_key": "https://www.flipkart.com/vivo-t5x-5g-cyber-green-256-gb/product-reviews/itm7da8aa253e72b?aid=b32e49f9-79fd-4798-98ad-51dd89a408d0&an=display&cat=mobile&lid=lstmobhh69nqgvvyqsgavfzv6&mid=flipkart&pid=mobhh69nqgvvyqsg&vert=handset",
+  "url": "https://www.flipkart.com/vivo-t5x-5g-cyber-green-256-gb/product-reviews/itm7da8aa253e72b?pid=MOBHH69NQGVVYQSG&lid=LSTMOBHH69NQGVVYQSGAVFZV6&aid=b32e49f9-79fd-4798-98ad-51dd89a408d0&mid=FLIPKART&an=Display&cat=Mobile&vert=Handset",
+  "method": "GET",
+  "payload": null,
+  "headers": {},
+  "user_data": {
+    "__crawlee": {},
+    "label": "queue_trend_data",
+    "seed_category": "smartphones",
+    "seed_domain": "www.flipkart.com",
+    "origin_url": "https://www.flipkart.com/mobiles/pr?sid=tyy,4io",
+    "depth": 2,
+    "max_depth": 4,
+    "parent_url": "https://www.flipkart.com/mobiles/pr?sid=tyy,4io",
+    "product_hint": null,
+    "crawled_at": "2026-04-03T12:23:55.502305",
+    "extra": {},
+    "page_type": "trend_data"
+  },
+  "retry_count": 0,
+  "no_retry": false,
+  "loaded_url": null,
+  "handled_at": null
+}

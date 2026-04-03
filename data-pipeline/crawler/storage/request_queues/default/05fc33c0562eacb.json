@@ -1,0 +1,25 @@
+{
+  "unique_key": "https://www.amazon.in/ap/signin?openid.assoc_handle=inflex&openid.claimed_id=http://specs.openid.net/auth/2.0/identifier_select&openid.identity=http://specs.openid.net/auth/2.0/identifier_select&openid.mode=checkid_setup&openid.ns=http://specs.openid.net/auth/2.0&openid.pape.max_auth_age=0&openid.return_to=https://www.amazon.in/dp/b0bfwwtq4t/?_encoding%3dutf8%26_encoding%3dutf8%26aref%3do9nwlxyq9v%26content-id%3damzn1.sym.9269eab1-ae85-443b-9ec2-b2fa4ebaad05%253aamzn1.sym.9269eab1-ae85-443b-9ec2-b2fa4ebaad05%26pd_rd_i%3db0bfwwtq4t%26pd_rd_plhdr%3dt%26pd_rd_r%3d24c971f9-9ba2-46c7-a6bd-8152ace8bceb%26pd_rd_w%3dybwel%26pd_rd_wg%3doxfiu%26pf_rd_p%3d9269eab1-ae85-443b-9ec2-b2fa4ebaad05%26pf_rd_r%3drf74wrp0zy9mrjmy9vcx%26qid%3d1775218932%26ref_%3dnav_ya_signin",
+  "url": "https://www.amazon.in/ap/signin?openid.pape.max_auth_age=0&openid.return_to=https%3A%2F%2Fwww.amazon.in%2Fdp%2FB0BFWWTQ4T%2F%3F_encoding%3DUTF8%26_encoding%3DUTF8%26aref%3DO9NWlxYq9v%26content-id%3Damzn1.sym.9269eab1-ae85-443b-9ec2-b2fa4ebaad05%253Aamzn1.sym.9269eab1-ae85-443b-9ec2-b2fa4ebaad05%26pd_rd_i%3DB0BFWWTQ4T%26pd_rd_plhdr%3Dt%26pd_rd_r%3D24c971f9-9ba2-46c7-a6bd-8152ace8bceb%26pd_rd_w%3DYbWEl%26pd_rd_wg%3DoxfIU%26pf_rd_p%3D9269eab1-ae85-443b-9ec2-b2fa4ebaad05%26pf_rd_r%3DRF74WRP0ZY9MRJMY9VCX%26qid%3D1775218932%26ref_%3Dnav_ya_signin&openid.identity=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0%2Fidentifier_select&openid.assoc_handle=inflex&openid.mode=checkid_setup&openid.claimed_id=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0%2Fidentifier_select&openid.ns=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0",
+  "method": "GET",
+  "payload": null,
+  "headers": {},
+  "user_data": {
+    "__crawlee": {},
+    "label": "queue_trend_data",
+    "seed_category": "smartphones",
+    "seed_domain": "www.amazon.in",
+    "origin_url": "https://www.amazon.in/s?k=smartphones&rh=n%3A1389401031",
+    "depth": 2,
+    "max_depth": 4,
+    "parent_url": "https://www.amazon.in/s?k=smartphones&rh=n%3A1389401031",
+    "product_hint": null,
+    "crawled_at": "2026-04-03T12:22:37.892814",
+    "extra": {},
+    "page_type": "trend_data"
+  },
+  "retry_count": 0,
+  "no_retry": false,
+  "loaded_url": null,
+  "handled_at": null
+}

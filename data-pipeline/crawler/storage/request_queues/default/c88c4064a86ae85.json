@@ -1,0 +1,25 @@
+{
+  "unique_key": "https://www.amazon.in/ap/signin?language=en&marketplaceid=a21tjruun4kgv&openid.assoc_handle=inflex&openid.claimed_id=http://specs.openid.net/auth/2.0/identifier_select&openid.identity=http://specs.openid.net/auth/2.0/identifier_select&openid.mode=checkid_setup&openid.ns=http://specs.openid.net/auth/2.0&openid.return_to=https://www.amazon.in/dp/b0bfwwtq4t/ref%3dcm_cr_dp_d_vote_lft?ie%3dutf8%26csrft%3dhgtblgnkce5ckeogefgywckzc2givjv1djueuxyh9ipaaaaaagnpspoaaaab%26reviewid%3drp1coioj265ce%23rp1coioj265ce",
+  "url": "https://www.amazon.in/ap/signin?openid.return_to=https%3A%2F%2Fwww.amazon.in%2Fdp%2FB0BFWWTQ4T%2Fref%3Dcm_cr_dp_d_vote_lft%3Fie%3DUTF8%26csrfT%3DhGtbLGNKce5cKeOGEFgYWCkZC2givJv1dJUeUXYH9IpAAAAAAGnPsPoAAAAB%26reviewId%3DRP1COIOJ265CE%23RP1COIOJ265CE&openid.identity=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0%2Fidentifier_select&openid.assoc_handle=inflex&openid.mode=checkid_setup&marketPlaceId=A21TJRUUN4KGV&language=en&openid.claimed_id=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0%2Fidentifier_select&openid.ns=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0",
+  "method": "GET",
+  "payload": null,
+  "headers": {},
+  "user_data": {
+    "__crawlee": {},
+    "label": "queue_trend_data",
+    "seed_category": "smartphones",
+    "seed_domain": "www.amazon.in",
+    "origin_url": "https://www.amazon.in/s?k=smartphones&rh=n%3A1389401031",
+    "depth": 2,
+    "max_depth": 4,
+    "parent_url": "https://www.amazon.in/s?k=smartphones&rh=n%3A1389401031",
+    "product_hint": null,
+    "crawled_at": "2026-04-03T12:22:37.903374",
+    "extra": {},
+    "page_type": "trend_data"
+  },
+  "retry_count": 0,
+  "no_retry": false,
+  "loaded_url": null,
+  "handled_at": null
+}

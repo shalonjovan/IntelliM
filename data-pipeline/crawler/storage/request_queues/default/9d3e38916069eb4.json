@@ -1,0 +1,25 @@
+{
+  "unique_key": "https://www.flipkart.com/motorola-g57-power-5g-pantone-corsair-128-gb/product-reviews/itm9b745f1e67b5c?aid=00ab4120-12b2-4a8f-b4e0-b426e17a27ca&an=design&cat=mobile&lid=lstmobhgrfe8wbgkskyeykwbj&mid=flipkart&pid=mobhgrfe8wbgksky&vert=handset",
+  "url": "https://www.flipkart.com/motorola-g57-power-5g-pantone-corsair-128-gb/product-reviews/itm9b745f1e67b5c?pid=MOBHGRFE8WBGKSKY&lid=LSTMOBHGRFE8WBGKSKYEYKWBJ&aid=00ab4120-12b2-4a8f-b4e0-b426e17a27ca&mid=FLIPKART&an=Design&cat=Mobile&vert=Handset",
+  "method": "GET",
+  "payload": null,
+  "headers": {},
+  "user_data": {
+    "__crawlee": {},
+    "label": "queue_trend_data",
+    "seed_category": "smartphones",
+    "seed_domain": "www.flipkart.com",
+    "origin_url": "https://www.flipkart.com/mobiles/pr?sid=tyy,4io",
+    "depth": 2,
+    "max_depth": 4,
+    "parent_url": "https://www.flipkart.com/mobiles/pr?sid=tyy,4io",
+    "product_hint": null,
+    "crawled_at": "2026-04-03T12:24:21.225978",
+    "extra": {},
+    "page_type": "trend_data"
+  },
+  "retry_count": 0,
+  "no_retry": false,
+  "loaded_url": null,
+  "handled_at": null
+}

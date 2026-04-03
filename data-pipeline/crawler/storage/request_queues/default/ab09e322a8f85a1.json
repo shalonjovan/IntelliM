@@ -1,0 +1,25 @@
+{
+  "unique_key": "https://www.croma.com/godox-lr120-ring-light-with-mobile-holder-for-photography-videography-built-in-bi-color-/page/252589",
+  "url": "https://www.croma.com/godox-lr120-ring-light-with-mobile-holder-for-photography-videography-built-in-bi-color-/page/252589/",
+  "method": "GET",
+  "payload": null,
+  "headers": {},
+  "user_data": {
+    "__crawlee": {},
+    "label": "queue_category_page",
+    "seed_category": "smartphones",
+    "seed_domain": "www.croma.com",
+    "origin_url": "https://www.croma.com/mobiles-tablets/smartphones/c/13",
+    "depth": 2,
+    "max_depth": 4,
+    "parent_url": "https://www.croma.com/mobiles-tablets/smartphones/c/13",
+    "product_hint": null,
+    "crawled_at": "2026-04-03T12:24:14.760832",
+    "extra": {},
+    "page_type": "category_page"
+  },
+  "retry_count": 0,
+  "no_retry": false,
+  "loaded_url": null,
+  "handled_at": null
+}

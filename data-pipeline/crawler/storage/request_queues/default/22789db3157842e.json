@@ -1,0 +1,25 @@
+{
+  "unique_key": "https://www.flipkart.com/micromax-canvas-turbo-mini-a200-white-4-gb/p/itmeuyd6utsaej7u?otracker=undefined_footer",
+  "url": "https://www.flipkart.com/micromax-canvas-turbo-mini-a200-white-4-gb/p/itmeuyd6utsaej7u?otracker=undefined_footer",
+  "method": "GET",
+  "payload": null,
+  "headers": {},
+  "user_data": {
+    "__crawlee": {},
+    "label": "queue_product_page",
+    "seed_category": "smartphones",
+    "seed_domain": "www.flipkart.com",
+    "origin_url": "https://www.flipkart.com/mobiles/pr?sid=tyy,4io",
+    "depth": 2,
+    "max_depth": 4,
+    "parent_url": "https://www.flipkart.com/mobiles/pr?sid=tyy,4io",
+    "product_hint": null,
+    "crawled_at": "2026-04-03T12:23:55.503399",
+    "extra": {},
+    "page_type": "product_page"
+  },
+  "retry_count": 0,
+  "no_retry": false,
+  "loaded_url": null,
+  "handled_at": null
+}

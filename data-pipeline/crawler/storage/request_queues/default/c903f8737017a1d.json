@@ -1,0 +1,25 @@
+{
+  "unique_key": "https://www.flipkart.com/apple-iphone-16-teal-128-gb/p/itmce4bb3f55cc2f?fm=organic&iid=8a498bf3-777c-4277-b3fe-cf2f54b5c53b.mobh4dqfsy9etduu.search&lid=lstmobh4dqfsy9etduui6an3o&marketplace=flipkart&otracker=browse&ov_redirect=true&pid=mobh4dqfsy9etduu&ppn=none&ppt=none&srno=b_1_9&ssid=wz4lpocp400000001775218932854&store=tyy/4io",
+  "url": "https://www.flipkart.com/apple-iphone-16-teal-128-gb/p/itmce4bb3f55cc2f?pid=MOBH4DQFSY9ETDUU&lid=LSTMOBH4DQFSY9ETDUUI6AN3O&marketplace=FLIPKART&store=tyy%2F4io&srno=b_1_9&otracker=browse&fm=organic&iid=8a498bf3-777c-4277-b3fe-cf2f54b5c53b.MOBH4DQFSY9ETDUU.SEARCH&ppt=None&ppn=None&ssid=wz4lpocp400000001775218932854&ov_redirect=true",
+  "method": "GET",
+  "payload": null,
+  "headers": {},
+  "user_data": {
+    "__crawlee": {},
+    "label": "queue_product_page",
+    "seed_category": "smartphones",
+    "seed_domain": "www.flipkart.com",
+    "origin_url": "https://www.flipkart.com/mobiles/pr?sid=tyy,4io",
+    "depth": 1,
+    "max_depth": 4,
+    "parent_url": "https://www.flipkart.com/mobiles/pr?sid=tyy,4io",
+    "product_hint": null,
+    "crawled_at": "2026-04-03T12:22:10.646957",
+    "extra": {},
+    "page_type": "product_page"
+  },
+  "retry_count": 0,
+  "no_retry": false,
+  "loaded_url": null,
+  "handled_at": null
+}

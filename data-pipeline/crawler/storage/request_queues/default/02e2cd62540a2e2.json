@@ -1,0 +1,25 @@
+{
+  "unique_key": "https://www.flipkart.com/item/payments-callout/itemid?lid=lstmobhh69nqgvvyqsgavfzv6&marketplace=flipkart&pagekey=payments-callout&pid=mobhh69nqgvvyqsg?marketplace%3dflipkart&pin=-1",
+  "url": "https://www.flipkart.com/item/payments-callout/itemId?pageKey=payments-callout&marketplace=Flipkart&pin=-1&lid=LSTMOBHH69NQGVVYQSGAVFZV6&pid=MOBHH69NQGVVYQSG?marketplace=FLIPKART",
+  "method": "GET",
+  "payload": null,
+  "headers": {},
+  "user_data": {
+    "__crawlee": {},
+    "label": "queue_product_page",
+    "seed_category": "smartphones",
+    "seed_domain": "www.flipkart.com",
+    "origin_url": "https://www.flipkart.com/mobiles/pr?sid=tyy,4io",
+    "depth": 2,
+    "max_depth": 4,
+    "parent_url": "https://www.flipkart.com/mobiles/pr?sid=tyy,4io",
+    "product_hint": null,
+    "crawled_at": "2026-04-03T12:23:55.501742",
+    "extra": {},
+    "page_type": "product_page"
+  },
+  "retry_count": 0,
+  "no_retry": false,
+  "loaded_url": null,
+  "handled_at": null
+}

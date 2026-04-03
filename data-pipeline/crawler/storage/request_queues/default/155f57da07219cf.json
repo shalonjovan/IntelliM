@@ -1,0 +1,26 @@
+{
+  "unique_key": "https://www.flipkart.com/mobiles/pr?sid=tyy,4io",
+  "url": "https://www.flipkart.com/mobiles/pr?sid=tyy,4io",
+  "method": "GET",
+  "payload": null,
+  "headers": {},
+  "user_data": {
+    "__crawlee": {
+      "state": 4
+    },
+    "label": "SEED",
+    "seed_category": "smartphones",
+    "seed_domain": "www.flipkart.com",
+    "origin_url": "https://www.flipkart.com/mobiles/pr?sid=tyy,4io",
+    "depth": 0,
+    "max_depth": 4,
+    "parent_url": null,
+    "product_hint": null,
+    "crawled_at": "2026-04-03T12:22:07.722814",
+    "extra": {}
+  },
+  "retry_count": 0,
+  "no_retry": false,
+  "loaded_url": null,
+  "handled_at": "2026-04-03 12:22:12.203389+00:00"
+}

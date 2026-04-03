@@ -1,0 +1,25 @@
+{
+  "unique_key": "https://www.flipkart.com/vivo-v70-elite-sand-beige-256-gb/p/itmf8e28e33a9cd0?fm=eyj3dhaioijyzwnviiwichjwdci6inbwiiwibwlkijoichjvzhvjdfjly29tbwvuzgf0aw9ul3npbwlsyxiifq%3d%3d&hl_lid=&lid=lstmobhk7e7qkfmwge9nylpqb&marketplace=flipkart&pid=mobhk7e7qkfmwge9",
+  "url": "https://www.flipkart.com/vivo-v70-elite-sand-beige-256-gb/p/itmf8e28e33a9cd0?pid=MOBHK7E7QKFMWGE9&lid=LSTMOBHK7E7QKFMWGE9NYLPQB&hl_lid=&marketplace=FLIPKART&fm=eyJ3dHAiOiJyZWNvIiwicHJwdCI6InBwIiwibWlkIjoicHJvZHVjdFJlY29tbWVuZGF0aW9uL3NpbWlsYXIifQ%3D%3D",
+  "method": "GET",
+  "payload": null,
+  "headers": {},
+  "user_data": {
+    "__crawlee": {},
+    "label": "queue_product_page",
+    "seed_category": "smartphones",
+    "seed_domain": "www.flipkart.com",
+    "origin_url": "https://www.flipkart.com/mobiles/pr?sid=tyy,4io",
+    "depth": 2,
+    "max_depth": 4,
+    "parent_url": "https://www.flipkart.com/mobiles/pr?sid=tyy,4io",
+    "product_hint": null,
+    "crawled_at": "2026-04-03T12:23:55.502951",
+    "extra": {},
+    "page_type": "product_page"
+  },
+  "retry_count": 0,
+  "no_retry": false,
+  "loaded_url": null,
+  "handled_at": null
+}

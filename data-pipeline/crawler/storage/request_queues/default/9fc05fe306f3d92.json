@@ -1,0 +1,27 @@
+{
+  "unique_key": "https://www.croma.com/digitek-dsr-001-adapter-grid-rubber-mat-/p/251944",
+  "url": "https://www.croma.com/digitek-dsr-001-adapter-grid-rubber-mat-/p/251944",
+  "method": "GET",
+  "payload": null,
+  "headers": {},
+  "user_data": {
+    "__crawlee": {
+      "state": 4
+    },
+    "label": "queue_unknown",
+    "seed_category": "smartphones",
+    "seed_domain": "www.croma.com",
+    "origin_url": "https://www.croma.com/mobiles-tablets/smartphones/c/13",
+    "depth": 1,
+    "max_depth": 4,
+    "parent_url": "https://www.croma.com/mobiles-tablets/smartphones/c/13",
+    "product_hint": null,
+    "crawled_at": "2026-04-03T12:22:08.983273",
+    "extra": {},
+    "page_type": "unknown"
+  },
+  "retry_count": 0,
+  "no_retry": false,
+  "loaded_url": null,
+  "handled_at": "2026-04-03 12:24:22.887047+00:00"
+}

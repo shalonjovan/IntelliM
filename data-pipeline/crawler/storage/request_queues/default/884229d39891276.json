@@ -1,0 +1,25 @@
+{
+  "unique_key": "https://www.amazon.in/sspa/click?aref=avftbhj3cl&ie=utf8&sp_cr=zaz&spc=mtoxntmymtuwmzkzmda0mty5oje3nzuymtg5mzi6c3bfc2vhcmnox3rozw1hdgljojmwmdczmti0mziwndizmjo6mdo6&url=/amkette-81w-port-protections-multi-device/dp/b0fn45z4cj/ref%3dsxin_14_pa_sp_search_thematic_sspa?content-id%3damzn1.sym.76a1f397-3be8-48c6-95f3-640bcc2e7bf1%253aamzn1.sym.76a1f397-3be8-48c6-95f3-640bcc2e7bf1%26cv_ct_cx%3dsmartphones%26keywords%3dsmartphones%26pd_rd_i%3db0fn45z4cj%26pd_rd_r%3d184ce0a4-0ae6-4f23-a49b-50911654e3d1%26pd_rd_w%3dgwbdr%26pd_rd_wg%3dwpqlw%26pf_rd_p%3d76a1f397-3be8-48c6-95f3-640bcc2e7bf1%26pf_rd_r%3drf74wrp0zy9mrjmy9vcx%26qid%3d1775218932%26s%3delectronics%26sbo%3drzvfv%252f%252fhxdf%252bo5021pansa%253d%253d%26sr%3d1-1-ced4eeeb-b190-41d6-902a-1ecb3fb8b7c4-spons%26aref%3davftbhj3cl%26sp_csd%3dd2lkz2v0tmftzt1zcf9zzwfyy2hfdghlbwf0awm%26psc%3d1",
+  "url": "https://www.amazon.in/sspa/click?ie=UTF8&spc=MToxNTMyMTUwMzkzMDA0MTY5OjE3NzUyMTg5MzI6c3Bfc2VhcmNoX3RoZW1hdGljOjMwMDczMTI0MzIwNDIzMjo6MDo6&url=%2FAmkette-81W-Port-Protections-Multi-Device%2Fdp%2FB0FN45Z4CJ%2Fref%3Dsxin_14_pa_sp_search_thematic_sspa%3Fcontent-id%3Damzn1.sym.76a1f397-3be8-48c6-95f3-640bcc2e7bf1%253Aamzn1.sym.76a1f397-3be8-48c6-95f3-640bcc2e7bf1%26cv_ct_cx%3Dsmartphones%26keywords%3Dsmartphones%26pd_rd_i%3DB0FN45Z4CJ%26pd_rd_r%3D184ce0a4-0ae6-4f23-a49b-50911654e3d1%26pd_rd_w%3DGwBDr%26pd_rd_wg%3DwPqlw%26pf_rd_p%3D76a1f397-3be8-48c6-95f3-640bcc2e7bf1%26pf_rd_r%3DRF74WRP0ZY9MRJMY9VCX%26qid%3D1775218932%26s%3Delectronics%26sbo%3DRZvfv%252F%252FHxDF%252BO5021pAnSA%253D%253D%26sr%3D1-1-ced4eeeb-b190-41d6-902a-1ecb3fb8b7c4-spons%26aref%3DAVfTBhJ3Cl%26sp_csd%3Dd2lkZ2V0TmFtZT1zcF9zZWFyY2hfdGhlbWF0aWM%26psc%3D1&aref=AVfTBhJ3Cl&sp_cr=ZAZ",
+  "method": "GET",
+  "payload": null,
+  "headers": {},
+  "user_data": {
+    "__crawlee": {},
+    "label": "queue_ad_creative",
+    "seed_category": "smartphones",
+    "seed_domain": "www.amazon.in",
+    "origin_url": "https://www.amazon.in/s?k=smartphones&rh=n%3A1389401031",
+    "depth": 1,
+    "max_depth": 4,
+    "parent_url": "https://www.amazon.in/s?k=smartphones&rh=n%3A1389401031",
+    "product_hint": null,
+    "crawled_at": "2026-04-03T12:22:12.030052",
+    "extra": {},
+    "page_type": "ad_creative"
+  },
+  "retry_count": 0,
+  "no_retry": false,
+  "loaded_url": null,
+  "handled_at": null
+}

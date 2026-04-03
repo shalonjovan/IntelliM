@@ -1,0 +1,25 @@
+{
+  "unique_key": "https://www.flipkart.com/realme-narzo-90-5g-victory-gold-128-gb/p/itm6464e1056a2e4?fm=eyj3dhaioijyzwnviiwichjwdci6inbwiiwibwlkijoichjvzhvjdfjly29tbwvuzgf0aw9ul3npbwlsyxiifq%3d%3d&hl_lid=&lid=lstmobhguhgajqg5uzvxymnrs&marketplace=flipkart&pid=mobhguhgajqg5uzv",
+  "url": "https://www.flipkart.com/realme-narzo-90-5g-victory-gold-128-gb/p/itm6464e1056a2e4?pid=MOBHGUHGAJQG5UZV&lid=LSTMOBHGUHGAJQG5UZVXYMNRS&hl_lid=&marketplace=FLIPKART&fm=eyJ3dHAiOiJyZWNvIiwicHJwdCI6InBwIiwibWlkIjoicHJvZHVjdFJlY29tbWVuZGF0aW9uL3NpbWlsYXIifQ%3D%3D",
+  "method": "GET",
+  "payload": null,
+  "headers": {},
+  "user_data": {
+    "__crawlee": {},
+    "label": "queue_product_page",
+    "seed_category": "smartphones",
+    "seed_domain": "www.flipkart.com",
+    "origin_url": "https://www.flipkart.com/mobiles/pr?sid=tyy,4io",
+    "depth": 2,
+    "max_depth": 4,
+    "parent_url": "https://www.flipkart.com/mobiles/pr?sid=tyy,4io",
+    "product_hint": null,
+    "crawled_at": "2026-04-03T12:23:22.974978",
+    "extra": {},
+    "page_type": "product_page"
+  },
+  "retry_count": 0,
+  "no_retry": false,
+  "loaded_url": null,
+  "handled_at": null
+}

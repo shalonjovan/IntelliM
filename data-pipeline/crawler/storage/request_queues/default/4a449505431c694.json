@@ -1,0 +1,25 @@
+{
+  "unique_key": "https://www.flipkart.com/redmi-note-15-5g-glacier-blue-128-gb/p/itm7cb24e3c40189?fm=eyj3dhaioijyzwnviiwichjwdci6inbwiiwibwlkijoichjvzhvjdfjly29tbwvuzgf0aw9ul3npbwlsyxiifq%3d%3d&hl_lid=&lid=lstmobhjhpuacm2sdpw4yjrfr&marketplace=flipkart&pid=mobhjhpuacm2sdpw",
+  "url": "https://www.flipkart.com/redmi-note-15-5g-glacier-blue-128-gb/p/itm7cb24e3c40189?pid=MOBHJHPUACM2SDPW&lid=LSTMOBHJHPUACM2SDPW4YJRFR&hl_lid=&marketplace=FLIPKART&fm=eyJ3dHAiOiJyZWNvIiwicHJwdCI6InBwIiwibWlkIjoicHJvZHVjdFJlY29tbWVuZGF0aW9uL3NpbWlsYXIifQ%3D%3D",
+  "method": "GET",
+  "payload": null,
+  "headers": {},
+  "user_data": {
+    "__crawlee": {},
+    "label": "queue_product_page",
+    "seed_category": "smartphones",
+    "seed_domain": "www.flipkart.com",
+    "origin_url": "https://www.flipkart.com/mobiles/pr?sid=tyy,4io",
+    "depth": 2,
+    "max_depth": 4,
+    "parent_url": "https://www.flipkart.com/mobiles/pr?sid=tyy,4io",
+    "product_hint": null,
+    "crawled_at": "2026-04-03T12:23:04.252994",
+    "extra": {},
+    "page_type": "product_page"
+  },
+  "retry_count": 0,
+  "no_retry": false,
+  "loaded_url": null,
+  "handled_at": null
+}

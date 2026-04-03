@@ -1,0 +1,27 @@
+{
+  "unique_key": "https://www.reliancedigital.in/c/order/tracking",
+  "url": "https://www.reliancedigital.in/c/order/tracking",
+  "method": "GET",
+  "payload": null,
+  "headers": {},
+  "user_data": {
+    "__crawlee": {
+      "state": 4
+    },
+    "label": "queue_trend_data",
+    "seed_category": "smartphones",
+    "seed_domain": "www.reliancedigital.in",
+    "origin_url": "https://www.reliancedigital.in/mobiles/mobile-phones/c/RLMD10001",
+    "depth": 1,
+    "max_depth": 4,
+    "parent_url": "https://www.reliancedigital.in/mobiles/mobile-phones/c/RLMD10001",
+    "product_hint": null,
+    "crawled_at": "2026-04-03T12:22:10.761497",
+    "extra": {},
+    "page_type": "trend_data"
+  },
+  "retry_count": 0,
+  "no_retry": false,
+  "loaded_url": null,
+  "handled_at": "2026-04-03 12:22:13.910171+00:00"
+}

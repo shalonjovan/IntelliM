@@ -1,0 +1,25 @@
+{
+  "unique_key": "https://www.amazon.in/gp/browse.html?node=6967393031&ref_=footer_mobapp",
+  "url": "https://www.amazon.in/gp/browse.html?node=6967393031&ref_=footer_mobapp",
+  "method": "GET",
+  "payload": null,
+  "headers": {},
+  "user_data": {
+    "__crawlee": {},
+    "label": "queue_category_page",
+    "seed_category": "smartphones",
+    "seed_domain": "www.amazon.in",
+    "origin_url": "https://www.amazon.in/s?k=smartphones&rh=n%3A1389401031",
+    "depth": 1,
+    "max_depth": 4,
+    "parent_url": "https://www.amazon.in/s?k=smartphones&rh=n%3A1389401031",
+    "product_hint": null,
+    "crawled_at": "2026-04-03T12:22:12.040566",
+    "extra": {},
+    "page_type": "category_page"
+  },
+  "retry_count": 0,
+  "no_retry": false,
+  "loaded_url": null,
+  "handled_at": null
+}

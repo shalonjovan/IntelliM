@@ -1,0 +1,25 @@
+{
+  "unique_key": "https://www.amazon.in/samsung-sapphire-storage-upgrades-lag-free/dp/b0fn7rn9th/ref=sr_1_26?dib=eyj2ijoimsj9.0dl_shnigb7dkmiw_ot6xifizck1subnon3egaz7i5zm_r4dpxgtarz5njuiuumayej0kjugfnlmxjk7q-1jul3ubfh52jgc1q1bv87tnz3c9winugt4hc-uvm274rk9jk-96rpf3pt37vgk0ef8qejij48kiquebadhdkuoxttxvxjnqa5nlj3steqd5bcdkehsruggk7dpyr-4fj0cfoietxoatwadbex6ua_dgu8sjmns_mvfg1ynp8zkntq7p4vkp_ekyycrgo2p4ytx6dljmhn5wxesmoyekslxnt4.wbls6tilk3gh17vspnsjxgamwb5891r5wabfzhmtvss&dib_tag=se&keywords=smartphones&qid=1775218932&s=electronics&sr=1-26",
+  "url": "https://www.amazon.in/Samsung-Sapphire-Storage-Upgrades-Lag-Free/dp/B0FN7RN9TH/ref=sr_1_26?dib=eyJ2IjoiMSJ9.0dL_sHNIGb7dKmiW_OT6XIFIzCK1subnON3egAz7I5Zm_r4DpXGtarZ5NJuIuUMaYej0KJUGfNlMXjK7Q-1jUL3UBfh52jgC1q1Bv87TnZ3c9wINUgt4HC-uVm274rk9JK-96RPF3pt37VGK0Ef8QejIj48KIQuEBAdHdKUoXTtxVXjnQA5nlj3steqD5bcdkehsRUggk7DPYr-4fJ0cFOiETxoaTWadbEx6Ua_DGu8SJmnS_mvfg1yNp8zKNtq7p4VKp_EKyyCrgo2p4ytX6DljmhN5wxEsmOYEkSLxNt4.wBlS6TiLK3GH17VSpnSjxGAMWB5891R5wAbfZHMtvSs&dib_tag=se&keywords=smartphones&qid=1775218932&s=electronics&sr=1-26",
+  "method": "GET",
+  "payload": null,
+  "headers": {},
+  "user_data": {
+    "__crawlee": {},
+    "label": "queue_product_page",
+    "seed_category": "smartphones",
+    "seed_domain": "www.amazon.in",
+    "origin_url": "https://www.amazon.in/s?k=smartphones&rh=n%3A1389401031",
+    "depth": 1,
+    "max_depth": 4,
+    "parent_url": "https://www.amazon.in/s?k=smartphones&rh=n%3A1389401031",
+    "product_hint": null,
+    "crawled_at": "2026-04-03T12:22:12.036789",
+    "extra": {},
+    "page_type": "product_page"
+  },
+  "retry_count": 0,
+  "no_retry": false,
+  "loaded_url": null,
+  "handled_at": null
+}

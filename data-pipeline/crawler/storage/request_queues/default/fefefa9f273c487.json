@@ -1,0 +1,27 @@
+{
+  "unique_key": "https://www.flipkart.com/motorola-g57-power-5g-pantone-corsair-128-gb/p/itm9b745f1e67b5c?fm=organic&iid=8a498bf3-777c-4277-b3fe-cf2f54b5c53b.mobhgrfe8wbgksky.search&lid=lstmobhgrfe8wbgkskyeykwbj&marketplace=flipkart&otracker=browse&ov_redirect=true&pid=mobhgrfe8wbgksky&ppn=none&ppt=none&spotlighttagid=default_bestsellerid_tyy/4io&srno=b_1_7&ssid=wz4lpocp400000001775218932854&store=tyy/4io",
+  "url": "https://www.flipkart.com/motorola-g57-power-5g-pantone-corsair-128-gb/p/itm9b745f1e67b5c?pid=MOBHGRFE8WBGKSKY&lid=LSTMOBHGRFE8WBGKSKYEYKWBJ&marketplace=FLIPKART&store=tyy%2F4io&spotlightTagId=default_BestsellerId_tyy%2F4io&srno=b_1_7&otracker=browse&fm=organic&iid=8a498bf3-777c-4277-b3fe-cf2f54b5c53b.MOBHGRFE8WBGKSKY.SEARCH&ppt=None&ppn=None&ssid=wz4lpocp400000001775218932854&ov_redirect=true",
+  "method": "GET",
+  "payload": null,
+  "headers": {},
+  "user_data": {
+    "__crawlee": {
+      "state": 4
+    },
+    "label": "queue_product_page",
+    "seed_category": "smartphones",
+    "seed_domain": "www.flipkart.com",
+    "origin_url": "https://www.flipkart.com/mobiles/pr?sid=tyy,4io",
+    "depth": 1,
+    "max_depth": 4,
+    "parent_url": "https://www.flipkart.com/mobiles/pr?sid=tyy,4io",
+    "product_hint": null,
+    "crawled_at": "2026-04-03T12:22:10.646815",
+    "extra": {},
+    "page_type": "product_page"
+  },
+  "retry_count": 0,
+  "no_retry": false,
+  "loaded_url": null,
+  "handled_at": "2026-04-03 12:24:21.266876+00:00"
+}

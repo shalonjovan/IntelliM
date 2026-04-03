@@ -1,0 +1,25 @@
+{
+  "unique_key": "https://www.amazon.in/s?dc=&ds=v1:mounenrvl12nxs12wswm2kglp/w3g2utescd0f8trug&i=electronics&k=smartphones&qid=1775218932&ref=sr_nr_p_n_free_shipping_eligible_1&rh=n:1389401031,p_n_free_shipping_eligible:205563695031&rnid=205563694031",
+  "url": "https://www.amazon.in/s?k=smartphones&i=electronics&rh=n%3A1389401031%2Cp_n_free_shipping_eligible%3A205563695031&dc&qid=1775218932&rnid=205563694031&ref=sr_nr_p_n_free_shipping_eligible_1&ds=v1%3AMoUneNrVl12NxS12wSWm2kglp%2Fw3G2UTeSCd0f8TRUg",
+  "method": "GET",
+  "payload": null,
+  "headers": {},
+  "user_data": {
+    "__crawlee": {},
+    "label": "queue_category_page",
+    "seed_category": "smartphones",
+    "seed_domain": "www.amazon.in",
+    "origin_url": "https://www.amazon.in/s?k=smartphones&rh=n%3A1389401031",
+    "depth": 1,
+    "max_depth": 4,
+    "parent_url": "https://www.amazon.in/s?k=smartphones&rh=n%3A1389401031",
+    "product_hint": null,
+    "crawled_at": "2026-04-03T12:22:12.039344",
+    "extra": {},
+    "page_type": "category_page"
+  },
+  "retry_count": 0,
+  "no_retry": false,
+  "loaded_url": null,
+  "handled_at": null
+}

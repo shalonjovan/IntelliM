@@ -15,8 +15,8 @@ every page the crawler fetches.
 
 from __future__ import annotations
 
-from crawlee.playwright_crawler import PlaywrightCrawlingContext
-from crawlee.http_crawler import HttpCrawlingContext
+from crawlee.crawlers import PlaywrightCrawlingContext
+from crawlee.crawlers import HttpCrawlingContext
 from loguru import logger
 
 from classifier.classified_queues import ClassifiedQueues
@@ -25,7 +25,7 @@ from crawler.domain_scope_guard import DomainScopeGuard
 from crawler.link_extractor import LinkExtractor
 from crawler.pagination_discoverer import PaginationDiscoverer
 from models import CrawlMeta
-from queue.request_models import extract_meta, extract_page_type
+from crawl_queue.request_models import extract_meta, extract_page_type
 
 
 class UrlFetcher:
@@ -55,9 +55,10 @@ class UrlFetcher:
     def get_http_handler(self):
         """Return an async handler for HttpCrawler contexts."""
         async def handler(context: HttpCrawlingContext) -> None:
+            body = await context.http_response.read()
             await self._handle(
                 url=str(context.request.url),
-                html=context.http_response.text,
+                html=body.decode("utf-8", errors="ignore"),
                 request=context.request,
                 enqueue_links=context.enqueue_links,
             )

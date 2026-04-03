@@ -1,0 +1,25 @@
+{
+  "unique_key": "https://www.flipkart.com/vivo-t5x-5g-star-silver-128-gb/write-question/itm7da8aa253e72b?fm=organic&iid=8a498bf3-777c-4277-b3fe-cf2f54b5c53b.mobhh69nre6phfbh.search&lid=lstmobhh69nre6phfbhjhmxme&marketplace=flipkart&otracker=browse&ov_redirect=true?pid%3dmobhh69nre6phfbh&pid=mobhh69nre6phfbh&ppn=none&ppt=none&source=pp&spotlighttagid=default_bestsellerid_tyy/4io&srno=b_1_3&ssid=wz4lpocp400000001775218932854&store=tyy/4io",
+  "url": "https://www.flipkart.com/vivo-t5x-5g-star-silver-128-gb/write-question/itm7da8aa253e72b?pid=MOBHH69NRE6PHFBH&lid=LSTMOBHH69NRE6PHFBHJHMXME&marketplace=FLIPKART&store=tyy%2F4io&spotlightTagId=default_BestsellerId_tyy%2F4io&srno=b_1_3&otracker=browse&fm=organic&iid=8a498bf3-777c-4277-b3fe-cf2f54b5c53b.MOBHH69NRE6PHFBH.SEARCH&ppt=None&ppn=None&ssid=wz4lpocp400000001775218932854&ov_redirect=true?pid=MOBHH69NRE6PHFBH&source=pp",
+  "method": "GET",
+  "payload": null,
+  "headers": {},
+  "user_data": {
+    "__crawlee": {},
+    "label": "queue_trend_data",
+    "seed_category": "smartphones",
+    "seed_domain": "www.flipkart.com",
+    "origin_url": "https://www.flipkart.com/mobiles/pr?sid=tyy,4io",
+    "depth": 2,
+    "max_depth": 4,
+    "parent_url": "https://www.flipkart.com/mobiles/pr?sid=tyy,4io",
+    "product_hint": null,
+    "crawled_at": "2026-04-03T12:22:57.548690",
+    "extra": {},
+    "page_type": "trend_data"
+  },
+  "retry_count": 0,
+  "no_retry": false,
+  "loaded_url": null,
+  "handled_at": null
+}

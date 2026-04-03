@@ -1,0 +1,25 @@
+{
+  "unique_key": "https://www.amazon.in/electronics/b?ie=utf8&node=976419031&ref_=topnav_storetab_top_elec_mega",
+  "url": "https://www.amazon.in/electronics/b/?ie=UTF8&node=976419031&ref_=topnav_storetab_top_elec_mega",
+  "method": "GET",
+  "payload": null,
+  "headers": {},
+  "user_data": {
+    "__crawlee": {},
+    "label": "queue_ad_creative",
+    "seed_category": "smartphones",
+    "seed_domain": "www.amazon.in",
+    "origin_url": "https://www.amazon.in/s?k=smartphones&rh=n%3A1389401031",
+    "depth": 1,
+    "max_depth": 4,
+    "parent_url": "https://www.amazon.in/s?k=smartphones&rh=n%3A1389401031",
+    "product_hint": null,
+    "crawled_at": "2026-04-03T12:22:12.026775",
+    "extra": {},
+    "page_type": "ad_creative"
+  },
+  "retry_count": 0,
+  "no_retry": false,
+  "loaded_url": null,
+  "handled_at": null
+}

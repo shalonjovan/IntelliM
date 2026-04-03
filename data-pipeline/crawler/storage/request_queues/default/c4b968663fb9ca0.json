@@ -1,0 +1,25 @@
+{
+  "unique_key": "https://www.flipkart.com/poco-c85-5g-power-black-128-gb/p/itm1f62dee4df0ad?marketplace=flipkart&ov_redirect=true&pid=mobhhwysm9yv9qz9",
+  "url": "https://www.flipkart.com/poco-c85-5g-power-black-128-gb/p/itm1f62dee4df0ad?pid=MOBHHWYSM9YV9QZ9&marketplace=FLIPKART&ov_redirect=true",
+  "method": "GET",
+  "payload": null,
+  "headers": {},
+  "user_data": {
+    "__crawlee": {},
+    "label": "queue_product_page",
+    "seed_category": "smartphones",
+    "seed_domain": "www.flipkart.com",
+    "origin_url": "https://www.flipkart.com/mobiles/pr?sid=tyy,4io",
+    "depth": 1,
+    "max_depth": 4,
+    "parent_url": "https://www.flipkart.com/mobiles/pr?sid=tyy,4io",
+    "product_hint": null,
+    "crawled_at": "2026-04-03T12:22:10.648717",
+    "extra": {},
+    "page_type": "product_page"
+  },
+  "retry_count": 0,
+  "no_retry": false,
+  "loaded_url": null,
+  "handled_at": null
+}

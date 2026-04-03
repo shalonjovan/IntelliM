@@ -1,0 +1,25 @@
+{
+  "unique_key": "https://aax-eu-zaz.amazon.in/amazon-brand-tempered-protector-installation/dp/b0d876sjz9/ref=pd_bxgy_d_sccl_1/520-2405812-8424813?content-id=amzn1.sym.142c0d31-3594-485b-b879-def9251f61c0&pd_rd_i=b0d876sjz9&pd_rd_r=2765cb63-da61-46b0-8303-c1f945a49f2b&pd_rd_w=l4hxr&pd_rd_wg=rgp7v&pf_rd_p=142c0d31-3594-485b-b879-def9251f61c0&pf_rd_r=p1fr6swffx250qbstp3z&psc=1",
+  "url": "https://aax-eu-zaz.amazon.in/Amazon-Brand-Tempered-Protector-Installation/dp/B0D876SJZ9/ref=pd_bxgy_d_sccl_1/520-2405812-8424813?pd_rd_w=l4hxR&content-id=amzn1.sym.142c0d31-3594-485b-b879-def9251f61c0&pf_rd_p=142c0d31-3594-485b-b879-def9251f61c0&pf_rd_r=P1FR6SWFFX250QBSTP3Z&pd_rd_wg=RGP7v&pd_rd_r=2765cb63-da61-46b0-8303-c1f945a49f2b&pd_rd_i=B0D876SJZ9&psc=1",
+  "method": "GET",
+  "payload": null,
+  "headers": {},
+  "user_data": {
+    "__crawlee": {},
+    "label": "queue_product_page",
+    "seed_category": "smartphones",
+    "seed_domain": "www.amazon.in",
+    "origin_url": "https://www.amazon.in/s?k=smartphones&rh=n%3A1389401031",
+    "depth": 2,
+    "max_depth": 4,
+    "parent_url": "https://www.amazon.in/s?k=smartphones&rh=n%3A1389401031",
+    "product_hint": null,
+    "crawled_at": "2026-04-03T12:22:50.985115",
+    "extra": {},
+    "page_type": "product_page"
+  },
+  "retry_count": 0,
+  "no_retry": false,
+  "loaded_url": null,
+  "handled_at": null
+}

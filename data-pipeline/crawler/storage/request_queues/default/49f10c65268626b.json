@@ -1,0 +1,25 @@
+{
+  "unique_key": "https://aax-eu-zaz.amazon.in/sspa/click?aref=ejbaya7qpl&ie=utf8&sp_cr=zaz&spc=mto1odkynzm1odm2ntq1ntkyoje3nzuymtg5mzk6c3bfzgv0ywlsmjozmda0ntu3mtq5mjmxmzi6ojo6&url=/dp/b0dmnvljfx/ref%3dsspa_dk_detail_4?psc%3d1%26pd_rd_i%3db0dmnvljfx%26pd_rd_w%3dubhao%26content-id%3damzn1.sym.00892a2d-bd0e-4f46-9295-e128db4dc924%26pf_rd_p%3d00892a2d-bd0e-4f46-9295-e128db4dc924%26pf_rd_r%3dp1fr6swffx250qbstp3z%26pd_rd_wg%3drgp7v%26pd_rd_r%3d2765cb63-da61-46b0-8303-c1f945a49f2b%26aref%3dejbaya7qpl%26sp_csd%3dd2lkz2v0tmftzt1zcf9kzxrhawwy",
+  "url": "https://aax-eu-zaz.amazon.in/sspa/click?ie=UTF8&spc=MTo1ODkyNzM1ODM2NTQ1NTkyOjE3NzUyMTg5Mzk6c3BfZGV0YWlsMjozMDA0NTU3MTQ5MjMxMzI6Ojo6&url=%2Fdp%2FB0DMNVLJFX%2Fref%3Dsspa_dk_detail_4%3Fpsc%3D1%26pd_rd_i%3DB0DMNVLJFX%26pd_rd_w%3DuBHAo%26content-id%3Damzn1.sym.00892a2d-bd0e-4f46-9295-e128db4dc924%26pf_rd_p%3D00892a2d-bd0e-4f46-9295-e128db4dc924%26pf_rd_r%3DP1FR6SWFFX250QBSTP3Z%26pd_rd_wg%3DRGP7v%26pd_rd_r%3D2765cb63-da61-46b0-8303-c1f945a49f2b%26aref%3DeJBAya7qpL%26sp_csd%3Dd2lkZ2V0TmFtZT1zcF9kZXRhaWwy&aref=eJBAya7qpL&sp_cr=ZAZ",
+  "method": "GET",
+  "payload": null,
+  "headers": {},
+  "user_data": {
+    "__crawlee": {},
+    "label": "queue_trend_data",
+    "seed_category": "smartphones",
+    "seed_domain": "www.amazon.in",
+    "origin_url": "https://www.amazon.in/s?k=smartphones&rh=n%3A1389401031",
+    "depth": 2,
+    "max_depth": 4,
+    "parent_url": "https://www.amazon.in/s?k=smartphones&rh=n%3A1389401031",
+    "product_hint": null,
+    "crawled_at": "2026-04-03T12:22:50.986312",
+    "extra": {},
+    "page_type": "trend_data"
+  },
+  "retry_count": 0,
+  "no_retry": false,
+  "loaded_url": null,
+  "handled_at": null
+}

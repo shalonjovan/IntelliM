@@ -1,0 +1,25 @@
+{
+  "unique_key": "https://www.flipkart.com/motorola-g67-power-5g-pantone-parachute-128-gb/p/itm983b978f3066a?marketplace=flipkart&ov_redirect=true&pid=mobhfsceba7g3hxn",
+  "url": "https://www.flipkart.com/motorola-g67-power-5g-pantone-parachute-128-gb/p/itm983b978f3066a?pid=MOBHFSCEBA7G3HXN&marketplace=FLIPKART&ov_redirect=true",
+  "method": "GET",
+  "payload": null,
+  "headers": {},
+  "user_data": {
+    "__crawlee": {},
+    "label": "queue_product_page",
+    "seed_category": "smartphones",
+    "seed_domain": "www.flipkart.com",
+    "origin_url": "https://www.flipkart.com/mobiles/pr?sid=tyy,4io",
+    "depth": 1,
+    "max_depth": 4,
+    "parent_url": "https://www.flipkart.com/mobiles/pr?sid=tyy,4io",
+    "product_hint": null,
+    "crawled_at": "2026-04-03T12:22:10.648824",
+    "extra": {},
+    "page_type": "product_page"
+  },
+  "retry_count": 0,
+  "no_retry": false,
+  "loaded_url": null,
+  "handled_at": null
+}

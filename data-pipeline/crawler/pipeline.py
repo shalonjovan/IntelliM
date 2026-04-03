@@ -19,8 +19,8 @@ from crawler.context_propagator import ContextPropagator
 from crawler.domain_scope_guard import DomainScopeGuard
 from crawler.url_fetcher import UrlFetcher
 from models import SeedConfig
-from queue.context_tracker import ContextTracker
-from queue.queue_manager import QueueManager
+from crawl_queue.context_tracker import ContextTracker
+from crawl_queue.queue_manager import QueueManager
 from seeds.seed_loader import build_initial_requests, load_all_seeds
 
 

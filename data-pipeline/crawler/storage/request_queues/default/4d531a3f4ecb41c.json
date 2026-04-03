@@ -1,0 +1,25 @@
+{
+  "unique_key": "https://www.amazon.in/sspa/click?aref=lylfbh5mun&ie=utf8&sp_cr=zaz&spc=mtoxotm0mzexnjy5mdg5ntc4oje3nzuymtg5mzi6c3bfc2vhcmnox3rozw1hdgljx2j0zjozmda1otcznzq3mdm0mzi6ojq6og&url=/blushinsta-portable-selfie-detachable-smartphone/dp/b0bgst4s6k/ref%3dsxbs_pa_sp_search_thematic_btf_sspa?content-id%3damzn1.sym.6748dafd-1857-4dd2-9058-aab807cb526e%253aamzn1.sym.6748dafd-1857-4dd2-9058-aab807cb526e%26cv_ct_cx%3dsmartphones%26keywords%3dsmartphones%26pd_rd_i%3db0bgst4s6k%26pd_rd_r%3da8e00878-c73c-4ae8-a71a-d180bbfb7e08%26pd_rd_w%3dolhqa%26pd_rd_wg%3dhdqaz%26pf_rd_p%3d6748dafd-1857-4dd2-9058-aab807cb526e%26pf_rd_r%3drf74wrp0zy9mrjmy9vcx%26qid%3d1775218932%26s%3delectronics%26sbo%3drzvfv%252f%252fhxdf%252bo5021pansa%253d%253d%26sr%3d1-5-2907eac4-8056-42c7-8014-fdf7bd4c5395-spons%26aref%3dlylfbh5mun%26sp_csd%3dd2lkz2v0tmftzt1zcf9zzwfyy2hfdghlbwf0awnfynrm%26psc%3d1",
+  "url": "https://www.amazon.in/sspa/click?ie=UTF8&spc=MToxOTM0MzExNjY5MDg5NTc4OjE3NzUyMTg5MzI6c3Bfc2VhcmNoX3RoZW1hdGljX2J0ZjozMDA1OTczNzQ3MDM0MzI6OjQ6Og&url=%2FBlushinsta-Portable-Selfie-Detachable-Smartphone%2Fdp%2FB0BGST4S6K%2Fref%3Dsxbs_pa_sp_search_thematic_btf_sspa%3Fcontent-id%3Damzn1.sym.6748dafd-1857-4dd2-9058-aab807cb526e%253Aamzn1.sym.6748dafd-1857-4dd2-9058-aab807cb526e%26cv_ct_cx%3Dsmartphones%26keywords%3Dsmartphones%26pd_rd_i%3DB0BGST4S6K%26pd_rd_r%3Da8e00878-c73c-4ae8-a71a-d180bbfb7e08%26pd_rd_w%3DOLHQA%26pd_rd_wg%3DhDQaZ%26pf_rd_p%3D6748dafd-1857-4dd2-9058-aab807cb526e%26pf_rd_r%3DRF74WRP0ZY9MRJMY9VCX%26qid%3D1775218932%26s%3Delectronics%26sbo%3DRZvfv%252F%252FHxDF%252BO5021pAnSA%253D%253D%26sr%3D1-5-2907eac4-8056-42c7-8014-fdf7bd4c5395-spons%26aref%3DlyLFBh5muN%26sp_csd%3Dd2lkZ2V0TmFtZT1zcF9zZWFyY2hfdGhlbWF0aWNfYnRm%26psc%3D1&aref=lyLFBh5muN&sp_cr=ZAZ",
+  "method": "GET",
+  "payload": null,
+  "headers": {},
+  "user_data": {
+    "__crawlee": {},
+    "label": "queue_ad_creative",
+    "seed_category": "smartphones",
+    "seed_domain": "www.amazon.in",
+    "origin_url": "https://www.amazon.in/s?k=smartphones&rh=n%3A1389401031",
+    "depth": 1,
+    "max_depth": 4,
+    "parent_url": "https://www.amazon.in/s?k=smartphones&rh=n%3A1389401031",
+    "product_hint": null,
+    "crawled_at": "2026-04-03T12:22:12.037837",
+    "extra": {},
+    "page_type": "ad_creative"
+  },
+  "retry_count": 0,
+  "no_retry": false,
+  "loaded_url": null,
+  "handled_at": null
+}

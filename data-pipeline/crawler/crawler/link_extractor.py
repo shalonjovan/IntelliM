@@ -50,7 +50,11 @@ class LinkExtractor:
         urls: list[str] = []
 
         for node in tree.css("a[href]"):
-            href = node.attributes.get("href", "").strip()
+            href = node.attributes.get("href")
+            if href is None:
+                continue
+            
+            href = href.strip()
             if not href:
                 continue
 

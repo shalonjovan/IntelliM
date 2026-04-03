@@ -1,0 +1,27 @@
+{
+  "unique_key": "https://www.flipkart.com/realme-p4-lite-5g-mosaic-blue-128-gb/p/itm90c243961f214?fm=organic&iid=en_ulfjhnirdqq3pmh-7yy92cfbws8ys9eatcmtwj2ib5u_s2yufimrdsu_klmsjezdfmpssywjnwb4jt97okmktpufjctyohohzs-z5_ps_w0%3d&lid=lstmobhhfbudhtkzzdzba9p2u&marketplace=flipkart&otracker=browse&ov_redirect=true&pid=mobhhfbudhtkzzdz&ppn=none&ppt=none&srno=b_1_2&ssid=wz4lpocp400000001775218932854&store=tyy/4io",
+  "url": "https://www.flipkart.com/realme-p4-lite-5g-mosaic-blue-128-gb/p/itm90c243961f214?pid=MOBHHFBUDHTKZZDZ&lid=LSTMOBHHFBUDHTKZZDZBA9P2U&marketplace=FLIPKART&store=tyy%2F4io&srno=b_1_2&otracker=browse&fm=organic&iid=en_ULfjhNirDqQ3pMh-7Yy92CfbwS8ys9eATcmTwJ2Ib5u_S2Yufimrdsu_klmsJEzdFmpssywjNwb4JT97okMkTPUFjCTyOHoHZs-Z5_PS_w0%3D&ppt=None&ppn=None&ssid=wz4lpocp400000001775218932854&ov_redirect=true",
+  "method": "GET",
+  "payload": null,
+  "headers": {},
+  "user_data": {
+    "__crawlee": {
+      "state": 4
+    },
+    "label": "queue_product_page",
+    "seed_category": "smartphones",
+    "seed_domain": "www.flipkart.com",
+    "origin_url": "https://www.flipkart.com/mobiles/pr?sid=tyy,4io",
+    "depth": 1,
+    "max_depth": 4,
+    "parent_url": "https://www.flipkart.com/mobiles/pr?sid=tyy,4io",
+    "product_hint": null,
+    "crawled_at": "2026-04-03T12:22:10.646446",
+    "extra": {},
+    "page_type": "product_page"
+  },
+  "retry_count": 0,
+  "no_retry": false,
+  "loaded_url": null,
+  "handled_at": "2026-04-03 12:22:51.075016+00:00"
+}

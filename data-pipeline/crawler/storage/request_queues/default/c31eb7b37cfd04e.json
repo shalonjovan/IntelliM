@@ -1,0 +1,25 @@
+{
+  "unique_key": "https://www.flipkart.com/review-image-fullscreen?imageid=blobio-imr_350fd3298d1247e6986eaac1063d2cba.jpg&language=en&lid=lstmobhh69nhr7wur3hybc1af&pid=mobhh69nhr7wur3h&reviewreferenceid=mobhh69n2xateczz:4",
+  "url": "https://www.flipkart.com/review-image-fullscreen?pid=MOBHH69NHR7WUR3H&imageId=blobio-imr_350fd3298d1247e6986eaac1063d2cba.jpg&reviewReferenceId=MOBHH69N2XATECZZ:4&language=en&lid=LSTMOBHH69NHR7WUR3HYBC1AF",
+  "method": "GET",
+  "payload": null,
+  "headers": {},
+  "user_data": {
+    "__crawlee": {},
+    "label": "queue_trend_data",
+    "seed_category": "smartphones",
+    "seed_domain": "www.flipkart.com",
+    "origin_url": "https://www.flipkart.com/mobiles/pr?sid=tyy,4io",
+    "depth": 2,
+    "max_depth": 4,
+    "parent_url": "https://www.flipkart.com/mobiles/pr?sid=tyy,4io",
+    "product_hint": null,
+    "crawled_at": "2026-04-03T12:23:04.252356",
+    "extra": {},
+    "page_type": "trend_data"
+  },
+  "retry_count": 0,
+  "no_retry": false,
+  "loaded_url": null,
+  "handled_at": null
+}

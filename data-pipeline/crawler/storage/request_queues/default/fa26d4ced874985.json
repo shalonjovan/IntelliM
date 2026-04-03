@@ -1,0 +1,25 @@
+{
+  "unique_key": "https://www.amazon.in/sspa/click?aref=02svwlxij9&ie=utf8&sp_cr=zaz&spc=mtoymzyznzezmjuwnjgynzixoje3nzuymtg5mzi6c3bfbxrmojmwmtawnzuzmju0ntkzmjo6mdo6&url=/catvision-high-performance-android-bluetooth-approved/dp/b0gbvvcyrx/ref%3dsr_1_15_sspa?dib%3deyj2ijoimsj9.0dl_shnigb7dkmiw_ot6xifizck1subnon3egaz7i5zm_r4dpxgtarz5njuiuumayej0kjugfnlmxjk7q-1jul3ubfh52jgc1q1bv87tnz3c9winugt4hc-uvm274rk9jk-96rpf3pt37vgk0ef8qejij48kiquebadhdkuoxttxvxjnqa5nlj3steqd5bcdkehsruggk7dpyr-4fj0cfoietxoatwadbex6ua_dgu8sjmns_mvfg1ynp8zkntq7p4vkp_ekyycrgo2p4ytx6dljmhn5wxesmoyekslxnt4.wbls6tilk3gh17vspnsjxgamwb5891r5wabfzhmtvss%26dib_tag%3dse%26keywords%3dsmartphones%26qid%3d1775218932%26s%3delectronics%26sr%3d1-15-spons%26aref%3d02svwlxij9%26sp_csd%3dd2lkz2v0tmftzt1zcf9tdgy%26psc%3d1",
+  "url": "https://www.amazon.in/sspa/click?ie=UTF8&spc=MToyMzYzNzEzMjUwNjgyNzIxOjE3NzUyMTg5MzI6c3BfbXRmOjMwMTAwNzUzMjU0NTkzMjo6MDo6&url=%2FCatvision-high-Performance-Android-Bluetooth-Approved%2Fdp%2FB0GBVVCYRX%2Fref%3Dsr_1_15_sspa%3Fdib%3DeyJ2IjoiMSJ9.0dL_sHNIGb7dKmiW_OT6XIFIzCK1subnON3egAz7I5Zm_r4DpXGtarZ5NJuIuUMaYej0KJUGfNlMXjK7Q-1jUL3UBfh52jgC1q1Bv87TnZ3c9wINUgt4HC-uVm274rk9JK-96RPF3pt37VGK0Ef8QejIj48KIQuEBAdHdKUoXTtxVXjnQA5nlj3steqD5bcdkehsRUggk7DPYr-4fJ0cFOiETxoaTWadbEx6Ua_DGu8SJmnS_mvfg1yNp8zKNtq7p4VKp_EKyyCrgo2p4ytX6DljmhN5wxEsmOYEkSLxNt4.wBlS6TiLK3GH17VSpnSjxGAMWB5891R5wAbfZHMtvSs%26dib_tag%3Dse%26keywords%3Dsmartphones%26qid%3D1775218932%26s%3Delectronics%26sr%3D1-15-spons%26aref%3D02SvwLxIJ9%26sp_csd%3Dd2lkZ2V0TmFtZT1zcF9tdGY%26psc%3D1&aref=02SvwLxIJ9&sp_cr=ZAZ",
+  "method": "GET",
+  "payload": null,
+  "headers": {},
+  "user_data": {
+    "__crawlee": {},
+    "label": "queue_ad_creative",
+    "seed_category": "smartphones",
+    "seed_domain": "www.amazon.in",
+    "origin_url": "https://www.amazon.in/s?k=smartphones&rh=n%3A1389401031",
+    "depth": 1,
+    "max_depth": 4,
+    "parent_url": "https://www.amazon.in/s?k=smartphones&rh=n%3A1389401031",
+    "product_hint": null,
+    "crawled_at": "2026-04-03T12:22:12.032504",
+    "extra": {},
+    "page_type": "ad_creative"
+  },
+  "retry_count": 0,
+  "no_retry": false,
+  "loaded_url": null,
+  "handled_at": null
+}
