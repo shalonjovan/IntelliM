@@ -1,0 +1,47 @@
+crawler-pipeline/
+│
+├── config/
+│   └── seed_configs/
+│       ├── smartphones.json
+│       ├── laptops.json
+│       ├── earphones.json
+│       ├── smartwatches.json
+│       ├── tablets.json
+│       ├── cameras.json
+│       └── portable_speakers.json
+│
+├── seeds/
+│   ├── __init__.py
+│   ├── base_seed.py              # Seed dataclass + JSON schema validation
+│   └── seed_loader.py            # Reads all JSONs, validates, pushes to Crawlee queue
+│
+├── queue/
+│   ├── __init__.py
+│   ├── queue_manager.py          # Creates & manages named Crawlee sub-queues per page type
+│   ├── request_models.py         # Enriched CrawlRequest with context fields
+│   ├── priority_router.py        # Routes classified URLs to correct sub-queue
+│   └── context_tracker.py        # Tracks seed origin, depth, domain per request
+│
+├── crawler/
+│   ├── __init__.py
+│   ├── base_crawler.py           # Crawlee PlaywrightCrawler / HttpxCrawler setup
+│   ├── url_fetcher.py            # Fetch handler, retries, user-agent rotation
+│   ├── pagination_discoverer.py  # Finds next-page links within same domain context
+│   ├── context_propagator.py     # Stamps child URLs with parent context before enqueue
+│   ├── link_extractor.py         # Pulls all hrefs from a page, pre-filters by domain
+│   └── domain_scope_guard.py     # Blocks any URL that drifts outside seed domain
+│
+├── classifier/
+│   ├── __init__.py
+│   ├── page_types.py             # Enum: PRODUCT_PAGE, CATEGORY_PAGE, REVIEW_PAGE,
+│   │                             #       AD_CREATIVE, TREND_DATA, UNKNOWN
+│   ├── classifier_rules.py       # URL regex + DOM heuristic rule sets per page type
+│   ├── page_classifier.py        # Runs rules, returns PageType for a given request
+│   └── classified_queues.py      # Dispatches to named sub-queue after classification
+│
+├── models.py                     # Shared Pydantic models (Product, Category, CrawlMeta)
+├── pipeline.py                   # Wires all 4 layers together, entry point for the pipeline
+├── main.py                       # CLI entry: loads config, starts pipeline
+│
+├── pyproject.toml                # Dependencies (crawlee, playwright, pydantic, etc.)
+└── README.md
