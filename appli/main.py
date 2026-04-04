@@ -139,7 +139,7 @@ async def auth_callback(request: Request):
         "email": user["email"],
         "picture": user["picture"]
     }
-    return RedirectResponse("/dashboard")
+    return RedirectResponse("/explore")
 
 @app.get("/logout")
 def logout(request: Request):

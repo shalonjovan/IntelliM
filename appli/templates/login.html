@@ -4,6 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Intelli-M</title>
+  <meta name="color-scheme" content="light dark"/>
+  <script>(function(){if(localStorage.getItem('intellim-theme')==='dark'){document.documentElement.classList.add('dark');}}());</script>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
 
   <style>
@@ -29,7 +31,8 @@
       --right-sub: #9A9086;
       --right-border: rgba(201,168,76,0.25);
       --right-hint: #7A7068;
-      --cream: #0F0F0F;
+      --cream: #EAE4D8;
+      --accent: #5B8FCA; 
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -463,15 +466,27 @@
     document.getElementById('themeLabel').textContent = 'Light';
   }
 
-  function toggleTheme() {
-    if (document.documentElement.classList.contains('dark')) {
-      applyLight();
-      localStorage.setItem('intellim-theme', 'light');
-    } else {
-      applyDark();
-      localStorage.setItem('intellim-theme', 'dark');
-    }
+  // Sync icon after DOM loads (class applied early by head script)
+window.addEventListener('DOMContentLoaded', function() {
+  if (document.documentElement.classList.contains('dark')) {
+    document.getElementById('themeIcon').textContent = '◑';
+    document.getElementById('themeLabel').textContent = 'Dark';
   }
+});
+
+  function toggleTheme() {
+  if (document.documentElement.classList.contains('dark')) {
+    document.documentElement.classList.remove('dark');
+    document.getElementById('themeIcon').textContent = '☀';
+    document.getElementById('themeLabel').textContent = 'Light';
+    localStorage.setItem('intellim-theme', 'light');
+  } else {
+    document.documentElement.classList.add('dark');
+    document.getElementById('themeIcon').textContent = '◑';
+    document.getElementById('themeLabel').textContent = 'Dark';
+    localStorage.setItem('intellim-theme', 'dark');
+  }
+}
 </script>
 
 </body>

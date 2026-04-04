@@ -4,6 +4,8 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Intelli-M · Market Intelligence Engine</title>
+  <meta name="color-scheme" content="light dark"/>
+  <script>(function(){if(localStorage.getItem('intellim-theme')==='dark'){document.documentElement.classList.add('dark');}}());</script>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <style>
@@ -39,7 +41,8 @@ html.dark {
   --input-bg: #1A1A1A;
   --card-border: rgba(201,168,76,0.18);
   --topbar-bg: rgba(10,10,10,0.95);
-  --cream: #0A0A0A;
+  --cream: #EAE4D8;
+  --accent: #5B8FCA;
   --mist: #141414;
   --gold-pale: #1E1A10;
 }
@@ -128,7 +131,9 @@ a{text-decoration:none;color:inherit}
 .card{
   background:var(--surface);border:1px solid var(--card-border);
   border-radius:12px;padding:20px;
+  transition:transform .2s,box-shadow .2s;
 }
+.card:hover{transform:translateY(-1px);box-shadow:0 6px 24px rgba(201,168,76,.08)}
 .card-title{font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);margin-bottom:14px;font-weight:400}
 .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
 .grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px}
@@ -243,7 +248,17 @@ a{text-decoration:none;color:inherit}
   background:transparent;
 }
 .filter-chip.on{background:rgba(201,168,76,.12);border-color:var(--gold);color:var(--gold)}
-
+/* ══ INSIGHT STRIP ══ */
+.insight-strip{display:flex;gap:12px;margin-bottom:16px}
+.ins-card{
+  flex:1;background:var(--surface);border:1px solid var(--card-border);
+  border-radius:10px;padding:14px 16px;
+  border-left:3px solid transparent;
+  transition:transform .2s,box-shadow .2s;
+}
+.ins-card:hover{transform:translateY(-1px);box-shadow:0 6px 24px rgba(201,168,76,.08)}
+.ins-label{font-size:10px;letter-spacing:.15em;text-transform:uppercase;font-weight:500;margin-bottom:6px}
+.ins-body{font-size:13px;color:var(--text);line-height:1.5;font-weight:300}
 /* ══════════════════════════════
    PAGE 3 — COMPETITOR EXPLORER
 ══════════════════════════════ */
@@ -633,6 +648,29 @@ input[type=range]::-webkit-slider-thumb{
         </div>
       </div>
 
+      <!-- ══ ALERT BANNER ══ -->
+      <div id="alertBanner" style="background:rgba(239,68,68,0.06);border:1px solid rgba(239,68,68,0.2);border-radius:8px;padding:10px 16px;display:flex;align-items:center;gap:12px;font-size:12px;color:var(--text-muted);margin-bottom:16px">
+        <span style="color:#EF4444;font-size:14px">⚠</span>
+        <span><strong style="color:var(--text)">Critical alert:</strong> Demand spike detected — BoAt executing flash sale, 50K units clearance event</span>
+        <button onclick="this.parentElement.style.display='none'" style="margin-left:auto;background:none;border:none;cursor:pointer;color:var(--text-muted);font-size:16px;line-height:1;padding:0">✕</button>
+      </div>
+
+      <!-- ══ INSIGHT STRIP ══ -->
+      <div class="insight-strip">
+        <div class="ins-card" style="border-left-color:#EF4444">
+          <div class="ins-label" style="color:#EF4444">🔴 Critical Signal</div>
+          <div class="ins-body">BoAt flash sale detected — 50K units clearance, −12% price vs last month</div>
+        </div>
+        <div class="ins-card" style="border-left-color:var(--gold)">
+          <div class="ins-label" style="color:var(--gold)">⚠ Opportunity</div>
+          <div class="ins-body">Budget ANC gap — 91% confidence, sub-₹2,000 segment underserved</div>
+        </div>
+        <div class="ins-card" style="border-left-color:#22C55E">
+          <div class="ins-label" style="color:#22C55E">✦ Forecast</div>
+          <div class="ins-body">Demand index forecast: 74.3 → 78.6 next week — upward momentum confirmed</div>
+        </div>
+      </div>
+
       <!-- charts row 1 -->
       <div class="grid-2" style="margin-bottom:16px">
         <div class="card">
@@ -758,7 +796,17 @@ input[type=range]::-webkit-slider-thumb{
 
         <div class="card" style="text-align:center">
           <div class="stat-label">Projected Demand Index</div>
-          <div style="font-family:'Cormorant Garamond',serif;font-size:52px;font-weight:300;color:var(--gold)" id="proj-demand">74.3</div>
+          <div style="font-family:'Cormorant Garamond',serif;font-size:52px;font-weight:300;color:var(--gold)" id="proj-demand">74.3
+            <button
+          onclick="resetSim()"
+          style="width:100%;padding:10px;margin-top:12px;border:1px solid var(--card-border);border-radius:6px;background:none;color:var(--text-muted);cursor:pointer;font-family:'DM Sans',sans-serif;font-size:12px;letter-spacing:.04em;transition:border-color .2s,color .2s"
+          onmouseover="this.style.borderColor='var(--gold)';this.style.color='var(--gold)'"
+          onmouseout="this.style.borderColor='';this.style.color=''">
+          ↺ Reset All Levers
+        </button>
+        </div>
+      </div>
+          </div>
           <div class="project-badge" style="justify-content:center;margin-top:8px" id="proj-badge">
             <span>→</span> No change yet
           </div>
@@ -988,10 +1036,11 @@ function toggleTheme() {
     loadDashboard();
   }, 100);
 }
-if (localStorage.getItem('intellim-theme') === 'dark') {
-  document.documentElement.classList.add('dark');
-  document.getElementById('themeBtn').textContent = '◑';
-}
+window.addEventListener('DOMContentLoaded', function() {
+  if (document.documentElement.classList.contains('dark')) {
+    document.getElementById('themeBtn').textContent = '◑';
+  }
+});
 
 function destroyCharts() {
   Object.values(charts).forEach(c => { try { c.destroy() } catch(e){} });
@@ -1101,13 +1150,15 @@ function renderDashCharts() {
         fill: true, tension: 0.4, pointBackgroundColor: C.gold, pointRadius: 4,
       }]
     },
-    options: { ...baseOpts, plugins: { ...baseOpts.plugins,
-      annotation: { annotations: [{
-        type: 'line', yMin: 68, yMax: 68,
-        borderColor: 'rgba(239,68,68,0.4)', borderWidth: 1, borderDash: [4, 4],
-        label: { display: true, content: 'Baseline', color: '#EF4444', font: { size: 10 } }
-      }]}
-    }}
+        options: { ...baseOpts }
+
+    // options: { ...baseOpts, plugins: { ...baseOpts.plugins,
+    //   annotation: { annotations: [{
+    //     type: 'line', yMin: 68, yMax: 68,
+    //     borderColor: 'rgba(239,68,68,0.4)', borderWidth: 1, borderDash: [4, 4],
+    //     label: { display: true, content: 'Baseline', color: '#EF4444', font: { size: 10 } }
+    //   }]}
+    // }}
   });
 
   // Scatter
@@ -1476,10 +1527,21 @@ function sendQ(btn) {
   addUserMsg(btn.textContent);
   setTimeout(() => addBotMsg(getReply(btn.textContent)), 400);
 }
+function resetSim() {
+  ['sl-price','sl-ads','sl-sent'].forEach(function(id) {
+    const el = document.getElementById(id);
+    if (el) { el.value = el.min; }
+  });
+  updateSim();
+}
 
-// ═══════════════════════════════════
-// REPORT — fake PDF download
-// ═══════════════════════════════════
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    const m = document.getElementById('compModal');
+    if (m) m.classList.remove('open');
+  }
+});
+
 function fakeDL() {
   const btn = document.querySelector('.dl-btn');
   const orig = btn.innerHTML;
