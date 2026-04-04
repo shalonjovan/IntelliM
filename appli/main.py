@@ -7,14 +7,13 @@ from dotenv import load_dotenv
 from datetime import datetime
 import uuid
 import os
-import pandas as pd
-import numpy as np
 
 from db import get_db
 from llm import chat_with_gemini
 
 # ── New autonomous modules ────────────────────────────────────────────────────
 import autonomous_engine
+import db_tables
 from state_manager import StateManager
 from realtime_ingestor import RealtimeIngestor
 from drift_manager import DriftManager
@@ -45,23 +44,14 @@ oauth.register(
 )
 
 # ─────────────────────────────────────────
-# Load CSV data at startup (once, in memory)
+# Initialise SQLite serving tables
 # ─────────────────────────────────────────
 DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
 
-master       = pd.read_csv(os.path.join(DATA_DIR, "app_master_clean.csv"))
-markers_df   = pd.read_csv(os.path.join(DATA_DIR, "app_timeline_markers.csv"))
-alerts_df    = pd.read_csv(os.path.join(DATA_DIR, "app_alerts.csv"))
-explanations = pd.read_csv(os.path.join(DATA_DIR, "app_explanations.csv"))
-daily        = pd.read_csv(os.path.join(DATA_DIR, "app_daily_summary.csv"))
-forecast_df  = pd.read_csv(os.path.join(DATA_DIR, "app_forecast.csv"))
-regime_df    = pd.read_csv(os.path.join(DATA_DIR, "app_regime_shifts.csv"))
-events_df    = pd.read_csv(os.path.join(DATA_DIR, "events.csv"))
+db_tables.init_serving_tables(DATA_DIR)
 
-# Pre-compute latest state per entity
-latest_master = master.sort_values("date").groupby("entity_id").last().reset_index()
-
-print(f"✅ Loaded {len(master)} rows · {master['entity_id'].nunique()} products · {master['brand'].nunique()} brands")
+counts = db_tables.query_unique_counts(DATA_DIR)
+print(f"✅ DB ready — {counts['total_rows']} rows · {counts['entities']} products · {counts['brands']} brands")
 
 # ── Autonomous module singletons (lazy, data_dir bound) ───────────────────────
 _state_mgr   = StateManager(DATA_DIR)
@@ -160,7 +150,7 @@ def dashboard(request: Request):
 
 @app.get("/explore")
 def explore(request: Request):
-    """Analytics SPA — real CSV data powering all pages."""
+    """Analytics SPA — real data powering all pages via SQLite."""
     user = require_user(request)
     if not user:
         return RedirectResponse("/")
@@ -216,137 +206,98 @@ async def chat(request: Request, data: dict = Body(...)):
 
 
 # ─────────────────────────────────────────
-# Data API — /api/* routes backed by CSVs
+# Data API — /api/* routes backed by SQLite
 # ─────────────────────────────────────────
 
 @app.get("/api/filters")
 def api_filters():
     """Return available categories, brands, and entity IDs for dropdowns."""
-    return {
-        "categories": sorted(master["category"].unique().tolist()),
-        "brands": sorted(master["brand"].unique().tolist()),
-        "entities": latest_master[["entity_id", "brand", "product_name", "category"]]
-                    .sort_values("brand")
-                    .to_dict("records"),
-    }
+    return db_tables.query_filters(DATA_DIR)
 
 @app.get("/api/daily-summary")
 def api_daily_summary():
     """Global daily market overview — demand, price, sentiment."""
-    df = daily[["date", "avg_actual_demand", "avg_predicted_demand",
-                "avg_actual_price", "avg_predicted_price",
-                "avg_sentiment", "avg_ad_index",
-                "total_stat_events", "total_top_peaks", "total_bottom_peaks",
-                "change_point", "shift_strength"]].copy()
-    df = df.where(pd.notnull(df), None)
-    return df.to_dict("records")
+    rows = db_tables.query_daily_summary(DATA_DIR)
+    return rows
 
 @app.get("/api/forecast")
 def api_forecast():
-    """Price forecast for the next 14 days — refreshed from disk on each call."""
-    try:
-        df = pd.read_csv(os.path.join(DATA_DIR, "app_forecast.csv"))
-    except Exception:
-        df = forecast_df.copy()
-    df = df[["date", "forecast_avg_price"]].copy()
-    df = df.where(pd.notnull(df), None)
-    return df.to_dict("records")
+    """Price forecast for the next 14 days — live from SQLite."""
+    return db_tables.query_forecast(DATA_DIR)
 
 @app.get("/api/regime-shifts")
 def api_regime_shifts():
     """Structural regime shift dates and types."""
-    df = regime_df[["date", "regime_type", "shift_strength",
-                    "marker_label", "event_explanation", "narrative"]].copy()
-    df = df.where(pd.notnull(df), None)
-    return df.to_dict("records")
+    return db_tables.query_regime_shifts(DATA_DIR)
 
 @app.get("/api/alerts")
 def api_alerts(limit: int = 20, brand: str = None):
-    """Top signal alerts, optionally filtered by brand — refreshed from disk."""
-    try:
-        df = pd.read_csv(os.path.join(DATA_DIR, "app_alerts.csv"))
-    except Exception:
-        df = alerts_df.copy()
-    if brand:
-        df = df[df["brand"].str.lower() == brand.lower()]
-    df = df.sort_values("event_severity_score", ascending=False).head(limit)
-    cols = ["date", "entity_id", "brand", "category", "marker_type",
-            "alert_title", "event_explanation", "narrative",
-            "event_severity_score", "demand_index", "price_index",
-            "sentiment_index", "search_index", "ad_index"]
-    available_cols = [c for c in cols if c in df.columns]
-    df = df[available_cols].where(pd.notnull(df[available_cols]), None)
-    return df.to_dict("records")
+    """Top signal alerts, optionally filtered by brand."""
+    return db_tables.query_alerts(DATA_DIR, limit=limit, brand=brand)
 
 @app.get("/api/product/{entity_id}/overview")
 def api_product_overview(entity_id: int):
     """Latest KPI snapshot for a single product."""
-    row = latest_master[latest_master["entity_id"] == entity_id]
-    if row.empty:
+    r = db_tables.query_master_latest_one(DATA_DIR, entity_id)
+    if not r:
         return JSONResponse({"error": "not found"}, 404)
-    r = row.iloc[0]
     return {
         "entity_id": int(r["entity_id"]),
         "brand": r["brand"],
         "product_name": r["product_name"],
         "category": r["category"],
-        "demand_index": round(float(r["demand_index"]), 2),
-        "price_index": round(float(r["price_index"]), 2),
-        "sentiment_index": round(float(r["sentiment_index"]), 4),
-        "search_index": round(float(r["search_index"]), 2),
-        "ad_index": round(float(r["ad_index"]), 2),
-        "health_index": round(float(r["health_index"]), 2),
-        "list_price": round(float(r["list_price"]), 2),
+        "demand_index": round(float(r.get("demand_index", 0)), 2),
+        "price_index": round(float(r.get("price_index", 0)), 2),
+        "sentiment_index": round(float(r.get("sentiment_index", 0)), 4),
+        "search_index": round(float(r.get("search_index", 0)), 2),
+        "ad_index": round(float(r.get("ad_index", 0)), 2),
+        "health_index": round(float(r.get("health_index", 0)), 2),
+        "list_price": round(float(r.get("list_price", 0) or 0), 2),
     }
 
 @app.get("/api/product/{entity_id}/series")
 def api_product_series(entity_id: int):
     """Full time-series for a product: demand, price, sentiment, search, ad."""
-    df = master[master["entity_id"] == entity_id].sort_values("date")
-    if df.empty:
+    rows = db_tables.query_master_by_entity(DATA_DIR, entity_id)
+    if not rows:
         return JSONResponse({"error": "not found"}, 404)
     cols = ["date", "demand_index", "price_index", "sentiment_index",
             "search_index", "ad_index", "health_index",
             "change_point", "shift_strength"]
-    df = df[cols].where(pd.notnull(df[cols]), None)
-    return df.to_dict("records")
+    return [{k: r.get(k) for k in cols} for r in rows]
 
 @app.get("/api/product/{entity_id}/markers")
 def api_product_markers(entity_id: int):
     """Anomaly, peak, and dip markers for a product."""
-    df = markers_df[markers_df["entity_id"] == entity_id].copy()
-    if df.empty:
+    rows = db_tables.query_product_markers(DATA_DIR, entity_id)
+    if not rows:
         return []
     cols = ["date", "marker_type", "marker_label", "event_severity_score",
             "combined_marker_severity", "shift_strength",
             "demand_index", "price_index", "sentiment_index",
             "search_index", "ad_index",
             "event_explanation", "narrative"]
-    df = df[cols].where(pd.notnull(df[cols]), None)
-    return df.to_dict("records")
+    return [{k: r.get(k) for k in cols} for r in rows]
 
 @app.get("/api/product/{entity_id}/alerts")
 def api_product_alerts(entity_id: int, limit: int = 10):
     """Top alerts for a specific product."""
-    df = alerts_df[alerts_df["entity_id"] == entity_id].copy()
-    df = df.sort_values("event_severity_score", ascending=False).head(limit)
+    rows = db_tables.query_product_alerts(DATA_DIR, entity_id, limit=limit)
     cols = ["date", "marker_type", "alert_title", "event_explanation",
             "narrative", "event_severity_score",
             "demand_index", "price_index", "sentiment_index"]
-    df = df[cols].where(pd.notnull(df[cols]), None)
-    return df.to_dict("records")
+    return [{k: r.get(k) for k in cols} for r in rows]
 
 @app.get("/api/product/{entity_id}/events")
 def api_product_events(entity_id: int):
     """Ad campaigns, product announcements, upgrades for a product."""
-    df = events_df[events_df["entity_id"] == entity_id].copy()
-    if df.empty:
+    rows = db_tables.query_product_events(DATA_DIR, entity_id)
+    if not rows:
         return []
     cols = ["date", "brand", "product_name", "event_type", "event_title",
             "event_description", "impact_direction", "priority",
             "linked_marker_date", "linked_marker_type", "signal_story"]
-    df = df[cols].where(pd.notnull(df[cols]), None)
-    return df.to_dict("records")
+    return [{k: r.get(k) for k in cols} for r in rows]
 
 @app.post("/api/explain")
 async def api_explain(data: dict = Body(...)):
@@ -361,30 +312,25 @@ async def api_explain(data: dict = Body(...)):
     context_parts = []
 
     if entity_id:
-        row = latest_master[latest_master["entity_id"] == entity_id]
-        if not row.empty:
-            r = row.iloc[0]
+        r = db_tables.query_master_latest_one(DATA_DIR, entity_id)
+        if r:
             context_parts.append(
                 f"Product: {r['brand']} {r['product_name']} ({r['category']})\n"
-                f"Latest metrics — Demand: {r['demand_index']:.1f}, "
-                f"Price: {r['price_index']:.1f}, "
-                f"Sentiment: {r['sentiment_index']*100:.1f}%, "
-                f"Search: {r['search_index']:.1f}, "
-                f"Ad Index: {r['ad_index']:.1f}, "
-                f"Health: {r['health_index']:.1f}"
+                f"Latest metrics — Demand: {float(r.get('demand_index',0)):.1f}, "
+                f"Price: {float(r.get('price_index',0)):.1f}, "
+                f"Sentiment: {float(r.get('sentiment_index',0))*100:.1f}%, "
+                f"Search: {float(r.get('search_index',0)):.1f}, "
+                f"Ad Index: {float(r.get('ad_index',0)):.1f}, "
+                f"Health: {float(r.get('health_index',0)):.1f}"
             )
 
     if entity_id and date:
-        exp = explanations[
-            (explanations["entity_id"] == entity_id) &
-            (explanations["date"] == date)
-        ]
-        if not exp.empty:
-            r = exp.iloc[0]
+        exp = db_tables.query_explanations_for(DATA_DIR, entity_id, date)
+        if exp:
             context_parts.append(
-                f"Signal on {date}: {r.get('marker_type','unknown')}\n"
-                f"Explanation: {r.get('event_explanation','')}\n"
-                f"Narrative: {r.get('narrative','')}"
+                f"Signal on {date}: {exp.get('marker_type','unknown')}\n"
+                f"Explanation: {exp.get('event_explanation','')}\n"
+                f"Narrative: {exp.get('narrative','')}"
             )
 
     context = "\n\n".join(context_parts) if context_parts else ""
@@ -406,23 +352,34 @@ Give a concise, insightful 2-3 sentence analysis."""
 @app.get("/api/category/{category}/summary")
 def api_category_summary(category: str):
     """Aggregate metrics for all products in a category."""
-    df = latest_master[latest_master["category"].str.lower() == category.lower()]
-    if df.empty:
+    rows = db_tables.query_master_by_category(DATA_DIR, category)
+    if not rows:
         return JSONResponse({"error": "not found"}, 404)
+
+    import numpy as np
+    demand_vals = [float(r.get("demand_index", 0)) for r in rows]
+    price_vals  = [float(r.get("price_index", 0)) for r in rows]
+    sent_vals   = [float(r.get("sentiment_index", 0)) for r in rows]
+    ad_vals     = [float(r.get("ad_index", 0)) for r in rows]
+    health_vals = [float(r.get("health_index", 0)) for r in rows]
+
+    best_row = max(rows, key=lambda r: float(r.get("health_index", 0)))
+
     return {
         "category": category,
-        "count": int(len(df)),
-        "avg_demand": round(float(df["demand_index"].mean()), 2),
-        "avg_price": round(float(df["price_index"].mean()), 2),
-        "avg_sentiment": round(float(df["sentiment_index"].mean() * 100), 1),
-        "avg_ad_index": round(float(df["ad_index"].mean()), 2),
-        "avg_health": round(float(df["health_index"].mean()), 2),
-        "top_brand": df.nlargest(1, "health_index").iloc[0]["brand"],
-        "products": df[["entity_id", "brand", "product_name",
-                        "demand_index", "price_index",
-                        "sentiment_index", "health_index"]]
-                   .sort_values("health_index", ascending=False)
-                   .to_dict("records"),
+        "count": len(rows),
+        "avg_demand": round(float(np.mean(demand_vals)), 2),
+        "avg_price": round(float(np.mean(price_vals)), 2),
+        "avg_sentiment": round(float(np.mean(sent_vals)) * 100, 1),
+        "avg_ad_index": round(float(np.mean(ad_vals)), 2),
+        "avg_health": round(float(np.mean(health_vals)), 2),
+        "top_brand": best_row["brand"],
+        "products": [
+            {k: r.get(k) for k in ["entity_id", "brand", "product_name",
+                                     "demand_index", "price_index",
+                                     "sentiment_index", "health_index"]}
+            for r in rows
+        ],
     }
 
 
@@ -476,12 +433,12 @@ async def autonomous_status():
 @app.post("/api/realtime/ingest-next-date")
 async def realtime_ingest_next():
     """
-    Manually trigger ingestion of the next date from query.csv.
+    Manually trigger ingestion of the next date from the query queue.
     Useful for demos / step-through mode without the full loop.
     """
     next_date = _ingestor.peek_next_date()
     if next_date is None:
-        return JSONResponse({"status": "exhausted", "message": "No more dates in query.csv"})
+        return JSONResponse({"status": "exhausted", "message": "No more dates in query queue"})
 
     actuals = _ingestor.ingest_next_date()
     if actuals.empty:

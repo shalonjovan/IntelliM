@@ -20,6 +20,8 @@ import threading
 from datetime import datetime
 from typing import Any
 
+import db_tables
+
 DB_NAME = "runtime.db"
 
 # Thread-local connections for safety in async context
@@ -135,6 +137,9 @@ class StateManager:
             """)
             conn.commit()
             conn.close()
+            
+        # Also initialize the serving tables explicitly
+        db_tables.init_serving_tables(os.path.dirname(self.db_path))
 
     def _ensure_defaults(self):
         """Seed default state if first run."""

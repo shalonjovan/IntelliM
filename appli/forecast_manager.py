@@ -2,14 +2,12 @@
 forecast_manager.py
 ────────────────────
 Generates next-day demand/price forecasts after each tick.
-Refreshes serving CSVs:
-  - app_forecast.csv
-  - app_master_clean.csv (appends new actual rows)
-  - app_daily_summary.csv (appends daily aggregate)
-  - app_explanations.csv (appends event-driven explanations)
-  - app_alerts.csv (appends new anomaly alerts)
-
-All CSV writes use atomic rename to never leave partial files.
+Writes all serving data to SQLite via db_tables module:
+  - serving_forecast
+  - serving_master (appends new actual rows)
+  - serving_daily_summary (appends daily aggregate)
+  - serving_explanations (appends event-driven explanations)
+  - serving_alerts (appends new anomaly alerts)
 """
 
 import os
@@ -21,20 +19,12 @@ from datetime import datetime, timedelta
 import pandas as pd
 import numpy as np
 
+import db_tables
+
 logger = logging.getLogger("forecast_manager")
 _lock = threading.Lock()
 
 DB_NAME = "runtime.db"
-
-# Serving CSV paths (relative to data_dir)
-_SERVING_FILES = {
-    "master":       "app_master_clean.csv",
-    "forecast":     "app_forecast.csv",
-    "daily":        "app_daily_summary.csv",
-    "explanations": "app_explanations.csv",
-    "alerts":       "app_alerts.csv",
-    "markers":      "app_timeline_markers.csv",
-}
 
 DEMAND_ALERT_THRESHOLD = 2.5   # z-score threshold for anomaly
 
@@ -46,25 +36,17 @@ def _get_conn(db_path: str) -> sqlite3.Connection:
     return conn
 
 
-def _safe_write(df: pd.DataFrame, path: str):
-    """Atomic CSV write via temp file rename."""
-    tmp = path + ".tmp"
-    df.to_csv(tmp, index=False)
-    os.replace(tmp, path)
-
-
 class ForecastManager:
     def __init__(self, data_dir: str):
         self.data_dir = data_dir
         self.db_path  = os.path.join(data_dir, DB_NAME)
-        self._paths   = {k: os.path.join(data_dir, v) for k, v in _SERVING_FILES.items()}
 
     # ── Forecast refresh ──────────────────────────────────────────────────────
     def refresh_forecast(self, actuals_df: pd.DataFrame, model_version: str):
         """
         After ingesting actuals for date D, generate forecasts for D+1.
         Stores predictions in SQLite predictions_log for future comparison.
-        Also refreshes app_forecast.csv.
+        Also updates serving_forecast table.
         """
         if actuals_df.empty:
             return
@@ -79,7 +61,6 @@ class ForecastManager:
             return
 
         # Build per-entity forecasts using simple trend extrapolation
-        # (no model file needed — falls back to trend if model not trained yet)
         forecast_rows = []
 
         for _, r in actuals_df.iterrows():
@@ -107,9 +88,9 @@ class ForecastManager:
             # Log to predictions_log in SQLite
             self._log_prediction(next_date, entity_id, pred_demand, pred_price, model_version)
 
-        # Update app_forecast.csv with new average forecast
+        # Update serving_forecast with new average forecast
         avg_pred_price = np.mean([r["pred_price"] for r in forecast_rows])
-        self._append_forecast_csv(next_date, avg_pred_price)
+        db_tables.upsert_forecast_row(self.data_dir, next_date, round(avg_pred_price, 4))
 
     def _log_prediction(self, target_date, entity_id, pred_demand, pred_price, model_version):
         ts = datetime.utcnow().isoformat()
@@ -124,25 +105,10 @@ class ForecastManager:
             conn.commit()
             conn.close()
 
-    def _append_forecast_csv(self, date: str, avg_price: float):
-        """Append a new row to app_forecast.csv."""
-        path = self._paths["forecast"]
-        try:
-            df = pd.read_csv(path) if os.path.exists(path) else pd.DataFrame(
-                columns=["date", "forecast_avg_price"]
-            )
-            # Remove if date already exists, then re-append
-            df = df[df["date"] != date]
-            new_row = pd.DataFrame([{"date": date, "forecast_avg_price": round(avg_price, 4)}])
-            df = pd.concat([df, new_row], ignore_index=True).sort_values("date")
-            _safe_write(df, path)
-        except Exception as e:
-            logger.warning(f"Could not update app_forecast.csv: {e}")
-
     # ── Serving layer refresh ─────────────────────────────────────────────────
     def update_serving_layers(self, actuals_df: pd.DataFrame, date: str):
         """
-        After tick: update all serving CSVs to reflect latest ingested data.
+        After tick: update all serving tables to reflect latest ingested data.
         """
         if actuals_df.empty:
             return
@@ -153,12 +119,8 @@ class ForecastManager:
         self._append_alerts(actuals_df, date)
 
     def _append_master(self, actuals_df: pd.DataFrame, date: str):
-        """Append new rows to app_master_clean.csv."""
-        path = self._paths["master"]
+        """Upsert new rows into serving_master table."""
         try:
-            existing = pd.read_csv(path) if os.path.exists(path) else pd.DataFrame()
-
-            # Build slim rows matching master schema
             new_rows = []
             for _, r in actuals_df.iterrows():
                 row = {
@@ -172,12 +134,12 @@ class ForecastManager:
                     "sentiment_index": float(r.get("sentiment_index", 0)),
                     "search_index":   float(r.get("search_index", 0)),
                     "ad_index":       float(r.get("ad_index", 0)),
-                    # Derived fields — estimated
                     "health_index":   round(
                         float(r.get("sentiment_index", 0.7)) * 100 * 0.4 +
                         float(r.get("demand_index", 50)) * 0.3 +
                         float(r.get("search_index", 50)) * 0.3, 2
                     ),
+                    "list_price":     None,
                     "xgb_pred_demand": float(r.get("demand_index", 0)) * 0.98,
                     "xgb_pred_price":  float(r.get("price_index", 0)) * 1.01,
                     "change_point":   0,
@@ -188,29 +150,14 @@ class ForecastManager:
                 }
                 new_rows.append(row)
 
-            if new_rows:
-                new_df = pd.DataFrame(new_rows)
-                # Align columns: only keep cols that exist in master
-                if not existing.empty:
-                    common_cols = [c for c in existing.columns if c in new_df.columns]
-                    new_df = new_df[common_cols]
-                    updated = pd.concat([existing, new_df], ignore_index=True).drop_duplicates(
-                        subset=["entity_id", "date"], keep="last"
-                    )
-                else:
-                    updated = new_df
-
-                _safe_write(updated, path)
+            db_tables.upsert_master_rows(self.data_dir, new_rows)
 
         except Exception as e:
             logger.warning(f"_append_master error: {e}")
 
     def _append_daily_summary(self, actuals_df: pd.DataFrame, date: str):
-        """Append an aggregated daily row to app_daily_summary.csv."""
-        path = self._paths["daily"]
+        """Upsert an aggregated daily row into serving_daily_summary."""
         try:
-            existing = pd.read_csv(path) if os.path.exists(path) else pd.DataFrame()
-
             agg = {
                 "date":                   date,
                 "avg_actual_demand":      round(actuals_df["demand_index"].mean(), 4),
@@ -226,24 +173,14 @@ class ForecastManager:
                 "shift_strength":         0.0,
             }
 
-            new_df = pd.DataFrame([agg])
-
-            if not existing.empty:
-                existing = existing[existing["date"] != date]
-                updated = pd.concat([existing, new_df], ignore_index=True).sort_values("date")
-            else:
-                updated = new_df
-
-            _safe_write(updated, path)
+            db_tables.upsert_daily_summary(self.data_dir, agg)
 
         except Exception as e:
             logger.warning(f"_append_daily_summary error: {e}")
 
     def _append_explanations(self, actuals_df: pd.DataFrame, date: str):
-        """Generate and append explanations for event-driven deviations."""
-        path = self._paths["explanations"]
+        """Generate and upsert explanations for event-driven deviations."""
         try:
-            existing = pd.read_csv(path) if os.path.exists(path) else pd.DataFrame()
             new_rows = []
 
             for _, r in actuals_df.iterrows():
@@ -278,26 +215,14 @@ class ForecastManager:
                     "price_index":     float(r.get("price_index", 0)),
                 })
 
-            if new_rows:
-                new_df = pd.DataFrame(new_rows)
-                if not existing.empty:
-                    common = [c for c in existing.columns if c in new_df.columns]
-                    new_df = new_df[common]
-                    updated = pd.concat([existing, new_df], ignore_index=True).drop_duplicates(
-                        subset=["entity_id", "date"], keep="last"
-                    )
-                else:
-                    updated = new_df
-                _safe_write(updated, path)
+            db_tables.upsert_explanation_rows(self.data_dir, new_rows)
 
         except Exception as e:
             logger.warning(f"_append_explanations error: {e}")
 
     def _append_alerts(self, actuals_df: pd.DataFrame, date: str):
         """Generate alerts for rows with high-priority events."""
-        path = self._paths["alerts"]
         try:
-            existing = pd.read_csv(path) if os.path.exists(path) else pd.DataFrame()
             new_rows = []
 
             high_priority = actuals_df[actuals_df.get("priority", pd.Series()) == "high"] \
@@ -322,17 +247,7 @@ class ForecastManager:
                     "ad_index":           float(r.get("ad_index", 0)),
                 })
 
-            if new_rows:
-                new_df = pd.DataFrame(new_rows)
-                if not existing.empty:
-                    common = [c for c in existing.columns if c in new_df.columns]
-                    new_df = new_df[common]
-                    updated = pd.concat([existing, new_df], ignore_index=True).drop_duplicates(
-                        subset=["entity_id", "date"], keep="last"
-                    )
-                else:
-                    updated = new_df
-                _safe_write(updated, path)
+            db_tables.upsert_alert_rows(self.data_dir, new_rows)
 
         except Exception as e:
             logger.warning(f"_append_alerts error: {e}")

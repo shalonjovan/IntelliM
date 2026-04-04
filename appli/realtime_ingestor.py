@@ -1,9 +1,12 @@
 """
 realtime_ingestor.py
 ────────────────────
-Consumes query.csv one date at a time.
+Consumes market data one date at a time from SQLite query queue.
 Maintains a pointer in SQLite so no date is ever re-consumed.
 On each tick, ALL rows for the next chronological date are ingested at once.
+
+On first init, loads query.csv into the serving_query_queue table if not
+already populated, then reads exclusively from SQLite.
 """
 
 import os
@@ -13,6 +16,8 @@ import threading
 from datetime import datetime
 
 import pandas as pd
+
+import db_tables
 
 logger = logging.getLogger("realtime_ingestor")
 _lock = threading.Lock()
@@ -33,22 +38,38 @@ class RealtimeIngestor:
         self.data_dir = data_dir
         self.query_path = os.path.join(data_dir, QUERY_FILE)
         self.db_path    = os.path.join(data_dir, DB_NAME)
-        self._query_df: pd.DataFrame | None = None
         self._sorted_dates: list[str] = []
-        self._load_query()
+        self._ensure_query_loaded()
 
     # ── Internal ─────────────────────────────────────────────────────────────
-    def _load_query(self):
-        """Load query.csv into memory once and sort dates."""
-        if not os.path.exists(self.query_path):
-            logger.warning(f"query.csv not found at {self.query_path}")
-            self._query_df = pd.DataFrame()
-            return
-        df = pd.read_csv(self.query_path)
-        df["date"] = pd.to_datetime(df["date"]).dt.strftime("%Y-%m-%d")
-        self._query_df = df
-        self._sorted_dates = sorted(df["date"].unique().tolist())
-        logger.info(f"📂 Loaded query.csv — {len(df)} rows, {len(self._sorted_dates)} dates")
+    def _ensure_query_loaded(self):
+        """
+        Ensure query data is in SQLite. If the serving_query_queue table
+        is empty but query.csv exists, import it once.
+        """
+        db_tables.init_serving_tables(self.data_dir)
+        existing_dates = db_tables.query_queue_dates(self.data_dir)
+
+        if not existing_dates:
+            # First run — seed from CSV
+            if os.path.exists(self.query_path):
+                df = pd.read_csv(self.query_path)
+                df["date"] = pd.to_datetime(df["date"]).dt.strftime("%Y-%m-%d")
+                rows = []
+                for _, r in df.iterrows():
+                    row_dict = {}
+                    for c in df.columns:
+                        v = r[c]
+                        row_dict[c] = None if (isinstance(v, float) and v != v) else v
+                    rows.append(row_dict)
+                db_tables.upsert_query_queue_rows(self.data_dir, rows)
+                logger.info(f"📂 Seeded query queue from CSV — {len(df)} rows")
+                existing_dates = db_tables.query_queue_dates(self.data_dir)
+            else:
+                logger.warning(f"query.csv not found at {self.query_path} and queue is empty")
+
+        self._sorted_dates = existing_dates
+        logger.info(f"📂 Query queue ready — {len(self._sorted_dates)} dates")
 
     def _get_pointer(self) -> str | None:
         """Return the last consumed date from SQLite state."""
@@ -79,9 +100,12 @@ class RealtimeIngestor:
         if next_date is None:
             return pd.DataFrame()
 
-        rows = self._query_df[self._query_df["date"] == next_date].copy()
-        if rows.empty:
+        # Read rows from SQLite queue
+        row_dicts = db_tables.query_queue_rows_for_date(self.data_dir, next_date)
+        if not row_dicts:
             return pd.DataFrame()
+
+        rows = pd.DataFrame(row_dicts)
 
         # Write to actuals_log in SQLite
         self._log_actuals(rows, next_date)
@@ -134,6 +158,17 @@ class RealtimeIngestor:
         return df
 
     def reload_query(self):
-        """Hot-reload query.csv (e.g., if it was updated externally)."""
-        self._load_query()
-        logger.info("🔄 query.csv reloaded")
+        """Re-import query.csv into the SQLite queue (e.g., if CSV was updated externally)."""
+        if os.path.exists(self.query_path):
+            df = pd.read_csv(self.query_path)
+            df["date"] = pd.to_datetime(df["date"]).dt.strftime("%Y-%m-%d")
+            rows = []
+            for _, r in df.iterrows():
+                row_dict = {}
+                for c in df.columns:
+                    v = r[c]
+                    row_dict[c] = None if (isinstance(v, float) and v != v) else v
+                rows.append(row_dict)
+            db_tables.upsert_query_queue_rows(self.data_dir, rows)
+            self._sorted_dates = db_tables.query_queue_dates(self.data_dir)
+        logger.info("🔄 query queue reloaded from CSV")

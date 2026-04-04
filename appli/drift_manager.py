@@ -2,7 +2,7 @@
 drift_manager.py
 ────────────────
 Compares forecasts vs actuals, computes rolling MAE drift,
-and writes results to SQLite + forecast_vs_actual.csv serving file.
+and writes results to SQLite.
 
 Drift score formula:
   combined_drift = 0.5 × rolling_MAE(demand) + 0.5 × rolling_MAE(price_normalised)
@@ -21,7 +21,6 @@ logger = logging.getLogger("drift_manager")
 _lock = threading.Lock()
 
 DB_NAME     = "runtime.db"
-FVA_FILE    = "forecast_vs_actual.csv"   # serving output for UI
 
 # Drift threshold — flag if combined drift exceeds this value
 DRIFT_THRESHOLD = 5.0
@@ -38,13 +37,12 @@ class DriftManager:
     def __init__(self, data_dir: str):
         self.data_dir = data_dir
         self.db_path  = os.path.join(data_dir, DB_NAME)
-        self.fva_path = os.path.join(data_dir, FVA_FILE)
 
     # ── Core comparison ───────────────────────────────────────────────────────
     def compare_and_log(self, actuals_df: pd.DataFrame, date: str):
         """
         Match actuals against predictions stored in predictions_log.
-        Write per-row forecast_vs_actual entries to SQLite + CSV.
+        Write per-row forecast_vs_actual entries to SQLite.
         """
         # Load predictions for this date from SQLite
         with _lock:
@@ -104,8 +102,6 @@ class DriftManager:
             conn.commit()
             conn.close()
 
-        self._refresh_fva_csv()
-
     def _log_actuals_only(self, actuals_df: pd.DataFrame, date: str):
         """When no predictions exist, still log actuals with null predictions."""
         ts = datetime.utcnow().isoformat()
@@ -133,7 +129,6 @@ class DriftManager:
             )
             conn.commit()
             conn.close()
-        self._refresh_fva_csv()
 
     # ── Drift computation ────────────────────────────────────────────────────
     def compute_rolling_drift(self, window: int = 7) -> float:
@@ -156,10 +151,6 @@ class DriftManager:
             return 0.0
 
         mae_demand = df["abs_demand_error"].mean()
-
-        # Normalise price MAE relative to avg actual demand to keep comparable scale
-        avg_demand = df["actual_demand"].mean() if "actual_demand" in df.columns else 50.0
-        mae_price = df["abs_price_error"].mean() if "abs_price_error" in df.columns else 0.0
 
         # Use raw demand MAE as primary drift signal (price lives on different scale)
         combined_drift = float(mae_demand)
@@ -212,24 +203,3 @@ class DriftManager:
             ).fetchall()
             conn.close()
         return [dict(r) for r in rows]
-
-    # ── CSV serving refresh ──────────────────────────────────────────────────
-    def _refresh_fva_csv(self):
-        """Write forecast_vs_actual table to serving CSV for UI."""
-        try:
-            with _lock:
-                conn = _get_conn(self.db_path)
-                df = pd.read_sql_query(
-                    "SELECT * FROM forecast_vs_actual ORDER BY date, entity_id", conn
-                )
-                conn.close()
-
-            if df.empty:
-                return
-
-            # Safe atomic write
-            tmp = self.fva_path + ".tmp"
-            df.to_csv(tmp, index=False)
-            os.replace(tmp, self.fva_path)
-        except Exception as e:
-            logger.warning(f"Could not refresh forecast_vs_actual.csv: {e}")
