@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "processor-pipeline"
+version = "0.1.0"
+description = "Deduplication, SKU mapping, and hierarchical taxonomy pipeline"
+requires-python = ">=3.11"
+dependencies = [
+    "pydantic>=2.7.0",
+    "orjson>=3.10.3",
+    "loguru>=0.7.2",
+    "rich>=13.7.1",
+    "python-slugify>=8.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0.0",
+    "ruff>=0.4.0",
+]
+
+[project.scripts]
+process = "main:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
